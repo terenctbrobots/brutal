@@ -5,7 +5,8 @@
 # Compiler settings - Can be customized.
 CC = g++
 CXXFLAGS = -std=c++11 -Wall
-LDFLAGS = 
+LDFLAGS = -L../raylib/src -lraylib
+INCLUDES = -I../raylib/src
 
 # Makefile settings - Can be customized.
 APPNAME = brutal
@@ -33,18 +34,18 @@ all: $(APPNAME)
 
 # Builds the app
 $(APPNAME): $(OBJ)
-	$(CC) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+	$(CC) $(CXXFLAGS) $(INCLUDES) -o $@ $^ $(LDFLAGS)
 
 # Creates the dependecy rules
 %.d: $(SRCDIR)/%$(EXT)
-	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=$(OBJDIR)/%.o) >$@
+	@$(CPP) $(CFLAGS) $(INCLUDES) $< -MM -MT $(@:%.d=$(OBJDIR)/%.o) >$@
 
 # Includes all .h files
--include $(DEP)
+-include $(DEP) $(INCLUDES)
 
 # Building rule for .o files and its .c/.cpp in combination with all .h
 $(OBJDIR)/%.o: $(SRCDIR)/%$(EXT)
-	$(CC) $(CXXFLAGS) -o $@ -c $<
+	$(CC) $(CXXFLAGS) $(INCLUDES) -o $@ -c $<
 
 ################### Cleaning rules for Unix-based OS ###################
 # Cleans complete project
