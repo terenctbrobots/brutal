@@ -6,7 +6,7 @@
 CC = g++
 CXXFLAGS = -std=c++11 -Wall
 LDFLAGS = -L../raylib/src -lraylib
-INCLUDES = -I../raylib/src
+INCLUDES = -Iinclude -I../raylib/src
 
 # Makefile settings - Can be customized.
 APPNAME = brutal
@@ -31,6 +31,9 @@ WDELOBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)\\%.o)
 ########################################################################
 
 all: $(APPNAME)
+
+debug: CXXFLAGS+= -DDEBUG -g
+debug: $(APPNAME)
 
 # Builds the app
 $(APPNAME): $(OBJ)
