@@ -4,7 +4,9 @@
             "type": "shell",
             "label": "run the makefile",
             "command": "make",
-            "args": ["debug"],
+            "options": {
+                "cwd":"${workspaceFolder}/bin"
+            },
             "problemMatcher": [],
         }
     ],
