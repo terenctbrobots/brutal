@@ -13,6 +13,6 @@ Layer::~Layer()
 
 int Layer::Draw()
 {
-    
+  return 0;  
 };
 
