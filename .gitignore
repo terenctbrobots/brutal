@@ -35,3 +35,4 @@ out
 brutal
 bin/*
 build
+vcpkg_installed

@@ -5,5 +5,15 @@
     },
     "include": [
         "build/build/Release/generators/CMakePresets.json"
-    ]
+    ],
+    "configurePresets": [
+        {
+          "name": "default",
+          "inherits": "vcpkg",
+          "environment": {
+            "VCPKG_ROOT": "~/vcpkg"
+          }
+        }
+      ]
+  
 }
