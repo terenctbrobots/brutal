@@ -1,0 +1,4 @@
+/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles/brutal.dir
+/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles/copy_assets.dir
+/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles/edit_cache.dir
+/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles/rebuild_cache.dir
