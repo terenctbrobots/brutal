@@ -2,8 +2,8 @@
 #define GRAPHICS_H
 class Graphics {
     public:
-        void Draw() = 0;
-}
+        virtual void Draw() = 0;
+};
 
 
 #endif

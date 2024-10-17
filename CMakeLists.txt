@@ -11,23 +11,6 @@ find_package(glfw3 CONFIG REQUIRED)
 
 add_executable(brutal ${sources})
 
-#target_link_directories(brutal PUBLIC ../raylib/src)
 target_link_libraries(brutal PRIVATE raylib glfw)
 
-
-enable_testing()
-find_package(GTest CONFIG REQUIRED)
-
-add_executable(
-  brutal_test
-  test/helper_test.cpp
-)
-
-target_link_libraries(
-  brutal_test
-  GTest::gtest_main
-)
-
-include(GoogleTest)
-gtest_discover_tests(brutal_test)
-
+include(${CMAKE_SOURCE_DIR}/test/CMakeLists.txt)
