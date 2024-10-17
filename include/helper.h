@@ -8,16 +8,23 @@ string GetJSONFilename(string const &file_name)
 {
     string return_string;
 
-    for (auto it=file_name.begin(); it != file_name.end(); it++)
+    // Scan from back to front to then copy remaining string
+    for (auto it=file_name.end(); it != file_name.begin(); it--)
     {
         if (*it == '.')
         {
+            for (auto copyit=file_name.begin(); copyit != it; copyit++) 
+            {
+                return_string += *copyit;
+            }
             break;
         }
-        return_string+=*it;
     }
 
-    return_string += ".json";
+    if (return_string.length() > 0) {
+        return_string += ".json";
+        return_string;
+    }
 
     return return_string;
 }
