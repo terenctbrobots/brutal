@@ -1,7 +1,7 @@
 #include <fstream>
 #include <vector>
-#include "sprite.h"
 #include "helper.h"
+#include "sprite.h"
 
 Sprite::Sprite() 
 {

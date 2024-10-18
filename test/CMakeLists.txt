@@ -5,6 +5,7 @@ include_directories(src)
 
 add_executable(
   brutal_test
+  src/helper.cpp
   test/helper_test.cpp
   test/sprite_test.cpp
   src/graphics/sprite.cpp

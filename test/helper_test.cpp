@@ -4,7 +4,7 @@ namespace {
 
 TEST(HelperTest, TestGetJSONFilename) {
 
-  string testString;
+  std::string testString;
   
   testString = GetJSONFilename("assets/archer.png");
   EXPECT_EQ(testString,"assets/archer.json");
