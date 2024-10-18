@@ -1,14 +1,17 @@
 #include <gtest/gtest.h>
 
 #include "graphics/sprite.h"
+#include "graphic_test.h"
 
-TEST(SpriteTest,TestLoadSprite) 
+
+class SpriteTest : public GraphicTest {
+
+};
+
+TEST_F(SpriteTest,TestLoadSprite) 
 {
 
-    Sprite newSprite = Sprite();
+    Sprite new_sprite = Sprite();
 
-    newSprite.Load("assets/sprites/Archer/Archer.png");
-
-
-
+    EXPECT_EQ(new_sprite.Load("assets/sprites/Archer/Archer.png"), Graphics::OK);
 }

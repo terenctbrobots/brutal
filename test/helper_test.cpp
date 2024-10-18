@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "helper.h"
+namespace {
 
 TEST(HelperTest, TestGetJSONFilename) {
 
@@ -16,4 +17,6 @@ TEST(HelperTest, TestGetJSONFilename) {
 
   testString = GetJSONFilename("ass.mah/archer.png");
   EXPECT_EQ(testString,"ass.mah/archer.json");
+}
+  
 }
