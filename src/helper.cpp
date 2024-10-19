@@ -27,6 +27,7 @@ std::string GetJSONFilename(std::string const &file_name)
     return return_string;
 }
 
+//TODO: Not used, but can keep it here for other text files besides JSON
 std::optional<std::string> LoadTextFile(std::string const& file_name)
 {
     std::ifstream file(file_name);

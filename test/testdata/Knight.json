@@ -1,7 +1,12 @@
 {
     "width": 100,
     "height": 100,
-    "idle": {
-        "frames": 6   
+    "animation": {
+        "idle": {
+            "frames": 6   
+        },
+        "attack": {
+            "frames": 6
+        }   
     }
 }
