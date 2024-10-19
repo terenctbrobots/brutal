@@ -14,6 +14,7 @@ add_executable(
 target_link_libraries(
   brutal_test
   GTest::gtest_main
+  raylib glfw nlohmann_json
 )
 
 include(GoogleTest)

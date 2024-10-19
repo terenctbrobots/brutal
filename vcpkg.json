@@ -2,6 +2,7 @@
   "dependencies": [
     "raylib",
     "glfw3",
-    "gtest"
+    "gtest",
+    "nlohmann-json"
   ]
 }
