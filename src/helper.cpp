@@ -1,3 +1,5 @@
+#include <fstream>
+
 #include "helper.h"
 
 std::string GetJSONFilename(std::string const &file_name) 
@@ -23,4 +25,18 @@ std::string GetJSONFilename(std::string const &file_name)
     }
 
     return return_string;
+}
+
+std::optional<std::string> LoadTextFile(std::string const& file_name)
+{
+    std::ifstream file(file_name);
+
+    if (!file.good()) 
+    {
+        return std::nullopt;
+    }
+
+    std::string file_contents((std::istreambuf_iterator<char> (file)),std::istreambuf_iterator<char>());
+
+    return file_contents;
 }

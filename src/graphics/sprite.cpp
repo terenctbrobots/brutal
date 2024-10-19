@@ -18,21 +18,12 @@ Sprite::~Sprite()
 
 int Sprite::LoadJSON() 
 {
-    //TODO: Move this into a base class later? or helper function
-    std::ifstream file(m_json_filename);
+    std::optional<std::string> text_buffer = LoadTextFile(m_json_filename);
 
-    if (!file) 
+    if (text_buffer == std::nullopt) 
     {
         return Graphics::ERROR_JSON_LOAD;
     }
-
-    file.seekg(0, std::ios::end);
-    std::streampos length = file.tellg();
-    file.seekg(0, std::ios::beg);
-
-    std::vector<char> buffer;
-    buffer.resize(length);
-    file.read(&buffer[0], length);
 
     return Graphics::OK;
 }

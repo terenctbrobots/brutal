@@ -2,7 +2,8 @@
 #include "helper.h"
 namespace {
 
-TEST(HelperTest, TestGetJSONFilename) {
+TEST(HelperTest, TestGetJSONFilename) 
+{
 
   std::string testString;
   
@@ -17,6 +18,15 @@ TEST(HelperTest, TestGetJSONFilename) {
 
   testString = GetJSONFilename("ass.mah/archer.png");
   EXPECT_EQ(testString,"ass.mah/archer.json");
+}
+
+TEST(HelperTest, TestLoadTextFile) 
+{
+  std::optional<std::string> test_buffer = LoadTextFile("testdata/textfile.txt");
+
+  EXPECT_NE(test_buffer, std::nullopt);
+
+  EXPECT_EQ(test_buffer.value(),"This is a test");
 }
   
 }
