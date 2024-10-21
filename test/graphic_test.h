@@ -1,12 +1,9 @@
 #include <gtest/gtest.h>
 
 class GraphicTest : public testing::Test {
+    public:
+        int delay_frames = 120;
     protected:
-        void SetUp() override {
-            std::cout << "Setup" << std::endl;
-        }
-
-        void TearDown() override {
-            std::cout << "Teardown" << std::endl;
-        }
+        void SetUp() override;
+        void TearDown() override;
 };

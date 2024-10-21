@@ -40,13 +40,20 @@ TEST(HelperTest, TestJSONParsing)
 
   EXPECT_EQ(parsed["width"],100);
 
+  // Test if NOT exists
+  EXPECT_EQ(parsed["meh"], nullptr);
+
   json array = parsed["animation"];
 
   for (auto&el : array.items())
   {
-    std::cout << "key: " << el.key() << ", value: " << el.value() << '\n';
+    std::cout << "key: " << el.key() << ", value: " << el.value() << std::endl;
+
+    std::cout << "frames " << el.value()["frames"] << std::endl;
   }
 
+  // u_int16_t max = (u_int16_t)65536;
+  // std::cout << max << std::endl;
 }
   
 }

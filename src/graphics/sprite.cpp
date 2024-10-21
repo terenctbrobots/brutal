@@ -1,5 +1,8 @@
 #include <fstream>
 #include <vector>
+#include "nlohmann/json.hpp"
+using json = nlohmann::json;
+
 #include "helper.h"
 #include "sprite.h"
 
@@ -16,13 +19,49 @@ Sprite::~Sprite()
 * Private
 */
 
+/**
+ * @brief load json metdata data for sprite, populate and create
+ * 
+ * @return int - enumerated success(0) or error codes (i.e.Graphics::ERROR_)
+ */
 int Sprite::LoadJSON() 
 {
-    std::optional<std::string> text_buffer = LoadTextFile(m_json_filename);
+    std::ifstream json_file(json_filename_);
 
-    if (text_buffer == std::nullopt) 
+    if (!json_file.good()) 
     {
         return Graphics::ERROR_JSON_LOAD;
+    }
+
+    json json_data = json::parse(json_file,nullptr,false);
+
+    if (json_data == nullptr) 
+    {
+        return Graphics::ERROR_JSON_LOAD;
+    }
+
+    if (json_data["width"] != nullptr) 
+    {
+        width = json_data["width"];
+    } else {
+        width = 32;
+    }
+
+    if (json_data["height"] != nullptr) 
+    {
+        height = json_data["height"];
+    } else {
+        height = 32;
+    }
+
+    animation_list_.clear();
+    
+    json animation_data = json_data["animation"];
+
+    for (auto &animation : animation_data.items())
+    {
+
+//        std::cout << "key: " << el.key() << ", value: " << el.value() << '\n';
     }
 
     return Graphics::OK;
@@ -32,11 +71,18 @@ int Sprite::LoadJSON()
 /*
 * Public
 */
+
+/**
+ * @brief Loads a sprite sheet in to memory and reads a corresponding json meta data file(i.e. archer.jpg=>archer.json)
+ * 
+ * @param file_name 
+ * @return int 
+ */
 int Sprite::Load(std::string const &file_name) 
 {
-    m_json_filename = GetJSONFilename(file_name);
+    json_filename_ = GetJSONFilename(file_name);
 
-    if (m_json_filename.length() == 0) {
+    if (json_filename_.length() == 0) {
         return Graphics::ERROR_JSON_FILENAME;
     }
 

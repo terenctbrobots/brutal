@@ -1,3 +1,4 @@
 {
     "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+    "doxygen_runner.configuration_file_override": "${workspaceFolder}/documentation/Doxyfile"
 }
