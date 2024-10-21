@@ -10,14 +10,13 @@ struct Animation
     u_int x2;
     u_int y1;
     u_int y2;
-
-    u_int frames;
 };
 
 class Sprite : public  Graphics {
     private:
         std::string json_filename_;
         std::unordered_map<std::string,std::vector<std::unique_ptr<Animation>>> animation_list_;
+        std::string current_animation_;
 
         int LoadJSON();
     public:
@@ -28,7 +27,7 @@ class Sprite : public  Graphics {
         ~Sprite();
 
         int Load(std::string const &file_name);
-        void Draw() override;
+        void Draw(u_int x, u_int y) override;
 };
 
 #endif

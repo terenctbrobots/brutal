@@ -1,5 +1,6 @@
 #include <fstream>
 #include <vector>
+#include <memory>
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;
 
@@ -56,12 +57,28 @@ int Sprite::LoadJSON()
 
     animation_list_.clear();
     
-    json animation_data = json_data["animation"];
+    json animation_list_json = json_data["animation"];
 
-    for (auto &animation : animation_data.items())
+    u_int y = 0;
+    
+    for (auto &animation_json : animation_list_json.items())
     {
+        json animation_data = animation_json.value();
 
-//        std::cout << "key: " << el.key() << ", value: " << el.value() << '\n';
+        std::vector<std::unique_ptr<Animation>> new_animation;
+
+        for (int x_count=0; x_count < animation_data["frames"]; x_count++) 
+        {
+            u_int x = x_count*width;
+            new_animation.push_back(std::unique_ptr<Animation>(new Animation{x,x+width,y,y+height}));
+        }
+        animation_list_[animation_json.key()] = std::move(new_animation);
+
+        if (current_animation_.length() == 0) 
+        {
+            current_animation_ = animation_json.key();
+        }
+        y+=width;
     }
 
     return Graphics::OK;
@@ -94,7 +111,7 @@ int Sprite::Load(std::string const &file_name)
     return Graphics::OK;
 }
 
-void Sprite::Draw() 
+void Sprite::Draw(u_int x, u_int y) 
 {
     
 }

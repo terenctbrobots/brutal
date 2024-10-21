@@ -8,7 +8,7 @@ class Graphics {
             ERROR_JSON_FILENAME,
             ERROR_JSON_LOAD
         };
-        virtual void Draw() = 0;
+        virtual void Draw(u_int x, u_int y) = 0;
 };
 
 

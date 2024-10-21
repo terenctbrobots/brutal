@@ -29,7 +29,7 @@ TEST_F(SpriteTest,TestLoadSprite)
         BeginDrawing();
         ClearBackground(BLACK);
 
-        new_sprite.Draw();
+        new_sprite.Draw(100,100);
 
         EndDrawing();
 
