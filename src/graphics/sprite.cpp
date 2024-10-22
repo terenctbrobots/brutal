@@ -9,12 +9,16 @@ using json = nlohmann::json;
 
 Sprite::Sprite() 
 {
-
+    current_animation_ = nullptr;
+    current_frame_ = 0;
 }
 
 Sprite::~Sprite() 
 {
-
+    if (texture_.id > 0) 
+    {
+        UnloadTexture(texture_);
+    }
 }
 /*
 * Private
@@ -63,22 +67,16 @@ int Sprite::LoadJSON()
     
     for (auto &animation_json : animation_list_json.items())
     {
-        json animation_data = animation_json.value();
+        json frame_data = animation_json.value();
 
-        std::vector<std::unique_ptr<Animation>> new_animation;
+        animation_list_[animation_json.key()] = std::make_shared<Animation>(y,width,height,frame_data["frames"],frame_data["frameRate"]);
 
-        for (int x_count=0; x_count < animation_data["frames"]; x_count++) 
+        if (current_animation_ == nullptr) 
         {
-            u_int x = x_count*width;
-            new_animation.push_back(std::unique_ptr<Animation>(new Animation{x,x+width,y,y+height}));
+            SetAnimation(animation_json.key());
         }
-        animation_list_[animation_json.key()] = std::move(new_animation);
 
-        if (current_animation_.length() == 0) 
-        {
-            current_animation_ = animation_json.key();
-        }
-        y+=width;
+        y+=height;
     }
 
     return Graphics::OK;
@@ -108,10 +106,30 @@ int Sprite::Load(std::string const &file_name)
         return return_value;
     }
 
+    texture_ = LoadTexture(file_name.c_str());
+
+    if (texture_.id == 0) 
+    {
+        return Graphics::ERROR_TEXTURE_LOAD;   
+    }
+
+
     return Graphics::OK;
 }
 
-void Sprite::Draw(u_int x, u_int y) 
+void Sprite::Draw(Vector2 const &position) 
 {
+    DrawTextureRec(texture_, *current_animation_->frame_list[current_frame_],position, WHITE);
+}
+
+int Sprite::SetAnimation(std::string const &animation) 
+{
+    if (!animation_list_[animation]) {
+        return Sprite::ERROR_ANIMATION;
+    }
     
+    current_frame_ = 0;
+    current_animation_ = animation_list_[animation];
+
+    return Graphics::OK;
 }

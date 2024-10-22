@@ -1,25 +1,28 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 #include <string>
+#include "raylib.h"
 #include "graphics.h"
+#include "animation.h"
 
-//TODO: Do we need to convert this to u_int16?
-struct Animation 
+class Sprite : public  Graphics 
 {
-    u_int x1;
-    u_int x2;
-    u_int y1;
-    u_int y2;
-};
-
-class Sprite : public  Graphics {
     private:
         std::string json_filename_;
-        std::unordered_map<std::string,std::vector<std::unique_ptr<Animation>>> animation_list_;
-        std::string current_animation_;
+        std::unordered_map<std::string,std::shared_ptr<Animation>> animation_list_;
+        Texture2D texture_;
+
+        std::shared_ptr<Animation> current_animation_;
+        u_int current_frame_;
 
         int LoadJSON();
     public:
+        enum ReturnType 
+        {
+            ERROR_ANIMATION = Graphics::ERROR_GRAPHIC_LAST,
+            ERROR_SPRITE_LAST,
+        };
+
         uint width;
         uint height;
 
@@ -27,7 +30,8 @@ class Sprite : public  Graphics {
         ~Sprite();
 
         int Load(std::string const &file_name);
-        void Draw(u_int x, u_int y) override;
+        int SetAnimation(std::string const &animation);
+        void Draw(Vector2 const& position) override;
 };
 
 #endif

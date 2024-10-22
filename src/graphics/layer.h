@@ -1,7 +1,8 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-class Layer {
+class Layer 
+{
     public:
         Layer();
         ~Layer();

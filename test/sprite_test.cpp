@@ -21,6 +21,7 @@ TEST_F(SpriteTest,TestLoadSprite)
     int frame_counter = 0;
     bool exit_flag = false;
     SetTargetFPS(60);
+    Vector2 position = {100,100};
 
     while (!WindowShouldClose() && !exit_flag)
     {
@@ -29,7 +30,7 @@ TEST_F(SpriteTest,TestLoadSprite)
         BeginDrawing();
         ClearBackground(BLACK);
 
-        new_sprite.Draw(100,100);
+        new_sprite.Draw(position);
 
         EndDrawing();
 

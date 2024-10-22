@@ -3,9 +3,11 @@
     "height": 100,
     "animation": {
         "idle": {
+            "frameRate": 3,
             "frames": 6   
         },
         "attack": {
+            "frameRate": 3,
             "frames": 6
         }   
     }

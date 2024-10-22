@@ -9,6 +9,7 @@ add_executable(
   test/helper_test.cpp
   test/sprite_test.cpp
   src/graphics/sprite.cpp
+  src/graphics/animation.cpp
   test/graphic_test.cpp
 )
 
