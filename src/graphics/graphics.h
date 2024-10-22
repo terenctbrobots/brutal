@@ -9,6 +9,7 @@ class Graphics
             OK = 0,
             ERROR_JSON_FILENAME,
             ERROR_JSON_LOAD,
+            ERROR_JSON,
             ERROR_TEXTURE_LOAD,
             ERROR_GRAPHIC_LAST,
         };

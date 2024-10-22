@@ -34,9 +34,9 @@ TEST_F(SpriteTest,TestLoadSprite)
 
         EndDrawing();
 
-        if (frame_counter >= this->delay_frames) 
-        {
-            exit_flag = true;
-        }
+        // if (frame_counter >= this->delay_frames) 
+        // {
+        //     exit_flag = true;
+        // }
     }
 }

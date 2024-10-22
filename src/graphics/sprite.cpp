@@ -1,6 +1,7 @@
 #include <fstream>
 #include <vector>
 #include <memory>
+#include <iostream>
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;
 
@@ -64,10 +65,21 @@ int Sprite::LoadJSON()
     json animation_list_json = json_data["animation"];
 
     u_int y = 0;
-    
+        
     for (auto &animation_json : animation_list_json.items())
     {
         json frame_data = animation_json.value();
+
+        if (frame_data["frames"] == nullptr) 
+        {
+            return Graphics::ERROR_JSON;
+        }
+
+        if (frame_data["frameRate"] == nullptr) 
+        {
+            return Graphics::ERROR_JSON;
+        }
+
 
         animation_list_[animation_json.key()] = std::make_shared<Animation>(y,width,height,frame_data["frames"],frame_data["frameRate"]);
 
@@ -113,12 +125,12 @@ int Sprite::Load(std::string const &file_name)
         return Graphics::ERROR_TEXTURE_LOAD;   
     }
 
-
     return Graphics::OK;
 }
 
 void Sprite::Draw(Vector2 const &position) 
 {
+    Rectangle drawRect = {0,0,100,100};
     DrawTextureRec(texture_, *current_animation_->frame_list[current_frame_],position, WHITE);
 }
 
