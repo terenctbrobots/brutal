@@ -66,6 +66,9 @@ TEST(HelperTest, TestOverloads)
   EXPECT_EQ(three.x,7);
   EXPECT_EQ(three.y,7);
 
+  Vector2 four = one - two;
+  EXPECT_EQ(four.x,3);
+
 }
   
 }

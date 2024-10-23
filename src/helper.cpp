@@ -57,3 +57,11 @@ Vector2 operator+(Vector2 lhs, Vector2 const& rhs)
 
     return lhs;
 };
+
+Vector2 operator-(Vector2 lhs, Vector2 const& rhs)
+{
+    lhs.x -= rhs.x;
+    lhs.y -= rhs.y;
+
+    return lhs;
+};

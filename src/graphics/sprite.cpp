@@ -82,12 +82,24 @@ int Sprite::LoadJSON()
             return Graphics::ERROR_JSON;
         }
 
-        animation_list_[animation_json.key()] = std::make_shared<Animation>(y,width,height,frame_data["frames"],frame_data["frameRate"]);
+        Vector2 offset = {0,0};
+
+        if (frame_data["offsetX"] != nullptr)
+        {
+            offset.x = width * (double)frame_data["offsetX"];
+        }
+
+        if (frame_data["offsetY"] != nullptr) 
+        {
+            offset.y = height * (double)frame_data["offsetY"];
+        }
+
+        animation_list_[animation_json.key()] = std::make_shared<Animation>(y,width,height,frame_data["frames"],frame_data["frameRate"],offset);
 
         y+=height;
     }
 
-    if (json_data["defaultAnimation"]) 
+    if (json_data["defaultAnimation"] != nullptr) 
     {
         SetAnimation(json_data["defaultAnimation"]);
     }
@@ -108,6 +120,13 @@ int Sprite::LoadJSON()
  */
 int Sprite::Load(std::string const &file_name) 
 {
+    texture_ = LoadTexture(file_name.c_str());
+
+    if (texture_.id == 0) 
+    {
+        return Graphics::ERROR_TEXTURE_LOAD;   
+    }
+
     json_filename_ = GetJSONFilename(file_name);
 
     if (json_filename_.length() == 0) {
@@ -115,16 +134,11 @@ int Sprite::Load(std::string const &file_name)
     }
 
     int return_value = LoadJSON(); 
+
     if ( return_value != Graphics::OK) {
         return return_value;
     }
 
-    texture_ = LoadTexture(file_name.c_str());
-
-    if (texture_.id == 0) 
-    {
-        return Graphics::ERROR_TEXTURE_LOAD;   
-    }
 
     return Graphics::OK;
 }
@@ -147,7 +161,9 @@ void Sprite::Draw(Vector2 const &position)
             current_frame_ = 0;
         }
     }
-    DrawTextureRec(texture_, *current_animation_->frame_list[current_frame_],position + frame_offset_, WHITE);
+
+    Vector2 offset_position = position - current_animation_->offset;
+    DrawTextureRec(texture_, *current_animation_->frame_list[current_frame_],offset_position, WHITE);
 }
 
 int Sprite::SetAnimation(std::string const &animation) 

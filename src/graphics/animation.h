@@ -10,11 +10,13 @@
 class Animation 
 {
     public:
-        Animation(float start_y, float width, float height,u_int frames,u_int rate);
+        //TODO: Pass a structure istead?
+        Animation(float start_y, float width, float height,u_int frames,u_int rate,Vector2 offset);
 
         std::vector<std::unique_ptr<Rectangle>> frame_list;
         u_int frame_rate;
         u_int frames;
+        Vector2 offset;
 };
 
 

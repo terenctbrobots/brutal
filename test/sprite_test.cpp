@@ -21,7 +21,7 @@ TEST_F(SpriteTest,TestLoadSprite)
     int frame_counter = 0;
     bool exit_flag = false;
     SetTargetFPS(60);
-    Vector2 position = {100,100};
+    Vector2 position = {0,0};
 
     while (!WindowShouldClose() && !exit_flag)
     {

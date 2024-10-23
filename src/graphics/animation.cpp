@@ -1,9 +1,10 @@
 #include "animation.h"
 
-Animation::Animation(float start_y, float width, float height,u_int frames, u_int rate) 
+Animation::Animation(float start_y, float width, float height,u_int frames, u_int rate,Vector2 offset) 
 {
     this->frame_rate = rate;
     this->frames = frames;
+    this->offset = offset;
     
     for (int x_count=0; x_count < frames; x_count++) 
     {

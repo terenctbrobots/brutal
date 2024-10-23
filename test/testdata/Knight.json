@@ -5,11 +5,15 @@
     "animation": {
         "idle": {
             "frameRate": 500,
-            "frames": 6   
+            "frames": 6,
+            "offsetX": 0.5,
+            "offsetY": 0.5 
         },
         "attack": {
             "frameRate": 500,
-            "frames": 6
+            "frames": 6,
+            "offsetX": 0.5,
+            "offsetY": 0.5 
         }   
     }
 }
