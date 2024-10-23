@@ -55,5 +55,17 @@ TEST(HelperTest, TestJSONParsing)
   // u_int16_t max = (u_int16_t)65536;
   // std::cout << max << std::endl;
 }
+
+TEST(HelperTest, TestOverloads) 
+{
+  Vector2 one = {5,5};
+  Vector2 two = {2,2};
+
+  Vector2 three = one + two;
+
+  EXPECT_EQ(three.x,7);
+  EXPECT_EQ(three.y,7);
+
+}
   
 }

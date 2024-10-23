@@ -49,3 +49,11 @@ uint64_t TimeMillisec()
   using namespace std::chrono;
   return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 }
+
+Vector2 operator+(Vector2 lhs, Vector2 const& rhs)
+{
+    lhs.x += rhs.x;
+    lhs.y += rhs.y;
+
+    return lhs;
+};

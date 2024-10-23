@@ -16,5 +16,4 @@ class Graphics
         virtual void Draw(Vector2 const &position) = 0;
 };
 
-
 #endif

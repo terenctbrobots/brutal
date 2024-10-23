@@ -16,6 +16,8 @@ class Sprite : public  Graphics
         u_int current_frame_;
         u_int64_t next_draw_time_;
 
+        Vector2 frame_offset_;
+
         int LoadJSON();
     public:
         enum ReturnType 

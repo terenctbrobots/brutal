@@ -13,6 +13,7 @@ Sprite::Sprite()
     current_animation_ = nullptr;
     current_frame_ = 0;
     next_draw_time_ = 0;
+    frame_offset_ = {0,0};
 }
 
 Sprite::~Sprite() 
@@ -81,15 +82,14 @@ int Sprite::LoadJSON()
             return Graphics::ERROR_JSON;
         }
 
-
         animation_list_[animation_json.key()] = std::make_shared<Animation>(y,width,height,frame_data["frames"],frame_data["frameRate"]);
 
-        if (current_animation_ == nullptr) 
-        {
-            SetAnimation(animation_json.key());
-        }
-
         y+=height;
+    }
+
+    if (json_data["defaultAnimation"]) 
+    {
+        SetAnimation(json_data["defaultAnimation"]);
     }
 
     return Graphics::OK;
@@ -131,6 +131,11 @@ int Sprite::Load(std::string const &file_name)
 
 void Sprite::Draw(Vector2 const &position) 
 {
+    if (current_animation_ == nullptr) 
+    {
+        return;
+    }
+
     uint64_t current_time = TimeMillisec();
 
     if (next_draw_time_ == 0 || current_time >= next_draw_time_) 
@@ -142,7 +147,7 @@ void Sprite::Draw(Vector2 const &position)
             current_frame_ = 0;
         }
     }
-    DrawTextureRec(texture_, *current_animation_->frame_list[current_frame_],position, WHITE);
+    DrawTextureRec(texture_, *current_animation_->frame_list[current_frame_],position + frame_offset_, WHITE);
 }
 
 int Sprite::SetAnimation(std::string const &animation) 
