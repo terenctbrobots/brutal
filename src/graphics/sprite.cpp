@@ -12,6 +12,7 @@ Sprite::Sprite()
 {
     current_animation_ = nullptr;
     current_frame_ = 0;
+    next_draw_time_ = 0;
 }
 
 Sprite::~Sprite() 
@@ -130,7 +131,17 @@ int Sprite::Load(std::string const &file_name)
 
 void Sprite::Draw(Vector2 const &position) 
 {
-    Rectangle drawRect = {0,0,100,100};
+    uint64_t current_time = TimeMillisec();
+
+    if (next_draw_time_ == 0 || current_time >= next_draw_time_) 
+    {
+        next_draw_time_ = current_time + current_animation_->frame_rate;
+        current_frame_++;
+        if (current_frame_ == current_animation_->frames) 
+        {
+            current_frame_ = 0;
+        }
+    }
     DrawTextureRec(texture_, *current_animation_->frame_list[current_frame_],position, WHITE);
 }
 

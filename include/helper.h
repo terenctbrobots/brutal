@@ -12,4 +12,6 @@ enum {
 
 std::optional<std::string> LoadTextFile(std::string const& file_name);
 
+uint64_t TimeMillisec();
+
 #endif

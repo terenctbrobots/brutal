@@ -1,5 +1,7 @@
 #include <fstream>
-
+#include <chrono>
+#include <cstdint>
+#include <iostream>
 #include "helper.h"
 
 std::string GetJSONFilename(std::string const &file_name) 
@@ -40,4 +42,10 @@ std::optional<std::string> LoadTextFile(std::string const& file_name)
     std::string file_contents((std::istreambuf_iterator<char> (file)),std::istreambuf_iterator<char>());
 
     return file_contents;
+}
+
+uint64_t TimeMillisec() 
+{
+  using namespace std::chrono;
+  return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 }

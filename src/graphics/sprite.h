@@ -14,6 +14,7 @@ class Sprite : public  Graphics
 
         std::shared_ptr<Animation> current_animation_;
         u_int current_frame_;
+        u_int64_t next_draw_time_;
 
         int LoadJSON();
     public:
