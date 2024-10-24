@@ -168,12 +168,34 @@ void Sprite::Draw(Vector2 const &position)
 
 int Sprite::SetAnimation(std::string const &animation) 
 {
-    if (!animation_list_[animation]) {
+    if (!animation_list_[animation]) 
+    {
         return Sprite::ERROR_ANIMATION;
+    }
+
+    if (current_animation_ != nullptr) 
+    {
+        current_animation_->Reset();
     }
     
     current_frame_ = 0;
     current_animation_ = animation_list_[animation];
 
     return Graphics::OK;
+}
+
+void Sprite::FlipX()
+{
+    if (current_animation_ != nullptr) 
+    {
+        current_animation_->FlipX();
+    }
+}
+
+void Sprite::FlipY()
+{
+    if (current_animation_ != nullptr)
+    {
+        current_animation_->FlipY();
+    }
 }

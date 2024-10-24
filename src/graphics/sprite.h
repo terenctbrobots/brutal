@@ -35,6 +35,9 @@ class Sprite : public  Graphics
         int Load(std::string const &file_name);
         int SetAnimation(std::string const &animation);
         void Draw(Vector2 const& position) override;
+
+        void FlipX();
+        void FlipY();
 };
 
 #endif

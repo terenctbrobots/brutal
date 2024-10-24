@@ -17,6 +17,13 @@ class Animation
         u_int frame_rate;
         u_int frames;
         Vector2 offset;
+        float width;
+        float height;
+
+        void FlipX();
+        void FlipY();
+
+        void Reset();
 };
 
 
