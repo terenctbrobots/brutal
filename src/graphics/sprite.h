@@ -18,7 +18,9 @@ class Sprite : public  Graphics
 
         Vector2 frame_offset_;
 
+    private:
         int LoadJSON();
+
     public:
         enum ReturnType 
         {
@@ -29,11 +31,12 @@ class Sprite : public  Graphics
         uint width;
         uint height;
 
+    public:
         Sprite();
         ~Sprite();
 
-        int Load(std::string const &file_name);
-        int SetAnimation(std::string const &animation);
+        int Load(std::string const& file_name);
+        int SetAnimation(std::string const& animation);
         void Draw(Vector2 const& position) override;
 
         void FlipX();

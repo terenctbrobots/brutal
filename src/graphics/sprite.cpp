@@ -118,7 +118,7 @@ int Sprite::LoadJSON()
  * @param file_name 
  * @return int 
  */
-int Sprite::Load(std::string const &file_name) 
+int Sprite::Load(std::string const& file_name) 
 {
     texture_ = LoadTexture(file_name.c_str());
 
@@ -143,7 +143,7 @@ int Sprite::Load(std::string const &file_name)
     return Graphics::OK;
 }
 
-void Sprite::Draw(Vector2 const &position) 
+void Sprite::Draw(Vector2 const& position) 
 {
     if (current_animation_ == nullptr) 
     {

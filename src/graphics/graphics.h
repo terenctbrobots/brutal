@@ -13,7 +13,8 @@ class Graphics
             ERROR_TEXTURE_LOAD,
             ERROR_GRAPHIC_LAST,
         };
-        virtual void Draw(Vector2 const &position) = 0;
+        virtual void Draw(Vector2 const& position) = 0;
+        virtual void Draw(Vector2 const& position, u_int tile_num) = 0;
 };
 
 #endif
