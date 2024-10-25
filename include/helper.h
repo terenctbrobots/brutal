@@ -2,6 +2,7 @@
 #define HELPER_H
 #include <string>
 #include <optional>
+#include <cstdint>
 #include "raylib.h"
 
 std::string GetJSONFilename(std::string const &file_name); 

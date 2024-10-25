@@ -2,6 +2,11 @@
 #include "helper.h"
 #include "tileset.h"
 
+TileSet::TileSet()
+{
+    tile_first_id = 1;
+}
+
 /*
 * Private
 */
@@ -29,6 +34,30 @@ int TileSet::LoadJSON()
 
 int TileSet::ProcessJSON(json const& tile_json)
 {
+    width = tile_json["imagewidth"];
+    height = tile_json["imageheight"];
+
+    tile_width = tile_json["tilewidth"];
+    tile_height = tile_json["tileheight"];
+
+    name = tile_json["name"];
+
+    tile_count = tile_json["tilecount"];
+
+    float tile_x, tile_y =0;
+    
+    for (int i=0; i < tile_count; i++) 
+    {
+        tile_list_.push_back(std::unique_ptr<Rectangle>(new Rectangle{tile_x, tile_y, (float)tile_width, (float)tile_height}));
+        tile_x += tile_width;
+
+        if (tile_x >= width) 
+        {
+            tile_x = 0;
+            tile_y += tile_height;
+        }
+    }
+
     return Graphics::OK;
 }
 
@@ -57,4 +86,16 @@ int TileSet::Load(std::string const& file_name)
     }
 
     return Graphics::OK;
+}
+
+void TileSet::Draw(Vector2 const& position,uint tile_id)
+{
+    uint offset_tile_id = tile_id - tile_first_id;
+
+    if (offset_tile_id < 0 || offset_tile_id >= tile_count)
+    {
+        return;
+    }
+
+    DrawTextureRec(texture_, *tile_list_[offset_tile_id],position, WHITE);
 }

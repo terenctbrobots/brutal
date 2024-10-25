@@ -143,7 +143,7 @@ int Sprite::Load(std::string const& file_name)
     return Graphics::OK;
 }
 
-void Sprite::Draw(Vector2 const& position) 
+void Sprite::Draw(Vector2 const& position, uint tile_id) 
 {
     if (current_animation_ == nullptr) 
     {
