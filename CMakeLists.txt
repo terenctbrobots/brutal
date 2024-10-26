@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.5.0)
 project(brutal VERSION 0.1.0 LANGUAGES C CXX)
 
-include_directories(include)
 include(~/vcpkg/scripts/buildsystems/vcpkg.cmake)
 
 file(GLOB_RECURSE sources      src/*.cpp)
