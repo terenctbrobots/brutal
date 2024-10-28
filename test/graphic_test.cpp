@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include "graphic_test.h"
 #include "graphics/sprite.h"
+#include "graphics/tileset.h"
 
 
 void GraphicTest::SetUp() {
@@ -22,6 +23,35 @@ void GraphicTest::TearDown() {
 
 class SpriteTest : public GraphicTest {
 };
+
+TEST_F(SpriteTest, TestLoadTileSet) 
+{
+    TileSet new_tileset = TileSet();
+
+    EXPECT_EQ(new_tileset.Load("testdata/plains.png"), Graphics::OK);
+
+    int frame_counter = 0;
+    bool exit_flag = false;
+    SetTargetFPS(60);
+
+    while (!WindowShouldClose() && !exit_flag)
+    {
+        frame_counter++;
+
+        BeginDrawing();
+        ClearBackground(BLACK);
+
+        new_tileset.Draw({100,100},1);
+
+        EndDrawing();
+
+        if (frame_counter >= this->delay_frames) 
+        {
+            exit_flag = true;
+        }
+    }
+
+}
 
 TEST_F(SpriteTest,TestLoadSprite) 
 {

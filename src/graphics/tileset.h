@@ -27,6 +27,7 @@ class TileSet : public Graphics
 
         uint tile_count;
         uint tile_first_id;
+        uint tile_last_id;
 
         std::string name;
 
@@ -35,7 +36,6 @@ class TileSet : public Graphics
         ~TileSet();
 
         int Load(std::string const& file_name);
-        int Load(json tile_json);
 
         void Draw(Vector2 const& position, uint tile_id = 0) override;
 };

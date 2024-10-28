@@ -7,6 +7,14 @@ TileSet::TileSet()
     tile_first_id = 1;
 }
 
+TileSet::~TileSet()
+{
+    if (texture_.id > 0) 
+    {
+        UnloadTexture(texture_);
+    }
+}
+
 /*
 * Private
 */
