@@ -19,15 +19,15 @@ class TileSet : public Graphics
         int LoadJSON();
         int ProcessJSON(json const& tile_json);
     public:
-        uint width;
-        uint height;
+        uint32_t width;
+        uint32_t height;
 
-        uint tile_width;
-        uint tile_height;
+        uint32_t tile_width;
+        uint32_t tile_height;
 
-        uint tile_count;
-        uint tile_first_id;
-        uint tile_last_id;
+        uint32_t tile_count;
+        uint32_t tile_first_id;
+        uint32_t tile_last_id;
 
         std::string name;
 
@@ -37,7 +37,7 @@ class TileSet : public Graphics
 
         int Load(std::string const& file_name);
 
-        void Draw(Vector2 const& position, uint tile_id = 0) override;
+        void Draw(Vector2 const& position, uint32_t tile_id = 0) override;
 };
 
 

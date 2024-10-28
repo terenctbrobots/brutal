@@ -96,9 +96,9 @@ int TileSet::Load(std::string const& file_name)
     return Graphics::OK;
 }
 
-void TileSet::Draw(Vector2 const& position,uint tile_id)
+void TileSet::Draw(Vector2 const& position,uint32_t tile_id)
 {
-    uint offset_tile_id = tile_id - tile_first_id;
+    uint32_t offset_tile_id = tile_id - tile_first_id;
 
     if (offset_tile_id < 0 || offset_tile_id >= tile_count)
     {

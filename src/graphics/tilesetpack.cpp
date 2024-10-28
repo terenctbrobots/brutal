@@ -35,7 +35,7 @@ int TileSetPack::Load(std::string const& file_name)
     return Graphics::OK;
 }
 
-void TileSetPack::Draw(Vector2 const& position, uint tile_id)
+void TileSetPack::Draw(Vector2 const& position, uint32_t tile_id)
 {
     if (tile_id > current_tile_id_index_) 
     {

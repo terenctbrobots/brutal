@@ -1,6 +1,8 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
+#include <cstdint>
+
 class Graphics 
 {
     public:
@@ -13,7 +15,7 @@ class Graphics
             ERROR_TEXTURE_LOAD,
             ERROR_GRAPHIC_LAST,
         };
-        virtual void Draw(Vector2 const& position,uint tile_id = 0) = 0;
+        virtual void Draw(Vector2 const& position,uint32_t tile_id = 0) = 0;
 };
 
 #endif
