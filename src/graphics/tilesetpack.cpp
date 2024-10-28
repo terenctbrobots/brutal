@@ -25,7 +25,22 @@ int TileSetPack::Load(std::string const& file_name)
     new_tileset->tile_first_id = current_tile_id_index_;
     new_tileset->tile_last_id = new_tileset->tile_first_id + new_tileset->tile_count;
 
-    tileset_list_.push_back(new_tileset);
+    for (int i=0; i < new_tileset->tile_count; i++) 
+    {
+        tileset_list_.push_back(new_tileset);
+    }
+
+    current_tile_id_index_ += new_tileset->tile_count;
 
     return Graphics::OK;
+}
+
+void TileSetPack::Draw(Vector2 const& position, uint tile_id)
+{
+    if (tile_id > current_tile_id_index_) 
+    {
+        return;
+    }
+
+    tileset_list_[tile_id]->Draw(position, tile_id);
 }
