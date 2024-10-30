@@ -31,9 +31,7 @@
 *.out
 *.app
 
-out
 brutal
-bin/*
-build
 vcpkg_installed
 Makefile
+build/*
