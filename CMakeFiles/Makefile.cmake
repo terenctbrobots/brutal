@@ -11,6 +11,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.28.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.28.3/CMakeSystem.cmake"
   "CMakeLists.txt"
+  "test/CMakeLists.txt"
   "vcpkg-configuration.json"
   "vcpkg.json"
   "vcpkg_installed/x64-linux/share/glfw3/glfw3Config.cmake"
@@ -18,6 +19,14 @@ set(CMAKE_MAKEFILE_DEPENDS
   "vcpkg_installed/x64-linux/share/glfw3/glfw3Targets-debug.cmake"
   "vcpkg_installed/x64-linux/share/glfw3/glfw3Targets-release.cmake"
   "vcpkg_installed/x64-linux/share/glfw3/glfw3Targets.cmake"
+  "vcpkg_installed/x64-linux/share/gtest/GTestConfig.cmake"
+  "vcpkg_installed/x64-linux/share/gtest/GTestConfigVersion.cmake"
+  "vcpkg_installed/x64-linux/share/gtest/GTestTargets-debug.cmake"
+  "vcpkg_installed/x64-linux/share/gtest/GTestTargets-release.cmake"
+  "vcpkg_installed/x64-linux/share/gtest/GTestTargets.cmake"
+  "vcpkg_installed/x64-linux/share/nlohmann_json/nlohmann_jsonConfig.cmake"
+  "vcpkg_installed/x64-linux/share/nlohmann_json/nlohmann_jsonConfigVersion.cmake"
+  "vcpkg_installed/x64-linux/share/nlohmann_json/nlohmann_jsonTargets.cmake"
   "vcpkg_installed/x64-linux/share/raylib/raylib-config-version.cmake"
   "vcpkg_installed/x64-linux/share/raylib/raylib-config.cmake"
   "/home/terenctb/vcpkg/scripts/buildsystems/vcpkg.cmake"
@@ -117,6 +126,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.28/Modules/FindPackageMessage.cmake"
   "/usr/share/cmake-3.28/Modules/FindPkgConfig.cmake"
   "/usr/share/cmake-3.28/Modules/FindThreads.cmake"
+  "/usr/share/cmake-3.28/Modules/GoogleTest.cmake"
   "/usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake"
   "/usr/share/cmake-3.28/Modules/Internal/FeatureTesting.cmake"
   "/usr/share/cmake-3.28/Modules/Platform/Linux-Determine-CXX.cmake"
@@ -147,5 +157,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/brutal.dir/DependInfo.cmake"
-  "CMakeFiles/copy_assets.dir/DependInfo.cmake"
+  "CMakeFiles/brutal_test.dir/DependInfo.cmake"
   )

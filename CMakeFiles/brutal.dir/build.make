@@ -69,10 +69,52 @@ include CMakeFiles/brutal.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/brutal.dir/flags.make
 
+CMakeFiles/brutal.dir/src/game/gameobject.cpp.o: CMakeFiles/brutal.dir/flags.make
+CMakeFiles/brutal.dir/src/game/gameobject.cpp.o: src/game/gameobject.cpp
+CMakeFiles/brutal.dir/src/game/gameobject.cpp.o: CMakeFiles/brutal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/brutal.dir/src/game/gameobject.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/brutal.dir/src/game/gameobject.cpp.o -MF CMakeFiles/brutal.dir/src/game/gameobject.cpp.o.d -o CMakeFiles/brutal.dir/src/game/gameobject.cpp.o -c /home/terenctb/Project/bigbadrobots/brutal/src/game/gameobject.cpp
+
+CMakeFiles/brutal.dir/src/game/gameobject.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/brutal.dir/src/game/gameobject.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/terenctb/Project/bigbadrobots/brutal/src/game/gameobject.cpp > CMakeFiles/brutal.dir/src/game/gameobject.cpp.i
+
+CMakeFiles/brutal.dir/src/game/gameobject.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/brutal.dir/src/game/gameobject.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/terenctb/Project/bigbadrobots/brutal/src/game/gameobject.cpp -o CMakeFiles/brutal.dir/src/game/gameobject.cpp.s
+
+CMakeFiles/brutal.dir/src/game/level.cpp.o: CMakeFiles/brutal.dir/flags.make
+CMakeFiles/brutal.dir/src/game/level.cpp.o: src/game/level.cpp
+CMakeFiles/brutal.dir/src/game/level.cpp.o: CMakeFiles/brutal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/brutal.dir/src/game/level.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/brutal.dir/src/game/level.cpp.o -MF CMakeFiles/brutal.dir/src/game/level.cpp.o.d -o CMakeFiles/brutal.dir/src/game/level.cpp.o -c /home/terenctb/Project/bigbadrobots/brutal/src/game/level.cpp
+
+CMakeFiles/brutal.dir/src/game/level.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/brutal.dir/src/game/level.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/terenctb/Project/bigbadrobots/brutal/src/game/level.cpp > CMakeFiles/brutal.dir/src/game/level.cpp.i
+
+CMakeFiles/brutal.dir/src/game/level.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/brutal.dir/src/game/level.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/terenctb/Project/bigbadrobots/brutal/src/game/level.cpp -o CMakeFiles/brutal.dir/src/game/level.cpp.s
+
+CMakeFiles/brutal.dir/src/graphics/animation.cpp.o: CMakeFiles/brutal.dir/flags.make
+CMakeFiles/brutal.dir/src/graphics/animation.cpp.o: src/graphics/animation.cpp
+CMakeFiles/brutal.dir/src/graphics/animation.cpp.o: CMakeFiles/brutal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/brutal.dir/src/graphics/animation.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/brutal.dir/src/graphics/animation.cpp.o -MF CMakeFiles/brutal.dir/src/graphics/animation.cpp.o.d -o CMakeFiles/brutal.dir/src/graphics/animation.cpp.o -c /home/terenctb/Project/bigbadrobots/brutal/src/graphics/animation.cpp
+
+CMakeFiles/brutal.dir/src/graphics/animation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/brutal.dir/src/graphics/animation.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/terenctb/Project/bigbadrobots/brutal/src/graphics/animation.cpp > CMakeFiles/brutal.dir/src/graphics/animation.cpp.i
+
+CMakeFiles/brutal.dir/src/graphics/animation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/brutal.dir/src/graphics/animation.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/terenctb/Project/bigbadrobots/brutal/src/graphics/animation.cpp -o CMakeFiles/brutal.dir/src/graphics/animation.cpp.s
+
 CMakeFiles/brutal.dir/src/graphics/layer.cpp.o: CMakeFiles/brutal.dir/flags.make
 CMakeFiles/brutal.dir/src/graphics/layer.cpp.o: src/graphics/layer.cpp
 CMakeFiles/brutal.dir/src/graphics/layer.cpp.o: CMakeFiles/brutal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/brutal.dir/src/graphics/layer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/brutal.dir/src/graphics/layer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/brutal.dir/src/graphics/layer.cpp.o -MF CMakeFiles/brutal.dir/src/graphics/layer.cpp.o.d -o CMakeFiles/brutal.dir/src/graphics/layer.cpp.o -c /home/terenctb/Project/bigbadrobots/brutal/src/graphics/layer.cpp
 
 CMakeFiles/brutal.dir/src/graphics/layer.cpp.i: cmake_force
@@ -86,7 +128,7 @@ CMakeFiles/brutal.dir/src/graphics/layer.cpp.s: cmake_force
 CMakeFiles/brutal.dir/src/graphics/sprite.cpp.o: CMakeFiles/brutal.dir/flags.make
 CMakeFiles/brutal.dir/src/graphics/sprite.cpp.o: src/graphics/sprite.cpp
 CMakeFiles/brutal.dir/src/graphics/sprite.cpp.o: CMakeFiles/brutal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/brutal.dir/src/graphics/sprite.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/brutal.dir/src/graphics/sprite.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/brutal.dir/src/graphics/sprite.cpp.o -MF CMakeFiles/brutal.dir/src/graphics/sprite.cpp.o.d -o CMakeFiles/brutal.dir/src/graphics/sprite.cpp.o -c /home/terenctb/Project/bigbadrobots/brutal/src/graphics/sprite.cpp
 
 CMakeFiles/brutal.dir/src/graphics/sprite.cpp.i: cmake_force
@@ -97,10 +139,66 @@ CMakeFiles/brutal.dir/src/graphics/sprite.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/brutal.dir/src/graphics/sprite.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/terenctb/Project/bigbadrobots/brutal/src/graphics/sprite.cpp -o CMakeFiles/brutal.dir/src/graphics/sprite.cpp.s
 
+CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.o: CMakeFiles/brutal.dir/flags.make
+CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.o: src/graphics/tilelayer.cpp
+CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.o: CMakeFiles/brutal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.o -MF CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.o.d -o CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.o -c /home/terenctb/Project/bigbadrobots/brutal/src/graphics/tilelayer.cpp
+
+CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/terenctb/Project/bigbadrobots/brutal/src/graphics/tilelayer.cpp > CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.i
+
+CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/terenctb/Project/bigbadrobots/brutal/src/graphics/tilelayer.cpp -o CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.s
+
+CMakeFiles/brutal.dir/src/graphics/tileset.cpp.o: CMakeFiles/brutal.dir/flags.make
+CMakeFiles/brutal.dir/src/graphics/tileset.cpp.o: src/graphics/tileset.cpp
+CMakeFiles/brutal.dir/src/graphics/tileset.cpp.o: CMakeFiles/brutal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/brutal.dir/src/graphics/tileset.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/brutal.dir/src/graphics/tileset.cpp.o -MF CMakeFiles/brutal.dir/src/graphics/tileset.cpp.o.d -o CMakeFiles/brutal.dir/src/graphics/tileset.cpp.o -c /home/terenctb/Project/bigbadrobots/brutal/src/graphics/tileset.cpp
+
+CMakeFiles/brutal.dir/src/graphics/tileset.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/brutal.dir/src/graphics/tileset.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/terenctb/Project/bigbadrobots/brutal/src/graphics/tileset.cpp > CMakeFiles/brutal.dir/src/graphics/tileset.cpp.i
+
+CMakeFiles/brutal.dir/src/graphics/tileset.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/brutal.dir/src/graphics/tileset.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/terenctb/Project/bigbadrobots/brutal/src/graphics/tileset.cpp -o CMakeFiles/brutal.dir/src/graphics/tileset.cpp.s
+
+CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.o: CMakeFiles/brutal.dir/flags.make
+CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.o: src/graphics/tilesetpack.cpp
+CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.o: CMakeFiles/brutal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.o -MF CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.o.d -o CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.o -c /home/terenctb/Project/bigbadrobots/brutal/src/graphics/tilesetpack.cpp
+
+CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/terenctb/Project/bigbadrobots/brutal/src/graphics/tilesetpack.cpp > CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.i
+
+CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/terenctb/Project/bigbadrobots/brutal/src/graphics/tilesetpack.cpp -o CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.s
+
+CMakeFiles/brutal.dir/src/helper.cpp.o: CMakeFiles/brutal.dir/flags.make
+CMakeFiles/brutal.dir/src/helper.cpp.o: src/helper.cpp
+CMakeFiles/brutal.dir/src/helper.cpp.o: CMakeFiles/brutal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/brutal.dir/src/helper.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/brutal.dir/src/helper.cpp.o -MF CMakeFiles/brutal.dir/src/helper.cpp.o.d -o CMakeFiles/brutal.dir/src/helper.cpp.o -c /home/terenctb/Project/bigbadrobots/brutal/src/helper.cpp
+
+CMakeFiles/brutal.dir/src/helper.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/brutal.dir/src/helper.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/terenctb/Project/bigbadrobots/brutal/src/helper.cpp > CMakeFiles/brutal.dir/src/helper.cpp.i
+
+CMakeFiles/brutal.dir/src/helper.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/brutal.dir/src/helper.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/terenctb/Project/bigbadrobots/brutal/src/helper.cpp -o CMakeFiles/brutal.dir/src/helper.cpp.s
+
 CMakeFiles/brutal.dir/src/main.cpp.o: CMakeFiles/brutal.dir/flags.make
 CMakeFiles/brutal.dir/src/main.cpp.o: src/main.cpp
 CMakeFiles/brutal.dir/src/main.cpp.o: CMakeFiles/brutal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/brutal.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/brutal.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/brutal.dir/src/main.cpp.o -MF CMakeFiles/brutal.dir/src/main.cpp.o.d -o CMakeFiles/brutal.dir/src/main.cpp.o -c /home/terenctb/Project/bigbadrobots/brutal/src/main.cpp
 
 CMakeFiles/brutal.dir/src/main.cpp.i: cmake_force
@@ -113,24 +211,38 @@ CMakeFiles/brutal.dir/src/main.cpp.s: cmake_force
 
 # Object files for target brutal
 brutal_OBJECTS = \
+"CMakeFiles/brutal.dir/src/game/gameobject.cpp.o" \
+"CMakeFiles/brutal.dir/src/game/level.cpp.o" \
+"CMakeFiles/brutal.dir/src/graphics/animation.cpp.o" \
 "CMakeFiles/brutal.dir/src/graphics/layer.cpp.o" \
 "CMakeFiles/brutal.dir/src/graphics/sprite.cpp.o" \
+"CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.o" \
+"CMakeFiles/brutal.dir/src/graphics/tileset.cpp.o" \
+"CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.o" \
+"CMakeFiles/brutal.dir/src/helper.cpp.o" \
 "CMakeFiles/brutal.dir/src/main.cpp.o"
 
 # External object files for target brutal
 brutal_EXTERNAL_OBJECTS =
 
+brutal: CMakeFiles/brutal.dir/src/game/gameobject.cpp.o
+brutal: CMakeFiles/brutal.dir/src/game/level.cpp.o
+brutal: CMakeFiles/brutal.dir/src/graphics/animation.cpp.o
 brutal: CMakeFiles/brutal.dir/src/graphics/layer.cpp.o
 brutal: CMakeFiles/brutal.dir/src/graphics/sprite.cpp.o
+brutal: CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.o
+brutal: CMakeFiles/brutal.dir/src/graphics/tileset.cpp.o
+brutal: CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.o
+brutal: CMakeFiles/brutal.dir/src/helper.cpp.o
 brutal: CMakeFiles/brutal.dir/src/main.cpp.o
 brutal: CMakeFiles/brutal.dir/build.make
 brutal: vcpkg_installed/x64-linux/lib/libraylib.a
-brutal: vcpkg_installed/x64-linux/debug/lib/libglfw3.a
+brutal: vcpkg_installed/x64-linux/lib/libglfw3.a
 brutal: vcpkg_installed/x64-linux/lib/libraylib.a
 brutal: /usr/lib/x86_64-linux-gnu/librt.a
 brutal: /usr/lib/x86_64-linux-gnu/libm.so
 brutal: CMakeFiles/brutal.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable brutal"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable brutal"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/brutal.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

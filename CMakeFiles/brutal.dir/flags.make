@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/terenctb/Project/bigbadrobots/brutal/include -isystem /home/terenctb/Project/bigbadrobots/brutal/vcpkg_installed/x64-linux/include
+CXX_INCLUDES = -I/home/terenctb/Project/bigbadrobots/brutal/src -isystem /home/terenctb/Project/bigbadrobots/brutal/vcpkg_installed/x64-linux/include
 
-CXX_FLAGS = -I/home/terenctb/Project/bigbadrobots/brutal/vcpkg_installed/x64-linux/lib/pkgconfig/../../include
+CXX_FLAGS = -O3 -DNDEBUG -I/home/terenctb/Project/bigbadrobots/brutal/vcpkg_installed/x64-linux/lib/pkgconfig/../../include
 

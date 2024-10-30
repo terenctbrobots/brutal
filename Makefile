@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /home/terenctb/Project/bigbadrobots/brutal
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
@@ -130,17 +140,92 @@ brutal/fast:
 .PHONY : brutal/fast
 
 #=============================================================================
-# Target rules for targets named copy_assets
+# Target rules for targets named brutal_test
 
 # Build rule for target.
-copy_assets: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 copy_assets
-.PHONY : copy_assets
+brutal_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 brutal_test
+.PHONY : brutal_test
 
 # fast build rule for target.
-copy_assets/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/copy_assets.dir/build.make CMakeFiles/copy_assets.dir/build
-.PHONY : copy_assets/fast
+brutal_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/build
+.PHONY : brutal_test/fast
+
+src/game/gameobject.o: src/game/gameobject.cpp.o
+.PHONY : src/game/gameobject.o
+
+# target to build an object file
+src/game/gameobject.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/game/gameobject.cpp.o
+.PHONY : src/game/gameobject.cpp.o
+
+src/game/gameobject.i: src/game/gameobject.cpp.i
+.PHONY : src/game/gameobject.i
+
+# target to preprocess a source file
+src/game/gameobject.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/game/gameobject.cpp.i
+.PHONY : src/game/gameobject.cpp.i
+
+src/game/gameobject.s: src/game/gameobject.cpp.s
+.PHONY : src/game/gameobject.s
+
+# target to generate assembly for a file
+src/game/gameobject.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/game/gameobject.cpp.s
+.PHONY : src/game/gameobject.cpp.s
+
+src/game/level.o: src/game/level.cpp.o
+.PHONY : src/game/level.o
+
+# target to build an object file
+src/game/level.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/game/level.cpp.o
+.PHONY : src/game/level.cpp.o
+
+src/game/level.i: src/game/level.cpp.i
+.PHONY : src/game/level.i
+
+# target to preprocess a source file
+src/game/level.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/game/level.cpp.i
+.PHONY : src/game/level.cpp.i
+
+src/game/level.s: src/game/level.cpp.s
+.PHONY : src/game/level.s
+
+# target to generate assembly for a file
+src/game/level.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/game/level.cpp.s
+.PHONY : src/game/level.cpp.s
+
+src/graphics/animation.o: src/graphics/animation.cpp.o
+.PHONY : src/graphics/animation.o
+
+# target to build an object file
+src/graphics/animation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/animation.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/animation.cpp.o
+.PHONY : src/graphics/animation.cpp.o
+
+src/graphics/animation.i: src/graphics/animation.cpp.i
+.PHONY : src/graphics/animation.i
+
+# target to preprocess a source file
+src/graphics/animation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/animation.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/animation.cpp.i
+.PHONY : src/graphics/animation.cpp.i
+
+src/graphics/animation.s: src/graphics/animation.cpp.s
+.PHONY : src/graphics/animation.s
+
+# target to generate assembly for a file
+src/graphics/animation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/animation.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/animation.cpp.s
+.PHONY : src/graphics/animation.cpp.s
 
 src/graphics/layer.o: src/graphics/layer.cpp.o
 .PHONY : src/graphics/layer.o
@@ -148,6 +233,7 @@ src/graphics/layer.o: src/graphics/layer.cpp.o
 # target to build an object file
 src/graphics/layer.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/layer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/layer.cpp.o
 .PHONY : src/graphics/layer.cpp.o
 
 src/graphics/layer.i: src/graphics/layer.cpp.i
@@ -156,6 +242,7 @@ src/graphics/layer.i: src/graphics/layer.cpp.i
 # target to preprocess a source file
 src/graphics/layer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/layer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/layer.cpp.i
 .PHONY : src/graphics/layer.cpp.i
 
 src/graphics/layer.s: src/graphics/layer.cpp.s
@@ -164,6 +251,7 @@ src/graphics/layer.s: src/graphics/layer.cpp.s
 # target to generate assembly for a file
 src/graphics/layer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/layer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/layer.cpp.s
 .PHONY : src/graphics/layer.cpp.s
 
 src/graphics/sprite.o: src/graphics/sprite.cpp.o
@@ -172,6 +260,7 @@ src/graphics/sprite.o: src/graphics/sprite.cpp.o
 # target to build an object file
 src/graphics/sprite.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/sprite.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/sprite.cpp.o
 .PHONY : src/graphics/sprite.cpp.o
 
 src/graphics/sprite.i: src/graphics/sprite.cpp.i
@@ -180,6 +269,7 @@ src/graphics/sprite.i: src/graphics/sprite.cpp.i
 # target to preprocess a source file
 src/graphics/sprite.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/sprite.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/sprite.cpp.i
 .PHONY : src/graphics/sprite.cpp.i
 
 src/graphics/sprite.s: src/graphics/sprite.cpp.s
@@ -188,7 +278,116 @@ src/graphics/sprite.s: src/graphics/sprite.cpp.s
 # target to generate assembly for a file
 src/graphics/sprite.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/sprite.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/sprite.cpp.s
 .PHONY : src/graphics/sprite.cpp.s
+
+src/graphics/tilelayer.o: src/graphics/tilelayer.cpp.o
+.PHONY : src/graphics/tilelayer.o
+
+# target to build an object file
+src/graphics/tilelayer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/tilelayer.cpp.o
+.PHONY : src/graphics/tilelayer.cpp.o
+
+src/graphics/tilelayer.i: src/graphics/tilelayer.cpp.i
+.PHONY : src/graphics/tilelayer.i
+
+# target to preprocess a source file
+src/graphics/tilelayer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/tilelayer.cpp.i
+.PHONY : src/graphics/tilelayer.cpp.i
+
+src/graphics/tilelayer.s: src/graphics/tilelayer.cpp.s
+.PHONY : src/graphics/tilelayer.s
+
+# target to generate assembly for a file
+src/graphics/tilelayer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/tilelayer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/tilelayer.cpp.s
+.PHONY : src/graphics/tilelayer.cpp.s
+
+src/graphics/tileset.o: src/graphics/tileset.cpp.o
+.PHONY : src/graphics/tileset.o
+
+# target to build an object file
+src/graphics/tileset.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/tileset.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/tileset.cpp.o
+.PHONY : src/graphics/tileset.cpp.o
+
+src/graphics/tileset.i: src/graphics/tileset.cpp.i
+.PHONY : src/graphics/tileset.i
+
+# target to preprocess a source file
+src/graphics/tileset.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/tileset.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/tileset.cpp.i
+.PHONY : src/graphics/tileset.cpp.i
+
+src/graphics/tileset.s: src/graphics/tileset.cpp.s
+.PHONY : src/graphics/tileset.s
+
+# target to generate assembly for a file
+src/graphics/tileset.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/tileset.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/tileset.cpp.s
+.PHONY : src/graphics/tileset.cpp.s
+
+src/graphics/tilesetpack.o: src/graphics/tilesetpack.cpp.o
+.PHONY : src/graphics/tilesetpack.o
+
+# target to build an object file
+src/graphics/tilesetpack.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/tilesetpack.cpp.o
+.PHONY : src/graphics/tilesetpack.cpp.o
+
+src/graphics/tilesetpack.i: src/graphics/tilesetpack.cpp.i
+.PHONY : src/graphics/tilesetpack.i
+
+# target to preprocess a source file
+src/graphics/tilesetpack.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/tilesetpack.cpp.i
+.PHONY : src/graphics/tilesetpack.cpp.i
+
+src/graphics/tilesetpack.s: src/graphics/tilesetpack.cpp.s
+.PHONY : src/graphics/tilesetpack.s
+
+# target to generate assembly for a file
+src/graphics/tilesetpack.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/graphics/tilesetpack.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/graphics/tilesetpack.cpp.s
+.PHONY : src/graphics/tilesetpack.cpp.s
+
+src/helper.o: src/helper.cpp.o
+.PHONY : src/helper.o
+
+# target to build an object file
+src/helper.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/helper.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/helper.cpp.o
+.PHONY : src/helper.cpp.o
+
+src/helper.i: src/helper.cpp.i
+.PHONY : src/helper.i
+
+# target to preprocess a source file
+src/helper.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/helper.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/helper.cpp.i
+.PHONY : src/helper.cpp.i
+
+src/helper.s: src/helper.cpp.s
+.PHONY : src/helper.s
+
+# target to generate assembly for a file
+src/helper.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/helper.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/src/helper.cpp.s
+.PHONY : src/helper.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -214,6 +413,54 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal.dir/build.make CMakeFiles/brutal.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+test/graphic_test.o: test/graphic_test.cpp.o
+.PHONY : test/graphic_test.o
+
+# target to build an object file
+test/graphic_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/test/graphic_test.cpp.o
+.PHONY : test/graphic_test.cpp.o
+
+test/graphic_test.i: test/graphic_test.cpp.i
+.PHONY : test/graphic_test.i
+
+# target to preprocess a source file
+test/graphic_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/test/graphic_test.cpp.i
+.PHONY : test/graphic_test.cpp.i
+
+test/graphic_test.s: test/graphic_test.cpp.s
+.PHONY : test/graphic_test.s
+
+# target to generate assembly for a file
+test/graphic_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/test/graphic_test.cpp.s
+.PHONY : test/graphic_test.cpp.s
+
+test/helper_test.o: test/helper_test.cpp.o
+.PHONY : test/helper_test.o
+
+# target to build an object file
+test/helper_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/test/helper_test.cpp.o
+.PHONY : test/helper_test.cpp.o
+
+test/helper_test.i: test/helper_test.cpp.i
+.PHONY : test/helper_test.i
+
+# target to preprocess a source file
+test/helper_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/test/helper_test.cpp.i
+.PHONY : test/helper_test.cpp.i
+
+test/helper_test.s: test/helper_test.cpp.s
+.PHONY : test/helper_test.s
+
+# target to generate assembly for a file
+test/helper_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/brutal_test.dir/build.make CMakeFiles/brutal_test.dir/test/helper_test.cpp.s
+.PHONY : test/helper_test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -222,17 +469,45 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... copy_assets"
+	@echo "... test"
 	@echo "... brutal"
+	@echo "... brutal_test"
+	@echo "... src/game/gameobject.o"
+	@echo "... src/game/gameobject.i"
+	@echo "... src/game/gameobject.s"
+	@echo "... src/game/level.o"
+	@echo "... src/game/level.i"
+	@echo "... src/game/level.s"
+	@echo "... src/graphics/animation.o"
+	@echo "... src/graphics/animation.i"
+	@echo "... src/graphics/animation.s"
 	@echo "... src/graphics/layer.o"
 	@echo "... src/graphics/layer.i"
 	@echo "... src/graphics/layer.s"
 	@echo "... src/graphics/sprite.o"
 	@echo "... src/graphics/sprite.i"
 	@echo "... src/graphics/sprite.s"
+	@echo "... src/graphics/tilelayer.o"
+	@echo "... src/graphics/tilelayer.i"
+	@echo "... src/graphics/tilelayer.s"
+	@echo "... src/graphics/tileset.o"
+	@echo "... src/graphics/tileset.i"
+	@echo "... src/graphics/tileset.s"
+	@echo "... src/graphics/tilesetpack.o"
+	@echo "... src/graphics/tilesetpack.i"
+	@echo "... src/graphics/tilesetpack.s"
+	@echo "... src/helper.o"
+	@echo "... src/helper.i"
+	@echo "... src/helper.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... test/graphic_test.o"
+	@echo "... test/graphic_test.i"
+	@echo "... test/graphic_test.s"
+	@echo "... test/helper_test.o"
+	@echo "... test/helper_test.i"
+	@echo "... test/helper_test.s"
 .PHONY : help
 
 
