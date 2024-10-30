@@ -26,8 +26,8 @@ class TileSet : public Graphics
         uint32_t tile_height;
 
         uint32_t tile_count;
-        uint32_t tile_first_id;
-        uint32_t tile_last_id;
+        int32_t tile_first_id;
+        int32_t tile_last_id;
 
         std::string name;
 
@@ -37,7 +37,7 @@ class TileSet : public Graphics
 
         int Load(std::string const& file_name);
 
-        void Draw(Vector2 const& position, uint32_t tile_id = 0) override;
+        void Draw(Vector2 const& position, int16_t tile_id = 0) override;
 };
 
 

@@ -20,7 +20,10 @@ class TileSetPack
         int Load(std::string const& file_name);
         // int LoadJSON(json tile_set_json);
 
-        void Draw(Vector2 const& position, uint32_t tile_id);
+        void Draw(Vector2 const& position, uint16_t tile_id);
+        size_t Size();
+        uint32_t GetTileWidth();
+        uint32_t GetTileHeight();
 };
 
 #endif

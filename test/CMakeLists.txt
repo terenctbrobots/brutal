@@ -9,6 +9,9 @@ add_executable(
   test/helper_test.cpp
   src/graphics/sprite.cpp
   src/graphics/tileset.cpp
+  src/graphics/tilesetpack.cpp
+  src/graphics/layer.cpp
+  src/graphics/tilelayer.cpp
   src/graphics/animation.cpp
   test/graphic_test.cpp
 )

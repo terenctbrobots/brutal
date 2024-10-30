@@ -1,8 +1,12 @@
 #include <cstdlib>
+#include <fstream>
+
 #include "raylib.h"
 #include "graphic_test.h"
 #include "graphics/sprite.h"
 #include "graphics/tileset.h"
+#include "graphics/tilesetpack.h"
+#include "graphics/tilelayer.h"
 
 
 void GraphicTest::SetUp() {
@@ -20,11 +24,43 @@ void GraphicTest::SetUp() {
 void GraphicTest::TearDown() {
     CloseWindow();
 }
-
-class SpriteTest : public GraphicTest {
+class TileTest : public GraphicTest {
 };
 
-TEST_F(SpriteTest, TestLoadTileSet) 
+
+TEST_F(TileTest, TestDrawLayer)
+{
+    std::shared_ptr<TileSetPack> new_tilepack = std::make_shared<TileSetPack>();
+    EXPECT_EQ(new_tilepack->Load("testdata/plains.png"), Graphics::OK);
+
+    TileLayer new_layer = TileLayer(30,20,16,16);
+    new_layer.SetTileSetPack(new_tilepack);
+
+    std::ifstream map_json("testdata/test.json");
+
+    json parsed = json::parse(map_json);
+
+    int frame_counter = 0;
+    bool exit_flag = false;
+    SetTargetFPS(60);
+
+    while (!WindowShouldClose() && !exit_flag)
+    {
+        frame_counter++;
+
+        BeginDrawing();
+        ClearBackground(BLACK);
+
+        EndDrawing();
+
+        if (frame_counter >= this->delay_frames) 
+        {
+            exit_flag = true;
+        }
+    }
+}
+
+TEST_F(TileTest, TestLoadTileSet) 
 {
     TileSet new_tileset = TileSet();
 
@@ -50,8 +86,11 @@ TEST_F(SpriteTest, TestLoadTileSet)
             exit_flag = true;
         }
     }
-
 }
+
+class SpriteTest : public GraphicTest {
+};
+
 
 TEST_F(SpriteTest,TestLoadSprite) 
 {

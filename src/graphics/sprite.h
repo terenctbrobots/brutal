@@ -37,7 +37,7 @@ class Sprite : public  Graphics
 
         int Load(std::string const& file_name);
         int SetAnimation(std::string const& animation);
-        void Draw(Vector2 const& position, uint32_t tile_id = 0) override;
+        void Draw(Vector2 const& position, int16_t tile_id = 0) override;
 
         void FlipX();
         void FlipY();

@@ -43,7 +43,8 @@ int Sprite::LoadJSON()
 
     json json_data = json::parse(json_file,nullptr,false);
 
-    if (json_data == nullptr) 
+    
+    if (json_data.is_discarded())
     {
         return Graphics::ERROR_JSON_LOAD;
     }
@@ -143,7 +144,7 @@ int Sprite::Load(std::string const& file_name)
     return Graphics::OK;
 }
 
-void Sprite::Draw(Vector2 const& position, uint32_t tile_id) 
+void Sprite::Draw(Vector2 const& position, int16_t tile_id) 
 {
     if (current_animation_ == nullptr) 
     {

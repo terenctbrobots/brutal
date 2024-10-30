@@ -15,7 +15,7 @@ class Graphics
             ERROR_TEXTURE_LOAD,
             ERROR_GRAPHIC_LAST,
         };
-        virtual void Draw(Vector2 const& position,uint32_t tile_id = 0) = 0;
+        virtual void Draw(Vector2 const& position,int16_t tile_id = 0) = 0;
 };
 
 #endif

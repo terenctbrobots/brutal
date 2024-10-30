@@ -35,7 +35,7 @@ int TileSetPack::Load(std::string const& file_name)
     return Graphics::OK;
 }
 
-void TileSetPack::Draw(Vector2 const& position, uint32_t tile_id)
+void TileSetPack::Draw(Vector2 const& position, uint16_t tile_id)
 {
     if (tile_id > current_tile_id_index_) 
     {
@@ -43,4 +43,29 @@ void TileSetPack::Draw(Vector2 const& position, uint32_t tile_id)
     }
 
     tileset_list_[tile_id]->Draw(position, tile_id);
+}
+
+size_t TileSetPack::Size()
+{
+    return tileset_list_.size();
+}
+
+uint32_t TileSetPack::GetTileWidth()
+{
+    if (tileset_list_.size() == 0)
+    {
+        return 0;
+    }
+
+    return tileset_list_[0]->tile_width;
+}
+
+uint32_t TileSetPack::GetTileHeight()
+{
+    if (tileset_list_.size() == 0)
+    {
+        return 0;
+    }
+
+    return tileset_list_[0]->tile_height;
 }
