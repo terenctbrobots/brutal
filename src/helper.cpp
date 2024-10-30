@@ -65,3 +65,13 @@ Vector2 operator-(Vector2 lhs, Vector2 const& rhs)
 
     return lhs;
 };
+
+static u_int64_t current_uid = 1;
+
+/**
+ * For now, just use a static counter
+ */
+u_int64_t GetNextUid() 
+{
+    return current_uid++;
+}

@@ -19,4 +19,6 @@ uint64_t TimeMillisec();
 Vector2 operator+(Vector2 lhs, Vector2 const& rhs);
 Vector2 operator-(Vector2 lhs, Vector2 const& rhs);
 
+u_int64_t GetNextUid();
+
 #endif
