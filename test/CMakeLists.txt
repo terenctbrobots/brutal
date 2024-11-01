@@ -14,6 +14,10 @@ add_executable(
   src/graphics/tilelayer.cpp
   src/graphics/animation.cpp
   test/graphic_test.cpp
+  src/game/game.cpp
+  src/game/gameobject.cpp
+  src/game/level.cpp
+  test/game_test.cpp
 )
 
 target_link_libraries(

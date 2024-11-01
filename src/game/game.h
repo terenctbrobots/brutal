@@ -14,8 +14,6 @@ class Game
         Game(float width, float height);
         ~Game();
 
-        int SetViewScreen(float width, float height);
-
         // This is usually for internal use, probably use LoadLevel to serialize from json file
         std::shared_ptr<Level> CreateLevel(std::shared_ptr<Level> new_level);
         int MainLoop();

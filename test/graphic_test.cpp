@@ -24,6 +24,7 @@ void GraphicTest::SetUp() {
 void GraphicTest::TearDown() {
     CloseWindow();
 }
+
 class TileTest : public GraphicTest {
 };
 
