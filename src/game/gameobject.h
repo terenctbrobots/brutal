@@ -22,6 +22,8 @@ class GameObject
 
         u_int64_t GetUid();
         int Add(std::shared_ptr<Graphics> graphic);
+
+        int LoadSprite(std::string const& file_name);
 };
 
 #endif

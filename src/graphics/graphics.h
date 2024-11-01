@@ -16,6 +16,7 @@ class Graphics
             ERROR_GRAPHIC_LAST,
         };
         virtual void Draw(Vector2 const& position,int16_t tile_id = 0) = 0;
+        virtual int Load(std::string const& file_name) = 0;
 };
 
 #endif

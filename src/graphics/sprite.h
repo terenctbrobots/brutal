@@ -4,6 +4,8 @@
 #include "raylib.h"
 #include "graphics.h"
 #include "animation.h"
+#include "nlohmann/json.hpp"
+using json = nlohmann::json;
 
 class Sprite : public  Graphics 
 {
@@ -17,9 +19,9 @@ class Sprite : public  Graphics
         u_int64_t next_draw_time_;
 
         Vector2 frame_offset_;
-
+    
     private:
-        int LoadJSON();
+        int Add(json sprite_data);
 
     public:
         enum ReturnType 
@@ -35,7 +37,7 @@ class Sprite : public  Graphics
         Sprite();
         ~Sprite();
 
-        int Load(std::string const& file_name);
+        int Load(std::string const& file_name) override;
         int SetAnimation(std::string const& animation);
         void Draw(Vector2 const& position, int16_t tile_id = 0) override;
 

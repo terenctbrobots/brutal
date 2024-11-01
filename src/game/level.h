@@ -12,6 +12,9 @@ class Level
         std::vector<std::unique_ptr<Layer>> render_layers_;
 
     public:
+
+        Rectangle *view_screen;
+        
         Level();
         ~Level();
 

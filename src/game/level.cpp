@@ -3,7 +3,7 @@
 
 Level::Level()
 {
-
+    render_layers_.push_back(std::make_unique<Layer>());
 }
 
 Level::~Level()

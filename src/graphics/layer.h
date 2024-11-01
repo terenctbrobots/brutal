@@ -8,7 +8,7 @@
 class Layer 
 {
     public:
-        uint32_t layer;
+        uint32_t layer = 0;
 
         Layer();
         ~Layer();

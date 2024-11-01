@@ -2,8 +2,6 @@
 #include <vector>
 #include <memory>
 #include <iostream>
-#include "nlohmann/json.hpp"
-using json = nlohmann::json;
 
 #include "helper.h"
 #include "sprite.h"
@@ -27,45 +25,25 @@ Sprite::~Sprite()
 * Private
 */
 
-/**
- * @brief load json metdata data for sprite, populate and create
- * 
- * @return int - enumerated success(0) or error codes (i.e.Graphics::ERROR_)
- */
-int Sprite::LoadJSON() 
+int Sprite::Add(json sprite_data) 
 {
-    std::ifstream json_file(json_filename_);
-
-    if (!json_file.good()) 
+    if (sprite_data["width"] != nullptr) 
     {
-        return Graphics::ERROR_JSON_LOAD;
-    }
-
-    json json_data = json::parse(json_file,nullptr,false);
-
-    
-    if (json_data.is_discarded())
-    {
-        return Graphics::ERROR_JSON_LOAD;
-    }
-
-    if (json_data["width"] != nullptr) 
-    {
-        width = json_data["width"];
+        width = sprite_data["width"];
     } else {
         width = 32;
     }
 
-    if (json_data["height"] != nullptr) 
+    if (sprite_data["height"] != nullptr) 
     {
-        height = json_data["height"];
+        height = sprite_data["height"];
     } else {
         height = 32;
     }
 
     animation_list_.clear();
     
-    json animation_list_json = json_data["animation"];
+    json animation_list_json = sprite_data["animation"];
 
     u_int y = 0;
         
@@ -100,9 +78,9 @@ int Sprite::LoadJSON()
         y+=height;
     }
 
-    if (json_data["defaultAnimation"] != nullptr) 
+    if (sprite_data["defaultAnimation"] != nullptr) 
     {
-        SetAnimation(json_data["defaultAnimation"]);
+        SetAnimation(sprite_data["defaultAnimation"]);
     }
 
     return Graphics::OK;
@@ -134,7 +112,21 @@ int Sprite::Load(std::string const& file_name)
         return Graphics::ERROR_JSON_FILENAME;
     }
 
-    int return_value = LoadJSON(); 
+    std::ifstream json_file(json_filename_);
+
+    if (!json_file.good()) 
+    {
+        return Graphics::ERROR_JSON_LOAD;
+    }
+
+    json json_data = json::parse(json_file,nullptr,false);
+    
+    if (json_data.is_discarded())
+    {
+        return Graphics::ERROR_JSON_LOAD;
+    }
+
+    int return_value = Add(json_data); 
 
     if ( return_value != Graphics::OK) {
         return return_value;

@@ -35,7 +35,7 @@ class TileSet : public Graphics
         TileSet();
         ~TileSet();
 
-        int Load(std::string const& file_name);
+        int Load(std::string const& file_name) override;
 
         void Draw(Vector2 const& position, int16_t tile_id = 0) override;
 };
