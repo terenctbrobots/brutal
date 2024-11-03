@@ -40,9 +40,8 @@ void ObjectLayer::OrganizeDraw()
         if (CheckCollisionRecs(game.view_screen, (*new_gameobject)->position))
         {
             drawlist_.push_front(*new_gameobject);
-        } else {
-            new_gameobject++;
-        }
+        } 
+        new_gameobject++;
     }
 }
 
@@ -51,6 +50,7 @@ void ObjectLayer::Draw()
     auto gameobject = drawlist_.begin();
     while (gameobject != drawlist_.end())
     {
+        (*gameobject)->Draw();
         gameobject++;
     }
 }

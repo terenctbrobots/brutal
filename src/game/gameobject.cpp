@@ -1,3 +1,4 @@
+#include <iostream>
 #include "gameobject.h"
 #include "game/game.h"
 #include "graphics/sprite.h"

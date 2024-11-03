@@ -55,9 +55,18 @@ int Level::MainLoop()
     while (!WindowShouldClose())
 #endif   
     {
+        for (auto olayer=render_layers_.begin(); olayer != render_layers_.end(); olayer++)
+        {
+            (*olayer)->OrganizeDraw();
+        }
 
         BeginDrawing();
         ClearBackground(BLACK);
+
+        for (auto rlayer=render_layers_.begin(); rlayer != render_layers_.end(); rlayer++)
+        {
+            (*rlayer)->Draw();
+        }
 
         EndDrawing();
 
