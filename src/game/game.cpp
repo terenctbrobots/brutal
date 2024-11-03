@@ -1,6 +1,18 @@
 #include "game.h"
 
-Game::Game(float width, float height)
+void Game::CreateLevel()
+{
+    level = std::make_unique<Level>();
+}
+
+Game& Game::Get()
+{
+    static Game instance;
+
+    return instance;
+}
+
+void Game::Setup(float width, float height)
 {
     level = nullptr;
     view_screen.x = 0;
@@ -11,18 +23,6 @@ Game::Game(float width, float height)
     InitWindow(width, height, "Game");
 }
 
-Game::~Game()
-{
-    CloseWindow();
-}
-
-std::shared_ptr<Level> Game::CreateLevel(std::shared_ptr<Level> new_level)
-{
-    new_level->view_screen = &view_screen;
-
-    return new_level;
-}
-
 int Game::MainLoop()
 {
     if (level == nullptr)
@@ -31,4 +31,10 @@ int Game::MainLoop()
     level->MainLoop();
 
     return 0;
+}
+
+void Game::Cleanup()
+{
+    level = nullptr;
+    CloseWindow();
 }

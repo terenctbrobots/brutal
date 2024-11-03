@@ -19,6 +19,8 @@ TileLayer::TileLayer(uint32_t width, uint32_t height, uint32_t draw_width, uint3
     draw_height_ = draw_height;
 
     draw_offset = {0,0};
+
+    layer_type_ = Layer::TILE;
 }
 
 TileLayer::~TileLayer()
@@ -55,13 +57,23 @@ void TileLayer::SetLayerData(json layer_data)
     }
 }
 
+void TileLayer::OrganizeDraw()
+{
+    
+}
+
+void TileLayer::Draw()
+{
+    
+}
+
 /**
  * @brief draw to screen tile later data starting with tile_x and tile_y until number of tiles in draw_width and height
  * 
  * @param tile_x 
  * @param tile_y 
  */
-void TileLayer::Draw(uint32_t tile_x, uint32_t tile_y)
+void TileLayer::DrawTiles(uint32_t tile_x, uint32_t tile_y)
 {
     if (tile_set_pack_ == nullptr || tile_set_pack_->Size() == 0)
     {

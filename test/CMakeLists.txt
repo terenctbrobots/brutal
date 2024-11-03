@@ -10,8 +10,8 @@ add_executable(
   src/graphics/sprite.cpp
   src/graphics/tileset.cpp
   src/graphics/tilesetpack.cpp
-  src/graphics/layer.cpp
   src/graphics/tilelayer.cpp
+  src/graphics/objectlayer.cpp
   src/graphics/animation.cpp
   test/graphic_test.cpp
   src/game/game.cpp

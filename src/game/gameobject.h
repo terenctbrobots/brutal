@@ -16,7 +16,7 @@ class GameObject
     public:
         std::string name;
         Rectangle position;
-
+        
         GameObject(std::string const& name);
         ~GameObject();
 
@@ -24,6 +24,7 @@ class GameObject
         int Add(std::shared_ptr<Graphics> graphic);
 
         int LoadSprite(std::string const& file_name);
+        void Draw();
 };
 
 #endif

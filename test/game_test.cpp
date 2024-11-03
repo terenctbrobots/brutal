@@ -1,18 +1,19 @@
 #include <fstream>
 
 #include "raylib.h"
-#include "graphic_test.h"
+#include "game_test.h"
 #include "game/game.h"
-
-class GameTest : public GraphicTest {
-};
-
 
 TEST_F(GameTest, TestGameObject)
 {
-    Game new_game = Game(640,480);
+    Game& game = Game::Get();
 
-    std::shared_ptr<Level> new_level = new_game.CreateLevel(std::make_shared<Level>());
+    game.Setup(640,480);
 
-    new_game.MainLoop();
+    game.CreateLevel();
+    game.level->LoadSprite("testdata/player.png",0);
+
+    game.MainLoop();
+
+    game.Cleanup();
 }

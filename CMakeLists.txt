@@ -15,4 +15,6 @@ add_executable(brutal ${sources})
 
 target_link_libraries(brutal PRIVATE raylib glfw nlohmann_json)
 
-include(${CMAKE_SOURCE_DIR}/test/CMakeLists.txt)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    include(${CMAKE_SOURCE_DIR}/test/CMakeLists.txt)
+endif()

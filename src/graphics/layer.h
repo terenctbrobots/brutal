@@ -2,18 +2,30 @@
 #define LAYER_H
 
 #include <string>
+#include <vector>
+#include <memory>
 #include "raylib.h"
-#include "graphics.h"
+#include "game/level.h"
+
+
 
 class Layer 
 {
+    protected:
+        int layer_type_;
     public:
-        uint32_t layer = 0;
+        enum LayerType 
+        {
+            BASE = 0,
+            OBJECT,
+            TILE
+        };
+        Layer() {};
+        ~Layer() {};
 
-        Layer();
-        ~Layer();
+        int GetLayerType() { return layer_type_; }
 
-        int Draw();
-    
+        virtual void OrganizeDraw() = 0;
+        virtual void Draw() = 0;
 };
 #endif

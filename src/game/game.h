@@ -7,16 +7,23 @@
 
 class Game 
 {
+    private:
+        Game() {}
+
     public:
+        Game(const Game&) = delete;
+        void operator=(const Game& ) = delete;
+
+        static Game& Get();
         Rectangle view_screen;
-        std::shared_ptr<Level> level; 
+        std::unique_ptr<Level> level; 
 
-        Game(float width, float height);
-        ~Game();
 
-        // This is usually for internal use, probably use LoadLevel to serialize from json file
-        std::shared_ptr<Level> CreateLevel(std::shared_ptr<Level> new_level);
+        void Setup(float width, float height);
         int MainLoop();
+        void Cleanup();
+
+        void CreateLevel();
 };
 
 #endif
