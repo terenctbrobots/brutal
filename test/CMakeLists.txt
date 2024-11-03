@@ -24,6 +24,7 @@ target_link_libraries(
   brutal_test
   GTest::gtest_main
   raylib glfw nlohmann_json
+  spdlog::spdlog
 )
 
 include(GoogleTest)

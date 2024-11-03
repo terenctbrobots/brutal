@@ -3,6 +3,7 @@
     "raylib",
     "glfw3",
     "gtest",
-    "nlohmann-json"
+    "nlohmann-json",
+    "spdlog"
   ]
 }
