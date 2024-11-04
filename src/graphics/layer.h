@@ -20,6 +20,9 @@ class Layer
             OBJECT,
             TILE
         };
+
+        bool enabled = true;
+        
         Layer() {};
         ~Layer() {};
 

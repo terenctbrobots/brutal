@@ -57,7 +57,9 @@ int Level::MainLoop()
     {
         for (auto olayer=render_layers_.begin(); olayer != render_layers_.end(); olayer++)
         {
-            (*olayer)->OrganizeDraw();
+            if ((*olayer)->enabled) {
+                (*olayer)->OrganizeDraw();
+            }
         }
 
         BeginDrawing();
@@ -65,7 +67,9 @@ int Level::MainLoop()
 
         for (auto rlayer=render_layers_.begin(); rlayer != render_layers_.end(); rlayer++)
         {
-            (*rlayer)->Draw();
+            if ((*rlayer)->enabled) {
+                (*rlayer)->Draw();
+            }
         }
 
         EndDrawing();

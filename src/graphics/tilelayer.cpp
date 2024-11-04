@@ -106,8 +106,12 @@ void TileLayer::Draw() {
 
     for (uint32_t tile_y = start_tile_y_; tile_y < end_tile_y; tile_y++) {
         for (uint32_t tile_x = start_tile_x_; tile_x < end_tile_x; tile_x++) {
-            tile_set_pack_->Draw(position,
-                                 layer_data_[tile_y * width_ + tile_x]);
+            
+            uint16_t tile_id = layer_data_[tile_y * width_ + tile_x];
+
+            if (tile_id != 0) {
+                tile_set_pack_->Draw(position,tile_id);
+            }
             position.x += tile_width_;
         }
         position.y += tile_height_;

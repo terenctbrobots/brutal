@@ -17,3 +17,16 @@ TEST_F(GameTest, TestGameObject)
 
     game.Cleanup();
 }
+
+TEST_F(GameTest, TestTileLayer) 
+{
+    Game& game = Game::Get();
+
+    game.Setup(640,480);
+
+    game.CreateLevel();
+
+    game.MainLoop();
+
+    game.Cleanup();
+}
