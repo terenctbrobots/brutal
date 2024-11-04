@@ -1,6 +1,7 @@
 #include "tilelayer.h"
 
 #include "game/game.h"
+#include "spdlog/spdlog.h"
 
 /**
  * @brief Construct a new Tile Layer:: Tile Layer object
@@ -25,7 +26,7 @@ TileLayer::~TileLayer() {
     }
 }
 
-void TileLayer::SetTileSetPack(std::shared_ptr<TileSetPack> tile_set_pack) {
+std::shared_ptr<TileSetPack> TileLayer::SetTileSetPack(std::shared_ptr<TileSetPack> tile_set_pack) {
     tile_set_pack_ = tile_set_pack;
 
     tile_width_ = tile_set_pack_->GetTileWidth();
@@ -34,10 +35,25 @@ void TileLayer::SetTileSetPack(std::shared_ptr<TileSetPack> tile_set_pack) {
     Game& game = Game::Get();
 
     draw_width_ = std::round(game.view_screen.width / tile_width_) + 1;
+
+    if (draw_width_ > width_) {
+        draw_width_ = width_;
+    }
+
     draw_height_ = std::round(game.view_screen.height / tile_height_) + 1;
+
+    if (draw_height_ > height_) {
+        draw_height_ = height_;
+    }
 
     layer_pixel_width_ = tile_width_ * width_;
     layer_pixel_height_ = tile_height_ * height_;
+
+#ifdef DEBUG
+    spdlog::info("TileLayer : tile width {} & height {}, draw width {} & height {} pixel width {} & height {}",
+                 tile_width_, tile_height_, draw_width_, draw_height_, layer_pixel_width_, layer_pixel_height_);
+#endif
+    return tile_set_pack_;
 }
 
 void TileLayer::SetLayerData(json layer_data) {
@@ -106,11 +122,10 @@ void TileLayer::Draw() {
 
     for (uint32_t tile_y = start_tile_y_; tile_y < end_tile_y; tile_y++) {
         for (uint32_t tile_x = start_tile_x_; tile_x < end_tile_x; tile_x++) {
-            
             uint16_t tile_id = layer_data_[tile_y * width_ + tile_x];
 
             if (tile_id != 0) {
-                tile_set_pack_->Draw(position,tile_id);
+                tile_set_pack_->Draw(position, tile_id);
             }
             position.x += tile_width_;
         }

@@ -5,15 +5,15 @@
     },
     "activeFile": "test.tmx",
     "expandedProjectPaths": [
-        ".",
-        "tilesets"
+        "tilesets",
+        "."
     ],
     "fileStates": {
         "test.tmx": {
             "scale": 3.2141666666666664,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 239.56442831215972,
+                "x": 239.25330567798807,
                 "y": 160.22815659839253
             }
         },

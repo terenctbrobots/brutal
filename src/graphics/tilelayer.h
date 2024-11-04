@@ -28,7 +28,7 @@ class TileLayer : public Layer {
     TileLayer(uint32_t width, uint32_t height);
     ~TileLayer();
 
-    void SetTileSetPack(std::shared_ptr<TileSetPack> tile_set_pack);
+    std::shared_ptr<TileSetPack> SetTileSetPack(std::shared_ptr<TileSetPack> tile_set_pack);
     void SetLayerData(json layer_data);
 
     void OrganizeDraw() override;

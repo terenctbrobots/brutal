@@ -1,62 +1,48 @@
-#include <iostream>
 #include "level.h"
+
+#include <fstream>
+#include <iostream>
+#include <memory>
+
 #include "graphics/objectlayer.h"
+#include "graphics/tilelayer.h"
+#include "nlohmann/json.hpp"
+using json = nlohmann::json;
 
-Level::Level()
-{
-    render_layers_.push_back(std::make_shared<ObjectLayer>());
-}
+Level::Level() { render_layers_.push_back(std::make_shared<ObjectLayer>()); }
 
-Level::~Level()
-{
+Level::~Level() {}
 
-}
-
-int Level::Add(std::shared_ptr<GameObject> gameobject, u_int32_t layer)
-{
+int Level::Add(std::shared_ptr<GameObject> gameobject, u_int32_t layer) {
     auto render_layer = render_layers_[layer];
 
-    if (render_layer->GetLayerType() == Layer::OBJECT)
-    {
+    if (render_layer->GetLayerType() == Layer::OBJECT) {
         std::static_pointer_cast<ObjectLayer>(render_layer)->Add(gameobject);
     }
 
     return 0;
 }
 
-int Level::LoadSprite(std::string const& file_name, u_int32_t layer) 
-{
-    auto gameobject = std::make_shared<GameObject>("sprite");
-    gameobject->LoadSprite(file_name);
-    Add(gameobject, layer);
-
-    return 0;
-}
-
-
-int Level::MainLoop()
-{
-    #ifdef DEBUG
+int Level::MainLoop() {
+#ifdef DEBUG
     char* delay_string = std::getenv("DELAY");
     int delay_frames = 5;
 
-    if (delay_string != NULL) 
-    {
-        delay_frames =  atoi(delay_string);
-    } 
+    if (delay_string != NULL) {
+        delay_frames = atoi(delay_string);
+    }
     int frame_counter = 0;
     bool exit_flag = false;
-    #endif
+#endif
     SetTargetFPS(60);
 
 #ifdef DEBUG
     while (!WindowShouldClose() && !exit_flag)
-#else 
+#else
     while (!WindowShouldClose())
-#endif   
+#endif
     {
-        for (auto olayer=render_layers_.begin(); olayer != render_layers_.end(); olayer++)
-        {
+        for (auto olayer = render_layers_.begin(); olayer != render_layers_.end(); olayer++) {
             if ((*olayer)->enabled) {
                 (*olayer)->OrganizeDraw();
             }
@@ -65,8 +51,7 @@ int Level::MainLoop()
         BeginDrawing();
         ClearBackground(BLACK);
 
-        for (auto rlayer=render_layers_.begin(); rlayer != render_layers_.end(); rlayer++)
-        {
+        for (auto rlayer = render_layers_.begin(); rlayer != render_layers_.end(); rlayer++) {
             if ((*rlayer)->enabled) {
                 (*rlayer)->Draw();
             }
@@ -77,12 +62,38 @@ int Level::MainLoop()
 #ifdef DEBUG
         frame_counter++;
 
-        if (frame_counter >= delay_frames) 
-        {
+        if (frame_counter >= delay_frames) {
             exit_flag = true;
         }
 #endif
     }
+
+    return 0;
+}
+
+int Level::LoadSprite(std::string const& file_name, u_int32_t layer) {
+    auto gameobject = std::make_shared<GameObject>("sprite");
+    gameobject->LoadSprite(file_name);
+    Add(gameobject, layer);
+
+    return 0;
+}
+
+int Level::LoadTileLayer(std::string const& map_filename, std::string const& tileset_filename) {
+    std::ifstream map_json(map_filename);
+    json parsed = json::parse(map_json);
+
+    std::shared_ptr<TileLayer> new_layer = std::make_shared<TileLayer>(parsed["width"], parsed["height"]);
+
+    json layer_data = parsed["layers"].at(0)["data"];  // Just grab first layer for testing
+    new_layer->SetLayerData(layer_data);
+
+    std::shared_ptr<TileSetPack> new_tile_pack = std::make_shared<TileSetPack>();
+    new_tile_pack->Load(tileset_filename);
+
+    new_layer->SetTileSetPack(new_tile_pack);
+
+    render_layers_.push_back(new_layer);
 
     return 0;
 }
