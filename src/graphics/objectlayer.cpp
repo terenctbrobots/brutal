@@ -1,32 +1,24 @@
 #include "objectlayer.h"
+
 #include "game/game.h"
 #include "game/level.h"
 
-ObjectLayer::ObjectLayer()
-{
-    layer_type_ = Layer::OBJECT;
-}
+ObjectLayer::ObjectLayer() { layer_type_ = Layer::OBJECT; }
 
-ObjectLayer::~ObjectLayer()
-{
-    
-}
+ObjectLayer::~ObjectLayer() {}
 
-void ObjectLayer::Add(std::shared_ptr<GameObject> gameobject)
-{
+void ObjectLayer::Add(std::shared_ptr<GameObject> gameobject) {
     gameobjects_.push_front(gameobject);
 }
 
-void ObjectLayer::OrganizeDraw()
-{
-     Game& game = Game::Get();
+void ObjectLayer::OrganizeDraw() {
+    Game& game = Game::Get();
 
     // Remove all old gameobjects that are no longer in render view
     auto old_gameobject = drawlist_.begin();
-    while (old_gameobject != drawlist_.end())
-    {
-        if (!CheckCollisionRecs(game.view_screen, (*old_gameobject)->position))
-        {
+    while (old_gameobject != drawlist_.end()) {
+        if (!CheckCollisionRecs(game.view_screen,
+                                (*old_gameobject)->position)) {
             old_gameobject = drawlist_.erase(old_gameobject);
         } else {
             old_gameobject++;
@@ -35,22 +27,17 @@ void ObjectLayer::OrganizeDraw()
 
     // Add new game objects that are in render view
     auto new_gameobject = gameobjects_.begin();
-    while (new_gameobject != gameobjects_.end())
-    {
-        if (CheckCollisionRecs(game.view_screen, (*new_gameobject)->position))
-        {
+    while (new_gameobject != gameobjects_.end()) {
+        if (CheckCollisionRecs(game.view_screen, (*new_gameobject)->position)) {
             drawlist_.push_front(*new_gameobject);
-        } 
+        }
         new_gameobject++;
     }
 }
 
-void ObjectLayer::Draw() 
-{
+void ObjectLayer::Draw() {
     auto gameobject = drawlist_.begin();
-    while (gameobject != drawlist_.end())
-    {
-        (*gameobject)->Draw();
-        gameobject++;
+    while (gameobject != drawlist_.end()) {
+        (*gameobject++)->Draw();
     }
 }
