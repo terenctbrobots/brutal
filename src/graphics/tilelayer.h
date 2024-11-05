@@ -13,6 +13,8 @@ class TileLayer : public Layer {
 
     int32_t start_tile_x_;
     int32_t start_tile_y_;
+    uint32_t end_tile_x_;
+    uint32_t end_tile_y_;
     uint32_t draw_width_;
     uint32_t draw_height_;
 

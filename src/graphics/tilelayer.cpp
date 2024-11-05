@@ -80,14 +80,15 @@ void TileLayer::OrganizeDraw() {
         if (draw_offset_.x > layer_pixel_width_) {
             start_tile_x_ = -1;
             return;
-        } else {
-            start_tile_x_ = 0;
         }
+
+        start_tile_x_ = 0;
     } else {
         start_tile_x_ = std::floor(game.view_screen.x / tile_width_);
 
         if (start_tile_x_ >= width_) {
             start_tile_x_ = -1;
+            return;
         }
     }
 
@@ -97,9 +98,8 @@ void TileLayer::OrganizeDraw() {
         if (draw_offset_.y > layer_pixel_height_) {
             start_tile_y_ = -1;
             return;
-        } else {
-            start_tile_y_ = 0;
         }
+        start_tile_y_ = 0;
     } else {
         start_tile_y_ = std::floor(game.view_screen.y / tile_width_);
 
@@ -107,6 +107,16 @@ void TileLayer::OrganizeDraw() {
             start_tile_y_ = -1;
             return;
         }
+    }
+
+    end_tile_x_ = start_tile_x_ + draw_width_;
+    if (end_tile_x_ > width_) {
+        end_tile_x_ = width_;
+    }
+
+    end_tile_y_ = start_tile_x_ + draw_height_;
+    if (end_tile_y_ > height_) {
+        end_tile_y_ = height_;
     }
 }
 
@@ -117,11 +127,8 @@ void TileLayer::Draw() {
 
     Vector2 position = draw_offset_;
 
-    u_int32_t end_tile_x = start_tile_x_ + draw_width_;
-    u_int32_t end_tile_y = start_tile_y_ + draw_height_;
-
-    for (uint32_t tile_y = start_tile_y_; tile_y < end_tile_y; tile_y++) {
-        for (uint32_t tile_x = start_tile_x_; tile_x < end_tile_x; tile_x++) {
+    for (uint32_t tile_y = start_tile_y_; tile_y < end_tile_y_; tile_y++) {
+        for (uint32_t tile_x = start_tile_x_; tile_x < end_tile_x_; tile_x++) {
             uint16_t tile_id = layer_data_[tile_y * width_ + tile_x];
 
             if (tile_id != 0) {
