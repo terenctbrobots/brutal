@@ -19,9 +19,6 @@ class Sprite : public Graphics {
 
     Vector2 frame_offset_;
 
-   private:
-    int Add(json sprite_data);
-
    public:
     enum ReturnType {
         ERROR_ANIMATION = Graphics::ERROR_GRAPHIC_LAST,
@@ -41,6 +38,8 @@ class Sprite : public Graphics {
 
     void FlipX();
     void FlipY();
+
+    int DeSerialize(json const& json_data) override;
 };
 
 #endif

@@ -2,43 +2,43 @@
 #define TILESET_H
 #include <string>
 
-#include "raylib.h"
 #include "nlohmann/json.hpp"
+#include "raylib.h"
 using json = nlohmann::json;
 #include "graphics.h"
 
-class TileSet : public Graphics
-{
-    private:
-        std::string json_filename_;
-        Texture2D texture_;
+class TileSet : public Graphics {
+   private:
+    std::string json_filename_;
+    Texture2D texture_;
 
-        std::vector<std::unique_ptr<Rectangle>> tile_list_;
+    std::vector<std::unique_ptr<Rectangle>> tile_list_;
 
-    private:
-        int LoadJSON();
-        int ProcessJSON(json const& tile_json);
-    public:
-        uint32_t width;
-        uint32_t height;
+   private:
+    int LoadJSON();
+    int ProcessJSON(json const& tile_json);
 
-        uint32_t tile_width;
-        uint32_t tile_height;
+   public:
+    uint32_t width;
+    uint32_t height;
 
-        uint32_t tile_count;
-        int32_t tile_first_id;
-        int32_t tile_last_id;
+    uint32_t tile_width;
+    uint32_t tile_height;
 
-        std::string name;
+    uint32_t tile_count;
+    int32_t tile_first_id;
+    int32_t tile_last_id;
 
-    public:
-        TileSet();
-        ~TileSet();
+    std::string name;
 
-        int Load(std::string const& file_name) override;
+   public:
+    TileSet();
+    ~TileSet();
 
-        void Draw(Vector2 const& position, int16_t tile_id = 0);
+    int Load(std::string const& file_name) override;
+    int DeSerialize(json const& json_data) override;
+
+    void Draw(Vector2 const& position, int16_t tile_id = 0);
 };
-
 
 #endif
