@@ -9,7 +9,7 @@
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;
 
-Level::Level() { render_layers_.push_back(std::make_shared<ObjectLayer>()); }
+Level::Level() {}
 
 Level::~Level() {}
 
@@ -72,6 +72,10 @@ int Level::MainLoop() {
 }
 
 int Level::LoadSprite(std::string const& file_name, u_int32_t layer) {
+    if (render_layers_.size() == 0) {
+        render_layers_.push_back(std::make_shared<ObjectLayer>());
+    }
+
     auto gameobject = std::make_shared<GameObject>("sprite");
     gameobject->LoadSprite(file_name);
     Add(gameobject, layer);
