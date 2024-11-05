@@ -20,18 +20,18 @@ int TileSet::LoadJSON() {
     std::ifstream json_file(json_filename_);
 
     if (!json_file.good()) {
-        return Graphics::ERROR_JSON_LOAD;
+        return Render::ERROR_JSON_LOAD;
     }
 
     json json_data = json::parse(json_file, nullptr, false);
 
     if (json_data.is_discarded()) {
-        return Graphics::ERROR_JSON_LOAD;
+        return Render::ERROR_JSON_LOAD;
     }
 
     DeSerialize(json_data);
 
-    return Graphics::OK;
+    return Render::OK;
 }
 
 int TileSet::DeSerialize(json const& json_data) {
@@ -58,7 +58,7 @@ int TileSet::DeSerialize(json const& json_data) {
         }
     }
 
-    return Graphics::OK;
+    return Render::OK;
 }
 
 /*
@@ -68,22 +68,22 @@ int TileSet::Load(std::string const& file_name) {
     texture_ = LoadTexture(file_name.c_str());
 
     if (texture_.id == 0) {
-        return Graphics::ERROR_TEXTURE_LOAD;
+        return Render::ERROR_TEXTURE_LOAD;
     }
 
     json_filename_ = GetJSONFilename(file_name);
 
     if (json_filename_.length() == 0) {
-        return Graphics::ERROR_JSON_FILENAME;
+        return Render::ERROR_JSON_FILENAME;
     }
 
     int return_value = LoadJSON();
 
-    if (return_value != Graphics::OK) {
+    if (return_value != Render::OK) {
         return return_value;
     }
 
-    return Graphics::OK;
+    return Render::OK;
 }
 
 void TileSet::Draw(Vector2 const& position, int16_t tile_id) {

@@ -46,11 +46,11 @@ int Sprite::DeSerialize(json const& json_data) {
         json frame_data = animation_json.value();
 
         if (frame_data["frames"] == nullptr) {
-            return Graphics::ERROR_JSON;
+            return Render::ERROR_JSON;
         }
 
         if (frame_data["frameRate"] == nullptr) {
-            return Graphics::ERROR_JSON;
+            return Render::ERROR_JSON;
         }
 
         Vector2 offset = {0, 0};
@@ -73,7 +73,7 @@ int Sprite::DeSerialize(json const& json_data) {
         SetAnimation(json_data["defaultAnimation"]);
     }
 
-    return Graphics::OK;
+    return Render::OK;
 }
 
 /*
@@ -90,34 +90,34 @@ int Sprite::Load(std::string const& file_name) {
     texture_ = LoadTexture(file_name.c_str());
 
     if (texture_.id == 0) {
-        return Graphics::ERROR_TEXTURE_LOAD;
+        return Render::ERROR_TEXTURE_LOAD;
     }
 
     json_filename_ = GetJSONFilename(file_name);
 
     if (json_filename_.length() == 0) {
-        return Graphics::ERROR_JSON_FILENAME;
+        return Render::ERROR_JSON_FILENAME;
     }
 
     std::ifstream json_file(json_filename_);
 
     if (!json_file.good()) {
-        return Graphics::ERROR_JSON_LOAD;
+        return Render::ERROR_JSON_LOAD;
     }
 
     json json_data = json::parse(json_file, nullptr, false);
 
     if (json_data.is_discarded()) {
-        return Graphics::ERROR_JSON_LOAD;
+        return Render::ERROR_JSON_LOAD;
     }
 
     int return_value = DeSerialize(json_data);
 
-    if (return_value != Graphics::OK) {
+    if (return_value != Render::OK) {
         return return_value;
     }
 
-    return Graphics::OK;
+    return Render::OK;
 }
 
 void Sprite::Draw(Vector2 const& position, int16_t tile_id) {
@@ -151,7 +151,7 @@ int Sprite::SetAnimation(std::string const& animation) {
     current_frame_ = 0;
     current_animation_ = animation_list_[animation];
 
-    return Graphics::OK;
+    return Render::OK;
 }
 
 void Sprite::FlipX() {

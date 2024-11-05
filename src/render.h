@@ -1,12 +1,13 @@
-#ifndef GRAPHICS_H
-#define GRAPHICS_H
+#ifndef RENDER_H
+#define RENDER_H
 
 #include <cstdint>
 
 #include "nlohmann/json.hpp"
+#include "raylib.h"
 using json = nlohmann::json;
 
-class Graphics {
+class Render {
    public:
     enum ReturnType {
         OK = 0,

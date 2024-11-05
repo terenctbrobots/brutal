@@ -3,11 +3,11 @@
 #include <string>
 
 #include "animation.h"
-#include "graphics.h"
 #include "nlohmann/json.hpp"
 #include "raylib.h"
+#include "render.h"
 using json = nlohmann::json;
-class Sprite : public Graphics {
+class Sprite : public Render {
    private:
     std::string json_filename_;
     std::unordered_map<std::string, std::shared_ptr<Animation>> animation_list_;
@@ -21,7 +21,7 @@ class Sprite : public Graphics {
 
    public:
     enum ReturnType {
-        ERROR_ANIMATION = Graphics::ERROR_GRAPHIC_LAST,
+        ERROR_ANIMATION = Render::ERROR_GRAPHIC_LAST,
         ERROR_SPRITE_LAST,
     };
 

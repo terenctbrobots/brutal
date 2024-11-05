@@ -5,9 +5,9 @@
 #include "nlohmann/json.hpp"
 #include "raylib.h"
 using json = nlohmann::json;
-#include "graphics.h"
+#include "render.h"
 
-class TileSet : public Graphics {
+class TileSet : public Render {
    private:
     std::string json_filename_;
     Texture2D texture_;
@@ -16,7 +16,6 @@ class TileSet : public Graphics {
 
    private:
     int LoadJSON();
-    int ProcessJSON(json const& tile_json);
 
    public:
     uint32_t width;

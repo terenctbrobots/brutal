@@ -27,7 +27,7 @@ class TileTest : public GraphicTest {};
 // {
 //     std::shared_ptr<TileSetPack> new_tilepack =
 //     std::make_shared<TileSetPack>();
-//     EXPECT_EQ(new_tilepack->Load("testdata/plains.png"), Graphics::OK);
+//     EXPECT_EQ(new_tilepack->Load("testdata/plains.png"), Render::OK);
 
 //     TileLayer new_layer = TileLayer(30,20);
 //     new_layer.SetTileSetPack(new_tilepack);
@@ -59,7 +59,7 @@ class TileTest : public GraphicTest {};
 TEST_F(TileTest, TestLoadTileSet) {
     TileSet new_tileset = TileSet();
 
-    EXPECT_EQ(new_tileset.Load("testdata/plains.png"), Graphics::OK);
+    EXPECT_EQ(new_tileset.Load("testdata/plains.png"), Render::OK);
 
     int frame_counter = 0;
     bool exit_flag = false;
@@ -86,7 +86,7 @@ class SpriteTest : public GraphicTest {};
 TEST_F(SpriteTest, TestLoadSprite) {
     Sprite new_sprite = Sprite();
 
-    EXPECT_EQ(new_sprite.Load("testdata/player.png"), Graphics::OK);
+    EXPECT_EQ(new_sprite.Load("testdata/player.png"), Render::OK);
 
     EXPECT_EQ(new_sprite.width, 48);
     EXPECT_EQ(new_sprite.height, 48);
