@@ -3,13 +3,13 @@
 #include "game/game.h"
 #include "game/level.h"
 
+using namespace Graphics;
+
 ObjectLayer::ObjectLayer() { layer_type_ = Layer::OBJECT; }
 
 ObjectLayer::~ObjectLayer() {}
 
-void ObjectLayer::Add(std::shared_ptr<GameObject> gameobject) {
-    gameobjects_.push_front(gameobject);
-}
+void ObjectLayer::Add(std::shared_ptr<GameObject> gameobject) { gameobjects_.push_front(gameobject); }
 
 void ObjectLayer::OrganizeDraw() {
     Game& game = Game::Get();
@@ -17,8 +17,7 @@ void ObjectLayer::OrganizeDraw() {
     // Remove all old gameobjects that are no longer in render view
     auto old_gameobject = drawlist_.begin();
     while (old_gameobject != drawlist_.end()) {
-        if (!CheckCollisionRecs(game.view_screen,
-                                (*old_gameobject)->position)) {
+        if (!CheckCollisionRecs(game.view_screen, (*old_gameobject)->position)) {
             old_gameobject = drawlist_.erase(old_gameobject);
         } else {
             old_gameobject++;

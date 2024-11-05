@@ -9,6 +9,8 @@
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;
 
+using namespace Graphics;
+
 Level::Level() {}
 
 Level::~Level() {}

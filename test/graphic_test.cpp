@@ -9,6 +9,8 @@
 #include "graphics/tilesetpack.h"
 #include "raylib.h"
 
+using namespace Graphics;
+
 void GraphicTest::SetUp() {
     char* delay_string = std::getenv("DELAY");
 

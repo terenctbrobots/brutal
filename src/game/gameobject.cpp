@@ -6,6 +6,8 @@
 #include "graphics/sprite.h"
 #include "helper.h"
 
+using namespace Graphics;
+
 GameObject::GameObject(std::string const& name) { uid_ = GetNextUid(); }
 
 GameObject::~GameObject() {}

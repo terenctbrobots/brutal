@@ -3,6 +3,8 @@
 #include "game/game.h"
 #include "spdlog/spdlog.h"
 
+using namespace Graphics;
+
 /**
  * @brief Construct a new Tile Layer:: Tile Layer object
  *

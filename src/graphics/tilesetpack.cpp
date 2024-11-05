@@ -1,5 +1,7 @@
 #include "tilesetpack.h"
 
+using namespace Graphics;
+
 TileSetPack::TileSetPack() {}
 
 TileSetPack::~TileSetPack() {}

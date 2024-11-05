@@ -4,6 +4,7 @@
 #include "layer.h"
 #include "tilesetpack.h"
 
+namespace Graphics {
 class TileLayer : public Layer {
    private:
     std::shared_ptr<TileSetPack> tile_set_pack_;
@@ -37,5 +38,7 @@ class TileLayer : public Layer {
     void DrawTiles(uint32_t tile_x, uint32_t tile_y);
     void Draw() override;
 };
+
+}  // namespace Graphics
 
 #endif

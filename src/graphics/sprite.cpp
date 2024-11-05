@@ -7,6 +7,8 @@
 
 #include "helper.h"
 
+using namespace Graphics;
+
 Sprite::Sprite() {
     current_animation_ = nullptr;
     current_frame_ = 0;

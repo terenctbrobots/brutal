@@ -4,6 +4,8 @@
 
 #include "helper.h"
 
+using namespace Graphics;
+
 TileSet::TileSet() { tile_first_id = 1; }
 
 TileSet::~TileSet() {

@@ -7,6 +7,7 @@
 using json = nlohmann::json;
 #include "render.h"
 
+namespace Graphics {
 class TileSet : public Render {
    private:
     std::string json_filename_;
@@ -39,5 +40,7 @@ class TileSet : public Render {
 
     void Draw(Vector2 const& position, int16_t tile_id = 0);
 };
+
+}  // namespace Graphics
 
 #endif

@@ -7,6 +7,8 @@
 #include "raylib.h"
 #include "render.h"
 using json = nlohmann::json;
+
+namespace Graphics {
 class Sprite : public Render {
    private:
     std::string json_filename_;
@@ -41,5 +43,7 @@ class Sprite : public Render {
 
     int DeSerialize(json const& json_data) override;
 };
+
+}  // namespace Graphics
 
 #endif

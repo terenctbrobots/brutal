@@ -9,6 +9,7 @@
 #include "raylib.h"
 #include "render.h"
 
+namespace Graphics {
 class Animation {
    public:
     // TODO: Pass a structure istead?
@@ -26,5 +27,6 @@ class Animation {
 
     void Reset();
 };
+}  // namespace Graphics
 
 #endif
