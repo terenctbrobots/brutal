@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <fstream>
 
+#include "graphics/bitmap.h"
 #include "graphics/sprite.h"
 #include "graphics/tilelayer.h"
 #include "graphics/tileset.h"
@@ -12,6 +13,8 @@
 using namespace Graphics;
 
 void GraphicTest::SetUp() {
+    SetTraceLogLevel(LOG_ERROR);
+
     char* delay_string = std::getenv("DELAY");
 
     if (delay_string != NULL) {
@@ -23,42 +26,7 @@ void GraphicTest::SetUp() {
 
 void GraphicTest::TearDown() { CloseWindow(); }
 
-class TileTest : public GraphicTest {};
-
-// TEST_F(TileTest, TestDrawLayer)
-// {
-//     std::shared_ptr<TileSetPack> new_tilepack =
-//     std::make_shared<TileSetPack>();
-//     EXPECT_EQ(new_tilepack->Load("testdata/plains.png"), Render::OK);
-
-//     TileLayer new_layer = TileLayer(30,20);
-//     new_layer.SetTileSetPack(new_tilepack);
-
-//     std::ifstream map_json("testdata/test.json");
-
-//     json parsed = json::parse(map_json);
-
-//     int frame_counter = 0;
-//     bool exit_flag = false;
-//     SetTargetFPS(60);
-
-//     while (!WindowShouldClose() && !exit_flag)
-//     {
-//         frame_counter++;
-
-//         BeginDrawing();
-//         ClearBackground(BLACK);
-
-//         EndDrawing();
-
-//         if (frame_counter >= this->delay_frames)
-//         {
-//             exit_flag = true;
-//         }
-//     }
-// }
-
-TEST_F(TileTest, TestLoadTileSet) {
+TEST_F(GraphicTest, TestLoadTileSet) {
     TileSet new_tileset = TileSet();
 
     EXPECT_EQ(new_tileset.Load("testdata/plains.png"), Render::OK);
@@ -83,9 +51,31 @@ TEST_F(TileTest, TestLoadTileSet) {
     }
 }
 
-class SpriteTest : public GraphicTest {};
+TEST_F(GraphicTest, TestDrawBitmap) {
+    Bitmap new_bitmap = Bitmap();
+    EXPECT_EQ(new_bitmap.Load("testdata/bbr.png"), Render::OK);
 
-TEST_F(SpriteTest, TestLoadSprite) {
+    int frame_counter = 0;
+    bool exit_flag = false;
+    SetTargetFPS(60);
+
+    while (!WindowShouldClose() && !exit_flag) {
+        frame_counter++;
+
+        BeginDrawing();
+        ClearBackground(BLACK);
+
+        new_bitmap.Draw({100, 100});
+
+        EndDrawing();
+
+        if (frame_counter >= this->delay_frames) {
+            exit_flag = true;
+        }
+    }
+}
+
+TEST_F(GraphicTest, TestLoadSprite) {
     Sprite new_sprite = Sprite();
 
     EXPECT_EQ(new_sprite.Load("testdata/player.png"), Render::OK);

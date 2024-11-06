@@ -4,7 +4,10 @@
 
 using namespace Graphics;
 
-Bitmap::Bitmap() {}
+Bitmap::Bitmap() {
+    texture_.id = 0;
+    image_.data = NULL;
+}
 
 Bitmap::~Bitmap() {
     if (image_.data != NULL) {
@@ -35,3 +38,5 @@ void Bitmap::Draw(Vector2 const& position, int16_t tile_id) {
 
     texture_ = LoadTextureFromImage(image_);
 }
+
+int Bitmap::DeSerialize(json const& json_data) { return 0; }

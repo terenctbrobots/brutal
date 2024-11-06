@@ -35,3 +35,4 @@ brutal
 vcpkg_installed
 Makefile
 build/*
+bin

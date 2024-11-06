@@ -6,7 +6,10 @@
 
 using namespace Graphics;
 
-TileSet::TileSet() { tile_first_id = 1; }
+TileSet::TileSet() { 
+    tile_first_id = 1;
+    texture_.id = 0;
+}
 
 TileSet::~TileSet() {
     if (texture_.id > 0) {

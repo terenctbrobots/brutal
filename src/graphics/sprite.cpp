@@ -14,6 +14,7 @@ Sprite::Sprite() {
     current_frame_ = 0;
     next_draw_time_ = 0;
     frame_offset_ = {0, 0};
+    texture_.id = 0;
 }
 
 Sprite::~Sprite() {
