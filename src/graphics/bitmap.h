@@ -8,6 +8,7 @@ namespace Graphics {
 class Bitmap : public Render {
    private:
     Image image_;
+    Texture texture_;
 
    public:
     Bitmap();

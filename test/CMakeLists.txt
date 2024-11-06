@@ -13,6 +13,7 @@ add_executable(
   src/graphics/tilelayer.cpp
   src/graphics/objectlayer.cpp
   src/graphics/animation.cpp
+  src/graphics/bitmap.cpp
   test/graphic_test.cpp
   src/game/game.cpp
   src/game/gameobject.cpp

@@ -16,6 +16,7 @@ class GameObject {
    public:
     std::string name;
     Rectangle position;
+    bool enabled = true;
 
     GameObject(std::string const& name);
     ~GameObject();
