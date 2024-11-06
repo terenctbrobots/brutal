@@ -17,6 +17,13 @@ class Render {
         ERROR_TEXTURE_LOAD,
         ERROR_GRAPHIC_LAST,
     };
+
+    enum RenderType {
+        GRAPHIC_SPRITE = 1,
+        GRAPHIC_BITMAP,
+        UI_TEXT,
+    };
+
     virtual void Draw(Vector2 const& position, int16_t tile_id = 0) = 0;
     virtual int Load(std::string const& file_name) = 0;
 

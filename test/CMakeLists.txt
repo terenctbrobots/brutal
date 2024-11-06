@@ -19,13 +19,19 @@ add_executable(
   src/game/gameobject.cpp
   src/game/level.cpp
   test/game_test.cpp
+  test/ui_test.cpp
+  test/lua_test.cpp
 )
+
+target_include_directories(brutal_test PRIVATE ${LUA_INCLUDE_DIR})
 
 target_link_libraries(
   brutal_test
+  PRIVATE
   GTest::gtest_main
   raylib glfw nlohmann_json
   spdlog::spdlog
+ ${LUA_LIBRARIES}
 )
 
 include(GoogleTest)

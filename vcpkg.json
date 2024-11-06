@@ -4,6 +4,7 @@
     "glfw3",
     "gtest",
     "nlohmann-json",
-    "spdlog"
+    "spdlog",
+    "lua"
   ]
 }
