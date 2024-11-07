@@ -5,6 +5,7 @@
     "gtest",
     "nlohmann-json",
     "spdlog",
-    "lua"
+    "lua",
+    "luabridge3"
   ]
 }

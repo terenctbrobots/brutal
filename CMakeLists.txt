@@ -15,7 +15,9 @@ add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 
 add_executable(brutal ${sources})
 
-target_include_directories(brutal PRIVATE ${LUA_INCLUDE_DIR})
+find_path(LUABRIDGE3_INCLUDE_DIRS "luabridge3/LuaBridge/Array.h")
+
+target_include_directories(brutal PRIVATE ${LUA_INCLUDE_DIR} ${LUABRIDGE3_INCLUDE_DIRS})
 target_link_libraries(brutal PRIVATE raylib glfw nlohmann_json spdlog::spdlog  ${LUA_LIBRARIES})
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")

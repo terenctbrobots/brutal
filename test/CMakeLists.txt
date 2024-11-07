@@ -23,7 +23,7 @@ add_executable(
   test/lua_test.cpp
 )
 
-target_include_directories(brutal_test PRIVATE ${LUA_INCLUDE_DIR})
+target_include_directories(brutal_test PRIVATE ${LUA_INCLUDE_DIR} ${LUABRIDGE3_INCLUDE_DIRS})
 
 target_link_libraries(
   brutal_test
@@ -32,6 +32,7 @@ target_link_libraries(
   raylib glfw nlohmann_json
   spdlog::spdlog
  ${LUA_LIBRARIES}
+ 
 )
 
 include(GoogleTest)
