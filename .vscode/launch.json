@@ -12,6 +12,15 @@
             "args": [],
             "env": [],
             "cwd": "${workspaceRoot}"
+        },
+        {
+            "type": "lldb-dap",
+            "request": "launch",
+            "name": "Debug Test",
+            "program": "${workspaceRoot}/build/brutal_test",
+            "args": [],
+            "env": [],
+            "cwd": "${workspaceRoot}"
         }
     ]
 }
