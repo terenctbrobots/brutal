@@ -6,6 +6,7 @@
     "nlohmann-json",
     "spdlog",
     "lua",
-    "luabridge3"
+    "luabridge3",
+    "raygui"
   ]
 }
