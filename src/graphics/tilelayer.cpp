@@ -77,7 +77,7 @@ void TileLayer::OrganizeDraw() {
     Game& game = Game::Get();
 
     if (game.view_screen.x < 0) {
-        draw_offset_.x = abs(game.view_screen.x);
+        draw_offset_.x = std::abs(game.view_screen.x);
 
         if (draw_offset_.x > layer_pixel_width_) {
             start_tile_x_ = -1;
@@ -95,7 +95,7 @@ void TileLayer::OrganizeDraw() {
     }
 
     if (game.view_screen.y < 0) {
-        draw_offset_.y = abs(game.view_screen.y);
+        draw_offset_.y = std::abs(game.view_screen.y);
 
         if (draw_offset_.y > layer_pixel_height_) {
             start_tile_y_ = -1;

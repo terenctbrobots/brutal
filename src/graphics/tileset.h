@@ -38,7 +38,7 @@ class TileSet : public Render {
     int Load(std::string const& file_name) override;
     int DeSerialize(json const& json_data) override;
 
-    void Draw(Vector2 const& position, int16_t tile_id = 0);
+    void Draw(Vector2 const& position, int16_t tile_id = 0) override;
 };
 
 }  // namespace Graphics
