@@ -5,7 +5,8 @@
     "gtest",
     "nlohmann-json",
     "spdlog",
-    "lua",
+    "luajit",
+    "pkgconf",
     "luabridge3",
     "raygui"
   ]
