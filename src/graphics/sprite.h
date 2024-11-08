@@ -36,7 +36,7 @@ class Sprite : public Render {
 
     int Load(std::string const& file_name) override;
     int SetAnimation(std::string const& animation);
-    void Draw(Vector2 const& position, int16_t tile_id = 0) override;
+    void Draw(Vector2 const& position) override;
 
     void FlipX();
     void FlipY();

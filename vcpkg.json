@@ -8,6 +8,7 @@
     "luajit",
     "pkgconf",
     "luabridge3",
-    "raygui"
+    "raygui",
+    "entt"
   ]
 }

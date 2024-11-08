@@ -123,7 +123,7 @@ int Sprite::Load(std::string const& file_name) {
     return Render::OK;
 }
 
-void Sprite::Draw(Vector2 const& position, int16_t tile_id) {
+void Sprite::Draw(Vector2 const& position) {
     if (current_animation_ == nullptr) {
         return;
     }

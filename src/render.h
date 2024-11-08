@@ -24,7 +24,7 @@ class Render {
         UI_TEXT,
     };
 
-    virtual void Draw(Vector2 const& position, int16_t tile_id = 0) = 0;
+    virtual void Draw(Vector2 const& position) = 0;
     virtual int Load(std::string const& file_name) = 0;
 
     virtual int DeSerialize(json const& json_data) = 0;

@@ -30,7 +30,7 @@ int Bitmap::Load(std::string const& file_name) {
     return Render::OK;
 };
 
-void Bitmap::Draw(Vector2 const& position, int16_t tile_id) {
+void Bitmap::Draw(Vector2 const& position) {
     if (texture_.id > 0) {
         DrawTextureV(texture_, position, WHITE);
         return;

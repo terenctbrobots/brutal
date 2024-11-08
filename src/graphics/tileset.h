@@ -8,7 +8,7 @@ using json = nlohmann::json;
 #include "render.h"
 
 namespace Graphics {
-class TileSet : public Render {
+class TileSet {
    private:
     std::string json_filename_;
     Texture2D texture_;
@@ -35,10 +35,10 @@ class TileSet : public Render {
     TileSet();
     ~TileSet();
 
-    int Load(std::string const& file_name) override;
-    int DeSerialize(json const& json_data) override;
+    int Load(std::string const& file_name);
+    int DeSerialize(json const& json_data);
 
-    void Draw(Vector2 const& position, int16_t tile_id = 0) override;
+    void Draw(Vector2 const& position, int16_t tile_id = 0);
 };
 
 }  // namespace Graphics

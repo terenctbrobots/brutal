@@ -10,6 +10,7 @@
 
 class GameObject {
    protected:
+    // TODO: Make this a unique_ptr, once we can serialize it
     std::shared_ptr<Render> render_;
     u_int64_t uid_;
 
@@ -22,7 +23,6 @@ class GameObject {
     ~GameObject();
 
     u_int64_t GetUid();
-    int Add(std::shared_ptr<Render> graphic);
 
     int LoadSprite(std::string const& file_name);
     void Draw();
