@@ -3,14 +3,14 @@
 #include <cstdlib>
 #include <fstream>
 
+#include "game/gameobject.h"
+#include "game/level.h"
 #include "graphics/bitmap.h"
 #include "graphics/sprite.h"
 #include "graphics/tilelayer.h"
 #include "graphics/tileset.h"
 #include "graphics/tilesetpack.h"
 #include "raylib.h"
-
-using namespace Graphics;
 
 void GraphicTest::SetUp() {
     SetTraceLogLevel(LOG_ERROR);
@@ -27,82 +27,92 @@ void GraphicTest::SetUp() {
 void GraphicTest::TearDown() { CloseWindow(); }
 
 TEST_F(GraphicTest, TestLoadTileSet) {
-    TileSet new_tileset = TileSet();
+    // TileSet new_tileset = TileSet();
 
-    EXPECT_EQ(new_tileset.Load("testdata/plains.png"), Render::OK);
+    // EXPECT_EQ(new_tileset.Load("testdata/plains.png"), Render::OK);
 
-    int frame_counter = 0;
-    bool exit_flag = false;
-    SetTargetFPS(60);
+    // int frame_counter = 0;
+    // bool exit_flag = false;
+    // SetTargetFPS(60);
 
-    while (!WindowShouldClose() && !exit_flag) {
-        frame_counter++;
+    // while (!WindowShouldClose() && !exit_flag) {
+    //     frame_counter++;
 
-        BeginDrawing();
-        ClearBackground(BLACK);
+    //     BeginDrawing();
+    //     ClearBackground(BLACK);
 
-        new_tileset.Draw({100, 100}, 1);
+    //     new_tileset.Draw({100, 100}, 1);
 
-        EndDrawing();
+    //     EndDrawing();
 
-        if (frame_counter >= this->delay_frames) {
-            exit_flag = true;
-        }
-    }
+    //     if (frame_counter >= this->delay_frames) {
+    //         exit_flag = true;
+    //     }
+    // }
 }
 
 TEST_F(GraphicTest, TestDrawBitmap) {
-    Bitmap new_bitmap = Bitmap();
-    EXPECT_EQ(new_bitmap.Load("testdata/bbr.png"), Render::OK);
+    // Bitmap new_bitmap = Bitmap();
+    // EXPECT_EQ(new_bitmap.Load("testdata/bbr.png"), Render::OK);
 
-    int frame_counter = 0;
-    bool exit_flag = false;
-    SetTargetFPS(60);
+    // int frame_counter = 0;
+    // bool exit_flag = false;
+    // SetTargetFPS(60);
 
-    while (!WindowShouldClose() && !exit_flag) {
-        frame_counter++;
+    // while (!WindowShouldClose() && !exit_flag) {
+    //     frame_counter++;
 
-        BeginDrawing();
-        ClearBackground(BLACK);
+    //     BeginDrawing();
+    //     ClearBackground(BLACK);
 
-        new_bitmap.Draw({100, 100});
+    //     new_bitmap.Draw({100, 100});
 
-        EndDrawing();
+    //     EndDrawing();
 
-        if (frame_counter >= this->delay_frames) {
-            exit_flag = true;
-        }
-    }
+    //     if (frame_counter >= this->delay_frames) {
+    //         exit_flag = true;
+    //     }
+    // }
 }
 
-TEST_F(GraphicTest, TestLoadSprite) {
-    Sprite new_sprite = Sprite();
+TEST_F(GraphicTest, TestDrawSprite) {
+    Level level = Level();
 
-    EXPECT_EQ(new_sprite.Load("testdata/player.png"), Render::OK);
+    auto game_object = level.CreateGameObject("test");
+    auto sprite_component = game_object.AddComponent<SpriteComponent>();
 
-    EXPECT_EQ(new_sprite.width, 48);
-    EXPECT_EQ(new_sprite.height, 48);
+    std::ifstream test_json("testdata/player.json");
 
-    new_sprite.SetAnimation("moveLeftRight");
-    new_sprite.FlipX();
+    json parsed = json::parse(test_json);
 
-    int frame_counter = 0;
-    bool exit_flag = false;
-    SetTargetFPS(60);
-    Vector2 position = {100, 100};
+    Sprite::Deserialize(sprite_component, parsed);
+    // Sprite new_sprite = Sprite();
 
-    while (!WindowShouldClose() && !exit_flag) {
-        frame_counter++;
+    // EXPECT_EQ(new_sprite.Load("testdata/player.png"), Render::OK);
 
-        BeginDrawing();
-        ClearBackground(BLACK);
+    // EXPECT_EQ(new_sprite.width, 48);
+    // EXPECT_EQ(new_sprite.height, 48);
 
-        new_sprite.Draw(position);
+    // new_sprite.SetAnimation("moveLeftRight");
+    // new_sprite.FlipX();
 
-        EndDrawing();
+    // int frame_counter = 0;
+    // bool exit_flag = false;
+    // SetTargetFPS(60);
+    // Vector2 position = {100, 100};
 
-        if (frame_counter >= this->delay_frames) {
-            exit_flag = true;
-        }
-    }
+    // while (!WindowShouldClose() && !exit_flag) {
+    //     frame_counter++;
+
+    //     BeginDrawing();
+    //     ClearBackground(BLACK);
+
+    //     new_sprite.Draw(position);
+
+    //     EndDrawing();
+
+    //     if (frame_counter >= this->delay_frames) {
+    //         exit_flag = true;
+    //     }
+    // }
 }

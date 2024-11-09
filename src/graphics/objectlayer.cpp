@@ -35,8 +35,8 @@ void ObjectLayer::OrganizeDraw() {
 }
 
 void ObjectLayer::Draw() {
-    auto gameobject = drawlist_.begin();
-    while (gameobject != drawlist_.end()) {
-        (*gameobject++)->Draw();
-    }
+    // auto gameobject = drawlist_.begin();
+    // while (gameobject != drawlist_.end()) {
+    //     (*gameobject++)->Draw();
+    // }
 }

@@ -2,48 +2,80 @@
 #define SPRITE_H
 #include <string>
 
-#include "animation.h"
 #include "nlohmann/json.hpp"
 #include "raylib.h"
 #include "render.h"
 using json = nlohmann::json;
 
-namespace Graphics {
-class Sprite : public Render {
-   private:
-    std::string json_filename_;
-    std::unordered_map<std::string, std::shared_ptr<Animation>> animation_list_;
-    Texture2D texture_;
+struct SpriteAnimation {
+    std::vector<std::unique_ptr<Rectangle>> frame_list;
+    u_int frame_rate;
+    u_int frames;
+    Vector2 offset;
+    float width;
+    float height;
+};
 
-    std::shared_ptr<Animation> current_animation_;
-    u_int current_frame_;
-    u_int64_t next_draw_time_;
+// TODO: Consider changing the pts to fixed arrays instead
+struct SpriteComponent {
+    Texture2D texture = {0, 0, 0, 0, 0};
 
-    Vector2 frame_offset_;
-
-   public:
-    enum ReturnType {
-        ERROR_ANIMATION = Render::ERROR_GRAPHIC_LAST,
-        ERROR_SPRITE_LAST,
-    };
+    u_int current_frame;
+    std::shared_ptr<SpriteAnimation> current_animation;
+    u_int64_t next_draw_time;
+    Vector2 frame_offset;
+    std::unordered_map<std::string, std::shared_ptr<SpriteAnimation>> animation_list;
 
     uint32_t width;
     uint32_t height;
-
-   public:
-    Sprite();
-    ~Sprite();
-
-    int Load(std::string const& file_name) override;
-    int SetAnimation(std::string const& animation);
-    void Draw(Vector2 const& position) override;
-
-    void FlipX();
-    void FlipY();
-
-    int DeSerialize(json const& json_data) override;
 };
 
-}  // namespace Graphics
+class Sprite {
+   public:
+    static void Deserialize(SpriteComponent& sprite, json const& json_data);
+    static void Draw(Vector2 const& position, SpriteComponent& sprite);
+    static void SetAnimation(SpriteComponent& sprite, std::string const& animation);
+    static void ResetAnimation(SpriteComponent& sprite);
+    static void FlipAnimationX(SpriteComponent& sprite);
+    static void FlipAnimationY(SpriteComponent& sprite);
+};
+
+// namespace Graphics {
+// class Sprite : public Render {
+//    private:
+//     std::string json_filename_;
+//     std::unordered_map<std::string, std::shared_ptr<Animation>> animation_list_;
+//     Texture2D texture_;
+
+//     std::shared_ptr<Animation> current_animation_;
+//     u_int current_frame_;
+//     u_int64_t next_draw_time_;
+
+//     Vector2 frame_offset_;
+
+//    public:
+//     enum ReturnType {
+//         ERROR_ANIMATION = Render::ERROR_GRAPHIC_LAST,
+//         ERROR_SPRITE_LAST,
+//     };
+
+//     uint32_t width;
+//     uint32_t height;
+
+//    public:
+//     Sprite();
+//     ~Sprite();
+
+//     int Load(std::string const& file_name) override;
+//     int SetAnimation(std::string const& animation);
+//     void Draw(Vector2 const& position) override;
+
+//     void FlipX();
+//     void FlipY();
+
+//     int DeSerialize(json const& json_data) override;
+// };
+
+// }  // namespace Graphics
 
 #endif

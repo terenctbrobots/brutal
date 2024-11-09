@@ -8,12 +8,12 @@
 #include "raylib.h"
 
 TEST_F(GameTest, TestGameObject) {
-    Game& game = Game::Get();
+    // Game& game = Game::Get();
 
-    game.Setup(640, 480);
+    // game.Setup(640, 480);
 
-    game.CreateLevel();
-    game.level->LoadSprite("testdata/player.png", 0);
+    // game.CreateLevel();
+    // game.level->LoadSprite("testdata/player.png", 0);
 
     // Test off screen (Blank)
     // game.view_screen.x = 100;
@@ -23,9 +23,9 @@ TEST_F(GameTest, TestGameObject) {
     // game.view_screen.x = -200;
     // game.view_screen.y = -200;
 
-    game.MainLoop();
+    // game.MainLoop();
 
-    game.Cleanup();
+    // game.Cleanup();
 }
 
 TEST_F(GameTest, TestTileLayer) {

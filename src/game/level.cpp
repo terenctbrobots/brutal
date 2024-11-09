@@ -15,6 +15,16 @@ Level::Level() {}
 
 Level::~Level() {}
 
+GameObject Level::CreateGameObject(std::string const& name) { return CreateGameObjectWithUUID(UUID(), name); }
+
+GameObject Level::CreateGameObjectWithUUID(UUID uuid, std::string const& name) {
+    GameObject game_object = {registry_.create(), this};
+
+    return game_object;
+}
+
+//-------------------------------------------------------------------------------------------
+
 int Level::Add(std::shared_ptr<GameObject> gameobject, u_int32_t layer) {
     auto render_layer = render_layers_[layer];
 
@@ -73,17 +83,17 @@ int Level::MainLoop() {
     return 0;
 }
 
-int Level::LoadSprite(std::string const& file_name, u_int32_t layer) {
-    if (render_layers_.size() == 0) {
-        render_layers_.push_back(std::make_shared<ObjectLayer>());
-    }
+// int Level::LoadSprite(std::string const& file_name, u_int32_t layer) {
+//     if (render_layers_.size() == 0) {
+//         render_layers_.push_back(std::make_shared<ObjectLayer>());
+//     }
 
-    auto gameobject = std::make_shared<GameObject>("sprite");
-    gameobject->LoadSprite(file_name);
-    Add(gameobject, layer);
+//     auto gameobject = std::make_shared<GameObject>("sprite");
+//     gameobject->LoadSprite(file_name);
+//     Add(gameobject, layer);
 
-    return 0;
-}
+//     return 0;
+// }
 
 int Level::LoadTileLayer(std::string const& map_filename, std::string const& tileset_filename) {
     std::ifstream map_json(map_filename);
