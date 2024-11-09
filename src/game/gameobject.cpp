@@ -7,7 +7,6 @@
 #include "helper.h"
 
 GameObject::GameObject(entt::entity handle, Level* level) : handle_(handle), level_(level) {}
-GameObject::GameObject(std::string const& name) { uid_ = GetNextUid(); }
 
 GameObject::~GameObject() {
     if (HasComponent<SpriteComponent>()) {

@@ -78,14 +78,14 @@ TEST_F(GraphicTest, TestDrawBitmap) {
 TEST_F(GraphicTest, TestDrawSprite) {
     Level level = Level();
 
-    auto game_object = level.CreateGameObject("test");
-    auto sprite_component = game_object.AddComponent<SpriteComponent>();
+    auto gameobject = level.CreateGameObject("test");
+    auto sprite_component = gameobject.AddComponent<SpriteComponent>();
 
     std::ifstream test_json("testdata/player.json");
 
     json parsed = json::parse(test_json);
 
-    Sprite::Deserialize(sprite_component, parsed);
+    Sprite::Deserialize(sprite_component, gameobject, parsed);
     // Sprite new_sprite = Sprite();
 
     // EXPECT_EQ(new_sprite.Load("testdata/player.png"), Render::OK);

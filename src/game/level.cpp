@@ -4,9 +4,11 @@
 #include <iostream>
 #include <memory>
 
+#include "game/component.h"
 #include "graphics/objectlayer.h"
 #include "graphics/tilelayer.h"
 #include "nlohmann/json.hpp"
+
 using json = nlohmann::json;
 
 using namespace Graphics;
@@ -18,9 +20,20 @@ Level::~Level() {}
 GameObject Level::CreateGameObject(std::string const& name) { return CreateGameObjectWithUUID(UUID(), name); }
 
 GameObject Level::CreateGameObjectWithUUID(UUID uuid, std::string const& name) {
-    GameObject game_object = {registry_.create(), this};
+    GameObject gameobject = {registry_.create(), this};
+    gameobject.AddComponent<IDComponent>(uuid);
+    gameobject.AddComponent<Rectangle>();
+    auto& tag = gameobject.AddComponent<TagComponent>();
+    tag.tag = name.empty() ? "GameObject" : name;
 
-    return game_object;
+    gameobject_map_[uuid] = gameobject;
+
+    return gameobject;
+}
+
+void Level::DestroyGameObject(GameObject gameobject) {
+    gameobject_map_.erase(gameobject.GetUUID());
+    registry_.destroy(gameobject);
 }
 
 //-------------------------------------------------------------------------------------------
