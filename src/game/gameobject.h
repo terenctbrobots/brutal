@@ -37,7 +37,7 @@ class GameObject {
 #ifdef DEBUG
         if (HasComponent<T>()) {
             spdlog::error("GameObject : Component already exists");
-            exit(1);
+            abort();
         }
 #endif
         T& component = level_->registry_.emplace<T>(handle_, std::forward<Args>(args)...);

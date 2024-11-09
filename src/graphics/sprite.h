@@ -3,11 +3,8 @@
 #include <string>
 
 #include "game/gameobject.h"
-#include "nlohmann/json.hpp"
 #include "raylib.h"
 #include "render.h"
-
-using json = nlohmann::json;
 
 struct SpriteAnimation {
     std::vector<std::unique_ptr<Rectangle>> frame_list;

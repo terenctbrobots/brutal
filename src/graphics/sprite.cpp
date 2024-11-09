@@ -6,9 +6,20 @@
 #include <vector>
 
 #include "helper.h"
+#include "json.h"
 #include "spdlog/spdlog.h"
 
 void Sprite::Deserialize(SpriteComponent& sprite, GameObject& gameobject, json const& json_data) {
+    std::string file_name = json_data["fileName"];
+
+    sprite.texture = LoadTexture(file_name.c_str());
+#ifdef DEBUG
+    if (sprite.texture.id == 0) {
+        spdlog::error("Sprite: could not load {} texture", file_name);
+        abort();
+    }
+#endif
+
     sprite.width = json_data["width"];
     sprite.height = json_data["height"];
 
@@ -64,7 +75,7 @@ void Sprite::Draw(Vector2 const& position, SpriteComponent& sprite) {
 #ifdef DEBUG
     if (sprite.texture.id == 0) {
         spdlog::error("Sprite: No texture found");
-        exit(1);
+        abort();
     }
 #endif
 

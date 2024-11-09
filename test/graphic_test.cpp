@@ -86,33 +86,24 @@ TEST_F(GraphicTest, TestDrawSprite) {
     json parsed = json::parse(test_json);
 
     Sprite::Deserialize(sprite_component, gameobject, parsed);
-    // Sprite new_sprite = Sprite();
 
-    // EXPECT_EQ(new_sprite.Load("testdata/player.png"), Render::OK);
+    int frame_counter = 0;
+    bool exit_flag = false;
+    SetTargetFPS(60);
+    Vector2 position = {100, 100};
 
-    // EXPECT_EQ(new_sprite.width, 48);
-    // EXPECT_EQ(new_sprite.height, 48);
+    while (!WindowShouldClose() && !exit_flag) {
+        frame_counter++;
 
-    // new_sprite.SetAnimation("moveLeftRight");
-    // new_sprite.FlipX();
+        BeginDrawing();
+        ClearBackground(BLACK);
 
-    // int frame_counter = 0;
-    // bool exit_flag = false;
-    // SetTargetFPS(60);
-    // Vector2 position = {100, 100};
+        Sprite::Draw(position, sprite_component);
 
-    // while (!WindowShouldClose() && !exit_flag) {
-    //     frame_counter++;
+        EndDrawing();
 
-    //     BeginDrawing();
-    //     ClearBackground(BLACK);
-
-    //     new_sprite.Draw(position);
-
-    //     EndDrawing();
-
-    //     if (frame_counter >= this->delay_frames) {
-    //         exit_flag = true;
-    //     }
-    // }
+        if (frame_counter >= this->delay_frames) {
+            exit_flag = true;
+        }
+    }
 }

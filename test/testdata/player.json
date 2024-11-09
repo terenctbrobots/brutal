@@ -1,4 +1,5 @@
 {
+    "fileName": "testdata/player.png",
     "width": 48,
     "height": 48,
     "defaultAnimation": "idle",
@@ -7,13 +8,13 @@
             "frameRate": 250,
             "frames": 6,
             "offsetX": 0.0,
-            "offsetY": 0.0 
+            "offsetY": 0.0
         },
         "moveLeftRight": {
             "frameRate": 250,
             "frames": 6,
             "offsetX": 0.0,
-            "offsetY": 0.0 
-        }   
+            "offsetY": 0.0
+        }
     }
 }
