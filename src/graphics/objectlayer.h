@@ -6,7 +6,7 @@
 #include "game/gameobject.h"
 #include "layer.h"
 
-namespace Graphics {
+namespace Brutal {
 class ObjectLayer : public Layer {
    private:
     std::list<std::shared_ptr<GameObject>> gameobjects_;
@@ -22,6 +22,6 @@ class ObjectLayer : public Layer {
     void Draw() override;
 };
 
-}  // namespace Graphics
+}  // namespace Brutal
 
 #endif

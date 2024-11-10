@@ -3,7 +3,7 @@
 
 #include "render.h"
 
-namespace UI {
+namespace Brutal {
 
 class Button : public Render {
    public:
@@ -21,6 +21,6 @@ class Button : public Render {
     int DeSerialize(json const& json_data) override;
 };
 
-}  // namespace UI
+}  // namespace Brutal
 
 #endif

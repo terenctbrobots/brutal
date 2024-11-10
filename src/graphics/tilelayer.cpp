@@ -3,7 +3,7 @@
 #include "game/game.h"
 #include "spdlog/spdlog.h"
 
-using namespace Graphics;
+using namespace Brutal;
 
 /**
  * @brief Construct a new Tile Layer:: Tile Layer object

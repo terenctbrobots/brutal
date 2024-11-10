@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <entt/entt.hpp>
+#include <iostream>
 #include <memory>
 #include <string>
 
@@ -12,21 +13,18 @@
 #include "render.h"
 #include "spdlog/spdlog.h"
 
+namespace Brutal {
+
 class GameObject {
    private:
     entt::entity handle_{entt::null};
     Level* level_ = nullptr;
-
-   protected:
-    // TODO: Make this a unique_ptr, once we can serialize it
-    std::shared_ptr<Render> render_;
-    u_int64_t uid_;
+    template <typename T>
+    void OnComponentRemove(T& component);
+    template <typename T>
+    void OnComponentAdd(T& component);
 
    public:
-    std::string name;
-    Rectangle position;
-    bool enabled = true;
-
     GameObject() = default;
     GameObject(entt::entity handle, Level* level);
     GameObject(GameObject const& other) = default;
@@ -63,6 +61,9 @@ class GameObject {
 
     template <typename T>
     void RemoveComponent() {
+        auto& component = level_->registry_.get<T>(handle_);
+        OnComponentRemove<T>(component);
+        std::cout << "Remove component" << std::endl;
         level_->registry_.remove<T>(handle_);
     }
 
@@ -77,5 +78,6 @@ class GameObject {
 
     bool operator!=(const GameObject& other) const { return !(*this == other); }
 };
+}  // namespace Brutal
 
 #endif

@@ -3,42 +3,64 @@
 #include <iostream>
 
 #include "game/game.h"
+#include "graphics/bitmap.h"
 #include "graphics/sprite.h"
 #include "helper.h"
 
-GameObject::GameObject(entt::entity handle, Level* level) : handle_(handle), level_(level) {}
+namespace Brutal {
+GameObject::GameObject(entt::entity handle, Level *level) : handle_(handle), level_(level) {}
 
 GameObject::~GameObject() {
     if (HasComponent<SpriteComponent>()) {
-        auto sprite_component = GetComponent<SpriteComponent>();
+        auto &sprite_component = GetComponent<SpriteComponent>();
         if (sprite_component.texture.id > 0) {
             UnloadTexture(sprite_component.texture);
         }
     }
+
+    if (HasComponent<BitmapComponent>()) {
+        auto &bitmap_component = GetComponent<BitmapComponent>();
+        if (bitmap_component.image.data != NULL) {
+            UnloadImage(bitmap_component.image);
+        }
+
+        if (bitmap_component.texture.id > 0) {
+            UnloadTexture(bitmap_component.texture);
+        }
+    }
+}
+template <typename T>
+void GameObject::OnComponentAdd(T &component) {
+    static_assert(sizeof(T) == 0);
 }
 
-// void GameObject::Draw() {
-//     if (render_ == nullptr) {
-//         return;
-//     }
+template <>
+void GameObject::OnComponentAdd<SpriteComponent>(SpriteComponent &component) {
+    auto &rectangle = GetComponent<Rectangle>();
+    rectangle.width = component.width;
+    rectangle.height = component.height;
+}
 
-//     Game& game = Game::Get();
+template <typename T>
+void GameObject::OnComponentRemove(T &component) {
+    static_assert(sizeof(T) == 0);
+}
 
-//     Vector2 screen_position = {position.x - game.view_screen.x, position.y - game.view_screen.y};
+template <>
+void GameObject::OnComponentRemove<SpriteComponent>(SpriteComponent &component) {
+    if (component.texture.id > 0) {
+        UnloadTexture(component.texture);
+    }
+}
 
-//     render_->Draw(screen_position);
-// }
+template <>
+void GameObject::OnComponentRemove<BitmapComponent>(BitmapComponent &component) {
+    if (component.image.data != NULL) {
+        UnloadImage(component.image);
+    }
 
-// int GameObject::LoadSprite(std::string const& file_name) {
-//     auto sprite = std::make_shared<Sprite>();
-//     int return_value = sprite->Load(file_name);
-
-//     if (return_value == Render::OK) {
-//         render_ = sprite;
-
-//         position.width = sprite->width;
-//         position.height = sprite->height;
-//     }
-
-//     return return_value;
-// }
+    if (component.texture.id > 0) {
+        UnloadTexture(component.texture);
+    }
+}
+}  // namespace Brutal

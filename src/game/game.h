@@ -1,29 +1,31 @@
 #ifndef GAME_H
 #define GAME_H
-#include <memory>
 #include <cstdint>
-#include "raylib.h"
+#include <memory>
+
 #include "level.h"
+#include "raylib.h"
 
-class Game 
-{
-    private:
-        Game() {}
+namespace Brutal {
 
-    public:
-        Game(const Game&) = delete;
-        void operator=(const Game& ) = delete;
+class Game {
+   private:
+    Game() {}
 
-        static Game& Get();
-        Rectangle view_screen;
-        std::unique_ptr<Level> level; 
+   public:
+    Game(const Game&) = delete;
+    void operator=(const Game&) = delete;
 
+    static Game& Get();
+    Rectangle view_screen;
+    std::unique_ptr<Level> level;
 
-        void Setup(float width, float height);
-        int MainLoop();
-        void Cleanup();
+    void Setup(float width, float height);
+    int MainLoop();
+    void Cleanup();
 
-        void CreateLevel();
+    void CreateLevel();
 };
+}  // namespace Brutal
 
 #endif

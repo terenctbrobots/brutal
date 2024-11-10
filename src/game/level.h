@@ -7,6 +7,7 @@
 
 #include "UUID.h"
 
+namespace Brutal {
 // Forward declartion
 class Layer;
 class GameObject;
@@ -37,5 +38,7 @@ class Level {
     //    int LoadSprite(std::string const& file_name, uint32_t layer);
     int LoadTileLayer(std::string const& map_file_name, std::string const& tileset_file_name);
 };
+
+}  // namespace Brutal
 
 #endif

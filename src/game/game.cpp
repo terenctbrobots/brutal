@@ -2,6 +2,7 @@
 
 #include "spdlog/spdlog.h"
 
+namespace Brutal {
 void Game::CreateLevel() { level = std::make_unique<Level>(); }
 
 Game &Game::Get() {
@@ -38,3 +39,5 @@ void Game::Cleanup() {
     spdlog::info("Game : Cleanup");
 #endif
 }
+
+}  // namespace Brutal

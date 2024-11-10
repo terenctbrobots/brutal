@@ -5,6 +5,7 @@
 
 #include "UUID.h"
 
+namespace Brutal {
 struct IDComponent {
     UUID ID;
 
@@ -19,5 +20,7 @@ struct TagComponent {
     TagComponent(const TagComponent&) = default;
     TagComponent(const std::string& tag) : tag(tag) {}
 };
+
+}  // namespace Brutal
 
 #endif

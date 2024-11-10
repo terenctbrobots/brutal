@@ -1,24 +1,22 @@
 #ifndef BITMAP_H_
 #define BITMAP_H_
 
+#include "game/gameobject.h"
 #include "raylib.h"
-#include "render.h"
 
-namespace Graphics {
-class Bitmap : public Render {
-   private:
-    Image image_;
-    Texture texture_;
-
-   public:
-    Bitmap();
-    ~Bitmap();
-
-    int Load(std::string const& file_name) override;
-    void Draw(Vector2 const& position) override;
-    int DeSerialize(json const& json_data) override;
+namespace Brutal {
+struct BitmapComponent {
+    Image image = {NULL};
+    Texture texture = {0};
+    bool convert_image = false;
 };
 
-}  // namespace Graphics
+class Bitmap {
+   public:
+    static BitmapComponent Deserialize(json const& json_data);
+    static void Draw(Vector2 const& position, BitmapComponent& bitmap);
+};
+
+}  // namespace Brutal
 
 #endif

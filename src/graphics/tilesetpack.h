@@ -3,7 +3,7 @@
 
 #include "tileset.h"
 
-namespace Graphics {
+namespace Brutal {
 
 class TileSetPack {
    private:
@@ -27,6 +27,6 @@ class TileSetPack {
     uint32_t GetTileHeight();
 };
 
-}  // namespace Graphics
+}  // namespace Brutal
 
 #endif

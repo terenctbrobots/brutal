@@ -12,6 +12,8 @@
 #include "graphics/tilesetpack.h"
 #include "raylib.h"
 
+using namespace Brutal;
+
 void GraphicTest::SetUp() {
     SetTraceLogLevel(LOG_ERROR);
 
@@ -52,40 +54,45 @@ TEST_F(GraphicTest, TestLoadTileSet) {
 }
 
 TEST_F(GraphicTest, TestDrawBitmap) {
-    // Bitmap new_bitmap = Bitmap();
-    // EXPECT_EQ(new_bitmap.Load("testdata/bbr.png"), Render::OK);
+    Level level = Level();
 
-    // int frame_counter = 0;
-    // bool exit_flag = false;
-    // SetTargetFPS(60);
+    auto gameobject = level.CreateGameObject("test");
 
-    // while (!WindowShouldClose() && !exit_flag) {
-    //     frame_counter++;
+    std::ifstream test_json("testdata/bbr.json");
 
-    //     BeginDrawing();
-    //     ClearBackground(BLACK);
+    json parsed = json::parse(test_json);
 
-    //     new_bitmap.Draw({100, 100});
+    auto& bitmap = gameobject.AddComponent<BitmapComponent>(Bitmap::Deserialize(parsed));
+    int frame_counter = 0;
+    bool exit_flag = false;
+    SetTargetFPS(60);
+    Vector2 position = {100, 100};
 
-    //     EndDrawing();
+    while (!WindowShouldClose() && !exit_flag) {
+        frame_counter++;
 
-    //     if (frame_counter >= this->delay_frames) {
-    //         exit_flag = true;
-    //     }
-    // }
+        BeginDrawing();
+        ClearBackground(BLACK);
+
+        Bitmap::Draw(position, bitmap);
+
+        EndDrawing();
+
+        if (frame_counter >= this->delay_frames) {
+            exit_flag = true;
+        }
+    }
 }
 
 TEST_F(GraphicTest, TestDrawSprite) {
     Level level = Level();
 
-    auto gameobject = level.CreateGameObject("test");
-    auto sprite_component = gameobject.AddComponent<SpriteComponent>();
-
     std::ifstream test_json("testdata/player.json");
 
     json parsed = json::parse(test_json);
 
-    Sprite::Deserialize(sprite_component, gameobject, parsed);
+    auto gameobject = level.CreateGameObject("test");
+    auto sprite_component = gameobject.AddComponent<SpriteComponent>(Sprite::Deserialize(parsed));
 
     int frame_counter = 0;
     bool exit_flag = false;

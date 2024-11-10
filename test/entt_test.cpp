@@ -7,6 +7,8 @@
 
 #include "graphics/sprite.h"
 
+using namespace Brutal;
+
 namespace {
 
 TEST(ENTTTest, TestBasicENTT) {

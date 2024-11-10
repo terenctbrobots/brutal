@@ -2,41 +2,28 @@
 
 #include "spdlog/spdlog.h"
 
-using namespace Graphics;
+namespace Brutal {
+BitmapComponent Bitmap::Deserialize(json const& json_data) {
+    BitmapComponent bitmap;
 
-Bitmap::Bitmap() {
-    texture_.id = 0;
-    image_.data = NULL;
-}
+    std::string file_name = json_data["fileName"];
+    bitmap.image = LoadImage(file_name.c_str());
 
-Bitmap::~Bitmap() {
-    if (image_.data != NULL) {
-        UnloadImage(image_);
-    }
-
-    if (texture_.id > 0) {
-        UnloadTexture(texture_);
-    }
-}
-
-int Bitmap::Load(std::string const& file_name) {
-    image_ = LoadImage(file_name.c_str());
-
-    if (image_.data == NULL) {
+    if (bitmap.image.data == NULL) {
         spdlog::error("Bitmap : failed to load {}", file_name);
-        return Render::ERROR_TEXTURE_LOAD;
+        abort();
     }
 
-    return Render::OK;
-};
-
-void Bitmap::Draw(Vector2 const& position) {
-    if (texture_.id > 0) {
-        DrawTextureV(texture_, position, WHITE);
-        return;
-    }
-
-    texture_ = LoadTextureFromImage(image_);
+    return bitmap;
 }
 
-int Bitmap::DeSerialize(json const& json_data) { return 0; }
+void Bitmap::Draw(Vector2 const& position, BitmapComponent& bitmap) {
+    if (!bitmap.convert_image) {
+        bitmap.texture = LoadTextureFromImage(bitmap.image);
+        bitmap.convert_image = true;
+    }
+
+    DrawTextureV(bitmap.texture, position, WHITE);
+}
+
+}  // namespace Brutal

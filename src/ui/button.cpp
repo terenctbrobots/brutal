@@ -5,7 +5,7 @@
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
 
-using namespace UI;
+using namespace Brutal;
 
 Button::Button() {}
 

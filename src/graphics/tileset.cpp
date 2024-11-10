@@ -4,9 +4,9 @@
 
 #include "helper.h"
 
-using namespace Graphics;
+using namespace Brutal;
 
-TileSet::TileSet() { 
+TileSet::TileSet() {
     tile_first_id = 1;
     texture_.id = 0;
 }

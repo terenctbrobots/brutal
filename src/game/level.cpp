@@ -7,12 +7,9 @@
 #include "game/component.h"
 #include "graphics/objectlayer.h"
 #include "graphics/tilelayer.h"
-#include "nlohmann/json.hpp"
+#include "json.h"
 
-using json = nlohmann::json;
-
-using namespace Graphics;
-
+namespace Brutal {
 Level::Level() {}
 
 Level::~Level() {}
@@ -96,18 +93,6 @@ int Level::MainLoop() {
     return 0;
 }
 
-// int Level::LoadSprite(std::string const& file_name, u_int32_t layer) {
-//     if (render_layers_.size() == 0) {
-//         render_layers_.push_back(std::make_shared<ObjectLayer>());
-//     }
-
-//     auto gameobject = std::make_shared<GameObject>("sprite");
-//     gameobject->LoadSprite(file_name);
-//     Add(gameobject, layer);
-
-//     return 0;
-// }
-
 int Level::LoadTileLayer(std::string const& map_filename, std::string const& tileset_filename) {
     std::ifstream map_json(map_filename);
     json parsed = json::parse(map_json);
@@ -126,3 +111,5 @@ int Level::LoadTileLayer(std::string const& map_filename, std::string const& til
 
     return 0;
 }
+
+}  // namespace Brutal

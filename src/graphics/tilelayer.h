@@ -4,7 +4,7 @@
 #include "layer.h"
 #include "tilesetpack.h"
 
-namespace Graphics {
+namespace Brutal {
 class TileLayer : public Layer {
    private:
     std::shared_ptr<TileSetPack> tile_set_pack_;
@@ -39,6 +39,6 @@ class TileLayer : public Layer {
     void Draw() override;
 };
 
-}  // namespace Graphics
+}  // namespace Brutal
 
 #endif

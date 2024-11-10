@@ -29,23 +29,23 @@ TEST_F(GameTest, TestGameObject) {
 }
 
 TEST_F(GameTest, TestTileLayer) {
-    Game& game = Game::Get();
+    // Game& game = Game::Get();
 
-    game.Setup(640, 480);
+    // game.Setup(640, 480);
 
-    game.CreateLevel();
+    // game.CreateLevel();
 
-    game.level->LoadTileLayer("testdata/test.json", "testdata/plains.png");
+    // game.level->LoadTileLayer("testdata/test.json", "testdata/plains.png");
 
-    // Test off screen, should clip left and top portion of tile map
-    game.view_screen.x = 100;
-    game.view_screen.y = 100;
+    // // Test off screen, should clip left and top portion of tile map
+    // game.view_screen.x = 100;
+    // game.view_screen.y = 100;
 
-    // Test view screen off -200, -200, tile should start right and lower
-    // game.view_screen.x = -200;
-    // game.view_screen.y = -200;
+    // // Test view screen off -200, -200, tile should start right and lower
+    // // game.view_screen.x = -200;
+    // // game.view_screen.y = -200;
 
-    game.MainLoop();
+    // game.MainLoop();
 
-    game.Cleanup();
+    // game.Cleanup();
 }

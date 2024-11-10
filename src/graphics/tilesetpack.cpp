@@ -1,6 +1,6 @@
 #include "tilesetpack.h"
 
-using namespace Graphics;
+using namespace Brutal;
 
 TileSetPack::TileSetPack() {}
 

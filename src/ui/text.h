@@ -3,7 +3,7 @@
 
 #include "render.h"
 
-namespace UI {
+namespace Brutal {
 class Text : Render {
    public:
     std::string text_field;  // TODO: Switch to better string class?
@@ -18,6 +18,6 @@ class Text : Render {
 
     int DeSerialize(json const& json_data) override;
 };
-}  // namespace  UI
+}  // namespace Brutal
 
 #endif

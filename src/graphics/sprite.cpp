@@ -9,7 +9,10 @@
 #include "json.h"
 #include "spdlog/spdlog.h"
 
-void Sprite::Deserialize(SpriteComponent& sprite, GameObject& gameobject, json const& json_data) {
+namespace Brutal {
+SpriteComponent Sprite::Deserialize(json const& json_data) {
+    SpriteComponent sprite;
+
     std::string file_name = json_data["fileName"];
 
     sprite.texture = LoadTexture(file_name.c_str());
@@ -22,8 +25,6 @@ void Sprite::Deserialize(SpriteComponent& sprite, GameObject& gameobject, json c
 
     sprite.width = json_data["width"];
     sprite.height = json_data["height"];
-
-    auto rectangle = gameobject.GetComponent<Rectangle>();
 
     sprite.animation_list.clear();
 
@@ -65,6 +66,8 @@ void Sprite::Deserialize(SpriteComponent& sprite, GameObject& gameobject, json c
     if (json_data["defaultAnimation"] != nullptr) {
         SetAnimation(sprite, json_data["defaultAnimation"]);
     }
+
+    return sprite;
 }
 
 void Sprite::Draw(Vector2 const& position, SpriteComponent& sprite) {
@@ -135,3 +138,5 @@ void Sprite::ResetAnimation(SpriteComponent& sprite) {
         rect_ptr->height = sprite.height;
     }
 }
+
+}  // namespace Brutal

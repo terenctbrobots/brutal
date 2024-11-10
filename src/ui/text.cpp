@@ -1,6 +1,6 @@
 #include "text.h"
 
-using namespace UI;
+using namespace Brutal;
 
 Text::Text() {}
 
