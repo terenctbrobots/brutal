@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "layer.h"
+#include "raylib.h"
 #include "tilesetpack.h"
 
 namespace Brutal {

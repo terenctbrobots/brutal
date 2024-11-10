@@ -4,7 +4,6 @@
 #include <entt/entt.hpp>
 #include <string>
 
-#include "raylib.h"
 #include "spdlog/spdlog.h"
 
 #define JSON_NOEXCEPTION

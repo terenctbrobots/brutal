@@ -1,29 +1,43 @@
 #include "graphic_test.h"
 #include "raylib.h"
-
 #define RAYGUI_IMPLEMENTATION
+#include <fstream>
+
+#include "game/gameobject.h"
+#include "game/level.h"
 #include "raygui.h"
+#include "ui/button.h"
+#include "ui/text.h"
+
+using namespace Brutal;
 
 TEST_F(GraphicTest, TestUI) {
-    int frame_counter = 0;
-    bool exit_flag = false;
-    SetTargetFPS(60);
+    // Level level = Level();
 
-    while (!WindowShouldClose() && !exit_flag) {
-        frame_counter++;
+    // auto gameobject = level.CreateGameObject("test");
 
-        BeginDrawing();
-        ClearBackground(BLACK);
+    // std::ifstream text_json("testdata/text.json");
 
-        // DrawText("Hello World", 100, 100, 20, WHITE);
-        if (GuiButton((Rectangle){24, 24, 120, 30}, "#191#Show Message")) {
-            std::cout << "hello world" << std::endl;
-        }
+    // json parsed = json::parse(text_json);
 
-        EndDrawing();
+    // auto& text = gameobject.AddComponent<TextComponent>(Text::Deserialize(parsed));
+    // int frame_counter = 0;
+    // bool exit_flag = false;
+    // SetTargetFPS(60);
+    // Vector2 position = {100, 100};
 
-        if (frame_counter >= this->delay_frames) {
-            exit_flag = true;
-        }
-    }
+    // while (!WindowShouldClose() && !exit_flag) {
+    //     frame_counter++;
+
+    //     BeginDrawing();
+    //     ClearBackground(BLACK);
+
+    //     Text::Draw(position, text);
+
+    //     EndDrawing();
+
+    //     if (frame_counter >= this->delay_frames) {
+    //         exit_flag = true;
+    //     }
+    // }
 }

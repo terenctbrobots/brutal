@@ -19,6 +19,8 @@ add_executable(
   src/game/level.cpp
   test/game_test.cpp
   test/ui_test.cpp
+  src/ui/text.cpp
+  src/ui/button.cpp
   test/lua_test.cpp
   test/entt_test.cpp
   src/UUID.cpp

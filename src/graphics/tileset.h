@@ -2,6 +2,7 @@
 #define TILESET_H
 
 #include "common.h"
+#include "raylib.h"
 
 namespace Brutal {
 class TileSet {

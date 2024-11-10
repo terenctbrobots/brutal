@@ -7,6 +7,7 @@
 #include "game/component.h"
 #include "graphics/objectlayer.h"
 #include "graphics/tilelayer.h"
+#include "raygui.h"
 
 namespace Brutal {
 Level::Level() {}

@@ -5,6 +5,7 @@
 
 #include "common.h"
 #include "level.h"
+#include "raygui.h"
 
 namespace Brutal {
 

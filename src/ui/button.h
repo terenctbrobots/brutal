@@ -2,6 +2,7 @@
 #define BUTTON_H_
 
 #include "common.h"
+#include "raylib.h"
 
 namespace Brutal {
 

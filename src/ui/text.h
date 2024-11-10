@@ -1,6 +1,7 @@
 #ifndef TEXT_H_
 #define TEXT_H_
 #include "common.h"
+#include "raylib.h"
 
 namespace Brutal {
 struct TextComponent {
@@ -9,6 +10,7 @@ struct TextComponent {
 };
 
 class Text {
+   public:
     static TextComponent Deserialize(json const& json_data);
     static void Draw(Vector2 const& position, TextComponent& text);
 };
