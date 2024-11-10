@@ -1,17 +1,12 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include <cstdint>
-#include <entt/entt.hpp>
 #include <iostream>
 #include <memory>
-#include <string>
 
+#include "common.h"
 #include "component.h"
 #include "level.h"
-#include "raylib.h"
-#include "render.h"
-#include "spdlog/spdlog.h"
 
 namespace Brutal {
 

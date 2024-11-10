@@ -1,6 +1,7 @@
 #ifndef TILELAYER_H
 #define TILELAYER_H
 
+#include "common.h"
 #include "layer.h"
 #include "tilesetpack.h"
 

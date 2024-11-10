@@ -2,11 +2,10 @@
 #define LAYER_H
 
 #include <memory>
-#include <string>
 #include <vector>
 
+#include "common.h"
 #include "game/level.h"
-#include "raylib.h"
 
 namespace Brutal {
 

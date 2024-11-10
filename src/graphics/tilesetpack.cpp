@@ -11,7 +11,7 @@ int TileSetPack::Load(std::string const& file_name) {
 
     int ret_value = new_tileset->Load(file_name);
 
-    if (ret_value != Render::OK) {
+    if (ret_value != 0) {
         return ret_value;
     }
 
@@ -24,7 +24,7 @@ int TileSetPack::Load(std::string const& file_name) {
 
     current_tile_id_index_ += new_tileset->tile_count;
 
-    return Render::OK;
+    return 0;
 }
 
 void TileSetPack::Draw(Vector2 const& position, uint16_t tile_id) {

@@ -1,8 +1,8 @@
 #ifndef BITMAP_H_
 #define BITMAP_H_
 
+#include "common.h"
 #include "game/gameobject.h"
-#include "raylib.h"
 
 namespace Brutal {
 struct BitmapComponent {

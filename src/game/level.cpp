@@ -7,7 +7,6 @@
 #include "game/component.h"
 #include "graphics/objectlayer.h"
 #include "graphics/tilelayer.h"
-#include "json.h"
 
 namespace Brutal {
 Level::Level() {}

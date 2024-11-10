@@ -1,11 +1,11 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
-#include <entt/entt.hpp>
 #include <memory>
 #include <vector>
 
 #include "UUID.h"
+#include "common.h"
 
 namespace Brutal {
 // Forward declartion

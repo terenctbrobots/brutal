@@ -6,7 +6,6 @@
 #include <vector>
 
 #include "helper.h"
-#include "json.h"
 #include "spdlog/spdlog.h"
 
 namespace Brutal {

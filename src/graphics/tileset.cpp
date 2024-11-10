@@ -25,18 +25,18 @@ int TileSet::LoadJSON() {
     std::ifstream json_file(json_filename_);
 
     if (!json_file.good()) {
-        return Render::ERROR_JSON_LOAD;
+        return 1;
     }
 
     json json_data = json::parse(json_file, nullptr, false);
 
     if (json_data.is_discarded()) {
-        return Render::ERROR_JSON_LOAD;
+        return 1;
     }
 
     DeSerialize(json_data);
 
-    return Render::OK;
+    return 0;
 }
 
 int TileSet::DeSerialize(json const& json_data) {
@@ -63,7 +63,7 @@ int TileSet::DeSerialize(json const& json_data) {
         }
     }
 
-    return Render::OK;
+    return 0;
 }
 
 /*
@@ -73,22 +73,22 @@ int TileSet::Load(std::string const& file_name) {
     texture_ = LoadTexture(file_name.c_str());
 
     if (texture_.id == 0) {
-        return Render::ERROR_TEXTURE_LOAD;
+        return 1;
     }
 
     json_filename_ = GetJSONFilename(file_name);
 
     if (json_filename_.length() == 0) {
-        return Render::ERROR_JSON_FILENAME;
+        return 1;
     }
 
     int return_value = LoadJSON();
 
-    if (return_value != Render::OK) {
+    if (return_value != 0) {
         return return_value;
     }
 
-    return Render::OK;
+    return 0;
 }
 
 void TileSet::Draw(Vector2 const& position, int16_t tile_id) {

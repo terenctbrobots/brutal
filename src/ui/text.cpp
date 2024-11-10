@@ -1,12 +1,16 @@
 #include "text.h"
 
-using namespace Brutal;
+namespace Brutal {
+void Text::Draw(Vector2 const& position, TextComponent& text) {
+    DrawText(text.text_field.c_str(), position.x, position.y, text.font_size, WHITE);
+};
 
-Text::Text() {}
+TextComponent Text::Deserialize(json const& json_data) {
+    TextComponent text;
 
-Text::~Text() {}
+    text.text_field = json_data["textField"];
+    text.font_size = json_data["fontSize"];
 
-int Text::Load(std::string const& file_name) { return 0; }
-void Text::Draw(Vector2 const& position) { DrawText(text_field.c_str(), position.x, position.y, font_size, WHITE); };
-
-int Text::DeSerialize(json const& json_data) { return 0; };
+    return text;
+};
+}  // namespace Brutal

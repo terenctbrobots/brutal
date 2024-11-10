@@ -1,9 +1,7 @@
 #ifndef SPRITE_H
 #define SPRITE_H
-#include <string>
-
+#include "common.h"
 #include "game/gameobject.h"
-#include "raylib.h"
 
 namespace Brutal {
 struct SpriteAnimation {

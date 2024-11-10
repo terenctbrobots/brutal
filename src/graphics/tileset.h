@@ -1,11 +1,7 @@
 #ifndef TILESET_H
 #define TILESET_H
-#include <string>
 
-#include "nlohmann/json.hpp"
-#include "raylib.h"
-using json = nlohmann::json;
-#include "render.h"
+#include "common.h"
 
 namespace Brutal {
 class TileSet {

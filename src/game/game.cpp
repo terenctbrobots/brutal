@@ -1,7 +1,5 @@
 #include "game.h"
 
-#include "spdlog/spdlog.h"
-
 namespace Brutal {
 void Game::CreateLevel() { level = std::make_unique<Level>(); }
 

@@ -1,10 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
-#include <cstdint>
+
 #include <memory>
 
+#include "common.h"
 #include "level.h"
-#include "raylib.h"
 
 namespace Brutal {
 
