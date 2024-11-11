@@ -28,29 +28,68 @@ void GraphicTest::SetUp() {
 
 void GraphicTest::TearDown() { CloseWindow(); }
 
-TEST_F(GraphicTest, TestLoadTileSet) {
-    // TileSet new_tileset = TileSet();
+TEST_F(GraphicTest, TestDrawTilePack) {
+    TileSetPack* tile_pack = new TileSetPack();
 
-    // EXPECT_EQ(new_tileset.Load("testdata/plains.png"), Render::OK);
+    std::ifstream test_json("testdata/tilepack.json");
 
-    // int frame_counter = 0;
-    // bool exit_flag = false;
-    // SetTargetFPS(60);
+    json parsed = json::parse(test_json);
 
-    // while (!WindowShouldClose() && !exit_flag) {
-    //     frame_counter++;
+    tile_pack->Deserialize(parsed["tilePack"]);
 
-    //     BeginDrawing();
-    //     ClearBackground(BLACK);
+    int frame_counter = 0;
+    bool exit_flag = false;
+    SetTargetFPS(60);
 
-    //     new_tileset.Draw({100, 100}, 1);
+    while (!WindowShouldClose() && !exit_flag) {
+        frame_counter++;
 
-    //     EndDrawing();
+        BeginDrawing();
+        ClearBackground(BLACK);
 
-    //     if (frame_counter >= this->delay_frames) {
-    //         exit_flag = true;
-    //     }
-    // }
+        tile_pack->Draw({100, 100}, 1);
+
+        EndDrawing();
+
+        if (frame_counter >= this->delay_frames) {
+            exit_flag = true;
+        }
+    }
+
+    std::cout << "Exit" << std::endl;
+
+    delete tile_pack;
+}
+
+TEST_F(GraphicTest, TestDrawTileSet) {
+    TileSet* tileset = new TileSet();
+
+    std::ifstream test_json("testdata/plains.json");
+
+    json parsed = json::parse(test_json);
+
+    tileset->Deserialize(parsed);
+
+    int frame_counter = 0;
+    bool exit_flag = false;
+    SetTargetFPS(60);
+
+    while (!WindowShouldClose() && !exit_flag) {
+        frame_counter++;
+
+        BeginDrawing();
+        ClearBackground(BLACK);
+
+        tileset->Draw({100, 100}, 1);
+
+        EndDrawing();
+
+        if (frame_counter >= this->delay_frames) {
+            exit_flag = true;
+        }
+    }
+
+    delete tileset;
 }
 
 TEST_F(GraphicTest, TestDrawBitmap) {

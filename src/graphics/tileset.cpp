@@ -17,29 +17,16 @@ TileSet::~TileSet() {
     }
 }
 
-/*
- * Private
- */
+int TileSet::Deserialize(json const& json_data) {
+    // TODO: Standarize to fileName later
+    std::string file_name = json_data["image"];
+    texture_ = LoadTexture(file_name.c_str());
 
-int TileSet::LoadJSON() {
-    std::ifstream json_file(json_filename_);
-
-    if (!json_file.good()) {
-        return 1;
+    if (texture_.id == 0) {
+        spdlog::error("TileSet: could not load texture named {}", file_name);
+        abort();
     }
 
-    json json_data = json::parse(json_file, nullptr, false);
-
-    if (json_data.is_discarded()) {
-        return 1;
-    }
-
-    DeSerialize(json_data);
-
-    return 0;
-}
-
-int TileSet::DeSerialize(json const& json_data) {
     width = json_data["imagewidth"];
     height = json_data["imageheight"];
 
@@ -66,37 +53,15 @@ int TileSet::DeSerialize(json const& json_data) {
     return 0;
 }
 
-/*
- * Public
- */
-int TileSet::Load(std::string const& file_name) {
-    texture_ = LoadTexture(file_name.c_str());
-
-    if (texture_.id == 0) {
-        return 1;
-    }
-
-    json_filename_ = GetJSONFilename(file_name);
-
-    if (json_filename_.length() == 0) {
-        return 1;
-    }
-
-    int return_value = LoadJSON();
-
-    if (return_value != 0) {
-        return return_value;
-    }
-
-    return 0;
-}
-
 void TileSet::Draw(Vector2 const& position, int16_t tile_id) {
     int32_t offset_tile_id = tile_id - tile_first_id;
 
-    if (offset_tile_id < 0 || offset_tile_id >= tile_count) {
+#ifdef DEBUG
+    if (offset_tile_id == 0 || offset_tile_id >= tile_count) {
+        spdlog::warn("TileSet: tile id {} is invalid", tile_id);
         return;
     }
+#endif
 
     DrawTextureRec(texture_, *tile_list_[offset_tile_id], position, WHITE);
 }

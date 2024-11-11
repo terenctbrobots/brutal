@@ -32,8 +32,7 @@ class TileSet {
     TileSet();
     ~TileSet();
 
-    int Load(std::string const& file_name);
-    int DeSerialize(json const& json_data);
+    int Deserialize(json const& json_data);
 
     void Draw(Vector2 const& position, int16_t tile_id = 0);
 };
