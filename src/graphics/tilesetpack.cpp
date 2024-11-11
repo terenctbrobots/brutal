@@ -1,6 +1,8 @@
 #include "tilesetpack.h"
 
-using namespace Brutal;
+#include <iostream>
+
+namespace Brutal {
 
 TileSetPack::TileSetPack() {}
 
@@ -18,53 +20,47 @@ int TileSetPack::Load(std::string const& file_name) {
     // new_tileset->tile_first_id = current_tile_id_index_;
     // new_tileset->tile_last_id = new_tileset->tile_first_id + new_tileset->tile_count;
 
-    // for (int i = 0; i < new_tileset->tile_count; i++) {
-    //     tileset_list_.push_back(new_tileset);
-    // }
-
     // current_tile_id_index_ += new_tileset->tile_count;
 
     return 0;
 }
 
 void TileSetPack::Deserialize(json const& json_data) {
-    for (auto& tileset : json_data) {
-        std::shared_ptr<TileSet> new_tileset = std::make_shared<TileSet>();
-        new_tileset->Deserialize(tileset);
-        new_tileset->tile_first_id = current_tile_id_index_;
-        new_tileset->tile_last_id = new_tileset->tile_first_id + new_tileset->tile_count;
+    // Tile_id 0 is a blank
 
-        tileset_list_.push_back(new_tileset);
-        current_tile_id_index_ += new_tileset->tile_count;
+    tileset_.push_back({nullptr, NULL});
+
+    for (auto& tileset_data : json_data) {
+        auto tileset = std::make_shared<TileSet>();
+        tileset->Deserialize(tileset_data);
+
+        uint32_t tile_count = tileset->tile_count;
+
+        for (int i = 0; i < tile_count; i++) {
+            tileset_.push_back({tileset, &tileset->tile_list_[i]});
+        }
+        current_tile_id_index_ += tile_count;
 #ifdef DEBUG
-        spdlog::info("TileSetPack: {} tiles loaded", new_tileset->tile_count);
+        spdlog::info("TileSetPack: {} tiles loaded", tile_count);
 #endif
     }
 }
 
 void TileSetPack::Draw(Vector2 const& position, uint16_t tile_id) {
-    if (tile_id >= current_tile_id_index_) {
-        spdlog::error("TileSetPack: Try to draw a unknown tile {}", tile_id);
+    if (tile_id >= current_tile_id_index_ || tile_id == 0) {
+        spdlog::error("TileSetPack: trying to draw a unknown tile {}", tile_id);
         abort();
     }
 
-    tileset_list_[0]->Draw(position, tile_id);
+    auto& tuple = tileset_[tile_id];
+
+    std::get<0>(tuple)->DrawRectangle(position, *std::get<1>(tuple));
 }
 
-size_t TileSetPack::Size() { return tileset_list_.size(); }
+size_t TileSetPack::Size() { return tileset_.size(); }
 
-uint32_t TileSetPack::GetTileWidth() {
-    if (tileset_list_.size() == 0) {
-        return 0;
-    }
+uint32_t TileSetPack::GetTileWidth() { return tile_width_; }
 
-    return tileset_list_[0]->tile_width;
-}
+uint32_t TileSetPack::GetTileHeight() { return tile_height_; }
 
-uint32_t TileSetPack::GetTileHeight() {
-    if (tileset_list_.size() == 0) {
-        return 0;
-    }
-
-    return tileset_list_[0]->tile_height;
-}
+}  // namespace Brutal

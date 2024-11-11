@@ -58,7 +58,6 @@ class GameObject {
     void RemoveComponent() {
         auto& component = level_->registry_.get<T>(handle_);
         OnComponentRemove<T>(component);
-        std::cout << "Remove component" << std::endl;
         level_->registry_.remove<T>(handle_);
     }
 

@@ -56,8 +56,6 @@ TEST_F(GraphicTest, TestDrawTilePack) {
         }
     }
 
-    std::cout << "Exit" << std::endl;
-
     delete tile_pack;
 }
 
@@ -80,7 +78,8 @@ TEST_F(GraphicTest, TestDrawTileSet) {
         BeginDrawing();
         ClearBackground(BLACK);
 
-        tileset->Draw({100, 100}, 1);
+        tileset->DrawRectangle({100, 100}, {0, 0, 16, 16});
+        //        tileset->Draw({100, 100}, 1);
 
         EndDrawing();
 

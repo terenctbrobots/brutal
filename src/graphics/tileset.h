@@ -10,7 +10,7 @@ class TileSet {
     std::string json_filename_;
     Texture2D texture_;
 
-    std::vector<std::unique_ptr<Rectangle>> tile_list_;
+    std::vector<Rectangle> tile_list_;
 
    private:
     int LoadJSON();
@@ -19,12 +19,10 @@ class TileSet {
     uint32_t width;
     uint32_t height;
 
-    uint32_t tile_width;
-    uint32_t tile_height;
+    float tile_width;
+    float tile_height;
 
     uint32_t tile_count;
-    int32_t tile_first_id;
-    int32_t tile_last_id;
 
     std::string name;
 
@@ -34,7 +32,10 @@ class TileSet {
 
     int Deserialize(json const& json_data);
 
-    void Draw(Vector2 const& position, int16_t tile_id = 0);
+    void DrawRectangle(Vector2 const& position, Rectangle const& rectangle);
+    void Draw(Vector2 const& position, uint16_t tile_id);
+
+    friend class TileSetPack;
 };
 
 }  // namespace Brutal

@@ -7,10 +7,11 @@ namespace Brutal {
 
 class TileSetPack {
    private:
-    // TODO: Convert this to a unique_ptr?
-    std::vector<std::shared_ptr<TileSet>> tileset_list_;
+    std::vector<std::tuple<std::shared_ptr<TileSet>, Rectangle*>> tileset_;
 
     int current_tile_id_index_ = 1;
+    uint32_t tile_width_;
+    uint32_t tile_height_;
 
    public:
     TileSetPack();
