@@ -93,23 +93,21 @@ int Level::MainLoop() {
     return 0;
 }
 
-int Level::LoadTileLayer(std::string const& map_filename, std::string const& tileset_filename) {
-    std::ifstream map_json(map_filename);
-    json parsed = json::parse(map_json);
+void Level::Deserialize(json json_data) {
+    for (auto& layer_data : json_data["layers"]) {
+        std::string const& layer_type = layer_data["type"];
 
-    std::shared_ptr<TileLayer> new_layer = std::make_shared<TileLayer>(parsed["width"], parsed["height"]);
+        if (layer_type == "tilelayer") {
+            auto new_layer = std::make_shared<TileLayer>(json_data["width"], json_data["height"]);
+            auto new_tile_pack = std::make_shared<TileSetPack>();
+            new_tile_pack->Deserialize(json_data["tilePack"]);
+            new_layer->SetTileSetPack(new_tile_pack);
 
-    json layer_data = parsed["layers"].at(0)["data"];  // Just grab first layer for testing
-    new_layer->SetLayerData(layer_data);
-
-    std::shared_ptr<TileSetPack> new_tile_pack = std::make_shared<TileSetPack>();
-    new_tile_pack->Load(tileset_filename);
-
-    new_layer->SetTileSetPack(new_tile_pack);
-
-    render_layers_.push_back(new_layer);
-
-    return 0;
+            json data = layer_data["data"];  // Just grab first layer for testing
+            new_layer->SetLayerData(data);
+            render_layers_.push_back(new_layer);
+        }
+    }
 }
 
 }  // namespace Brutal

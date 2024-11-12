@@ -7,6 +7,8 @@
 #include "graphics/tilesetpack.h"
 #include "raylib.h"
 
+using namespace Brutal;
+
 TEST_F(GameTest, TestGameObject) {
     // Game& game = Game::Get();
 
@@ -29,23 +31,29 @@ TEST_F(GameTest, TestGameObject) {
 }
 
 TEST_F(GameTest, TestTileLayer) {
-    // Game& game = Game::Get();
+    Game& game = Game::Get();
 
-    // game.Setup(640, 480);
+    game.Setup(640, 480);
 
-    // game.CreateLevel();
+    game.CreateLevel();
 
-    // game.level->LoadTileLayer("testdata/test.json", "testdata/plains.png");
+    EXPECT_TRUE(game.level != nullptr);
 
-    // // Test off screen, should clip left and top portion of tile map
-    // game.view_screen.x = 100;
-    // game.view_screen.y = 100;
+    std::ifstream test_json("testdata/level.json");
 
-    // // Test view screen off -200, -200, tile should start right and lower
-    // // game.view_screen.x = -200;
-    // // game.view_screen.y = -200;
+    json json_data = json::parse(test_json);
 
-    // game.MainLoop();
+    game.level->Deserialize(json_data);
 
-    // game.Cleanup();
+    // Test off screen, should clip left and top portion of tile map
+    game.view_screen.x = 100;
+    game.view_screen.y = 100;
+
+    // Test view screen off -200, -200, tile should start right and lower
+    // game.view_screen.x = -200;
+    // game.view_screen.y = -200;
+
+    game.MainLoop();
+
+    game.Cleanup();
 }

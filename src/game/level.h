@@ -34,9 +34,7 @@ class Level {
 
     int MainLoop();
 
-    // TODO: Deprecate?
-    //    int LoadSprite(std::string const& file_name, uint32_t layer);
-    int LoadTileLayer(std::string const& map_file_name, std::string const& tileset_file_name);
+    void Deserialize(json json_data);
 };
 
 }  // namespace Brutal
