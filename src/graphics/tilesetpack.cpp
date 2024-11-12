@@ -44,6 +44,10 @@ void TileSetPack::Deserialize(json const& json_data) {
         spdlog::info("TileSetPack: {} tiles loaded", tile_count);
 #endif
     }
+
+    auto& tuple = tileset_[1];
+    tile_width_ = std::get<0>(tuple)->tile_width;
+    tile_height_ = std::get<0>(tuple)->tile_height;
 }
 
 void TileSetPack::Draw(Vector2 const& position, uint16_t tile_id) {
@@ -59,8 +63,8 @@ void TileSetPack::Draw(Vector2 const& position, uint16_t tile_id) {
 
 size_t TileSetPack::Size() { return tileset_.size(); }
 
-uint32_t TileSetPack::GetTileWidth() { return tile_width_; }
+float TileSetPack::GetTileWidth() { return tile_width_; }
 
-uint32_t TileSetPack::GetTileHeight() { return tile_height_; }
+float TileSetPack::GetTileHeight() { return tile_height_; }
 
 }  // namespace Brutal

@@ -31,6 +31,8 @@ TEST_F(GameTest, TestGameObject) {
 }
 
 TEST_F(GameTest, TestTileLayer) {
+    SetTraceLogLevel(LOG_ERROR);
+
     Game& game = Game::Get();
 
     game.Setup(640, 480);
@@ -46,8 +48,8 @@ TEST_F(GameTest, TestTileLayer) {
     game.level->Deserialize(json_data);
 
     // Test off screen, should clip left and top portion of tile map
-    game.view_screen.x = 100;
-    game.view_screen.y = 100;
+    game.view_screen.x = 0;
+    game.view_screen.y = 0;
 
     // Test view screen off -200, -200, tile should start right and lower
     // game.view_screen.x = -200;

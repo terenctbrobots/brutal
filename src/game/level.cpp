@@ -98,12 +98,12 @@ void Level::Deserialize(json json_data) {
         std::string const& layer_type = layer_data["type"];
 
         if (layer_type == "tilelayer") {
-            auto new_layer = std::make_shared<TileLayer>(json_data["width"], json_data["height"]);
+            auto new_layer = std::make_shared<TileLayer>(layer_data["width"], layer_data["height"]);
             auto new_tile_pack = std::make_shared<TileSetPack>();
             new_tile_pack->Deserialize(json_data["tilePack"]);
             new_layer->SetTileSetPack(new_tile_pack);
 
-            json data = layer_data["data"];  // Just grab first layer for testing
+            json data = layer_data["data"];
             new_layer->SetLayerData(data);
             render_layers_.push_back(new_layer);
         }

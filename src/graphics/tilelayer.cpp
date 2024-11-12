@@ -20,6 +20,9 @@ TileLayer::TileLayer(uint32_t width, uint32_t height) {
     draw_offset_ = {0, 0};
 
     layer_type_ = Layer::TILE;
+#ifdef DEBUG
+    spdlog::info("TileLayer: Creating new layer with {} width and {} height", width, height);
+#endif
 }
 
 TileLayer::~TileLayer() {
