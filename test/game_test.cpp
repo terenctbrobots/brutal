@@ -29,6 +29,8 @@ TEST_F(GameTest, TestGameObject) {
     gameobject = game.level->GetObjectByUUID(1);
     EXPECT_TRUE(gameobject);
 
+    EXPECT_TRUE(gameobject.HasComponent<SpriteComponent>());
+
     auto& sprite_component = gameobject.GetComponent<SpriteComponent>();
 
     game.Cleanup();
