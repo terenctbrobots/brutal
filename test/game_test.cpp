@@ -2,37 +2,39 @@
 
 #include <fstream>
 
+#include "UUID.h"
 #include "game/game.h"
+#include "game/gameobject.h"
+#include "graphics/sprite.h"
 #include "graphics/tilelayer.h"
 #include "graphics/tilesetpack.h"
-#include "raylib.h"
 
 using namespace Brutal;
 
 TEST_F(GameTest, TestGameObject) {
-    // Game& game = Game::Get();
+    Game& game = Game::Get();
 
-    // game.Setup(640, 480);
+    game.Setup(640, 480);
 
-    // game.CreateLevel();
-    // game.level->LoadSprite("testdata/player.png", 0);
+    game.CreateLevel();
 
-    // Test off screen (Blank)
-    // game.view_screen.x = 100;
-    // game.view_screen.y = 100;
+    std::ifstream test_json("testdata/levelgameobject.json");
 
-    // Test view screen off -200, -200, gameobject should be right and lower from 0,0
-    // game.view_screen.x = -200;
-    // game.view_screen.y = -200;
+    json json_data = json::parse(test_json);
 
-    // game.MainLoop();
+    game.level->DeserializeGameObject(json_data["gameobject"]);
+    GameObject gameobject = game.level->FindGameObjectByName("Player 1");
+    EXPECT_TRUE(gameobject);
 
-    // game.Cleanup();
+    gameobject = game.level->GetObjectByUUID(1);
+    EXPECT_TRUE(gameobject);
+
+    auto& sprite_component = gameobject.GetComponent<SpriteComponent>();
+
+    game.Cleanup();
 }
 
 TEST_F(GameTest, TestTileLayer) {
-    SetTraceLogLevel(LOG_ERROR);
-
     Game& game = Game::Get();
 
     game.Setup(640, 480);

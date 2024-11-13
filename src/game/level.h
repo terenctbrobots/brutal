@@ -29,12 +29,16 @@ class Level {
     GameObject CreateGameObjectWithUUID(UUID uuid, std::string const& name);
     void DestroyGameObject(GameObject gameobject);
 
+    GameObject FindGameObjectByName(std::string_view);
+    GameObject GetObjectByUUID(UUID uuid);
+
     int Add(std::shared_ptr<GameObject> gameobject, uint32_t layer = 0);
     int Remove();
 
     int MainLoop();
 
     void Deserialize(json json_data);
+    void DeserializeGameObject(json json_data);
 };
 
 }  // namespace Brutal

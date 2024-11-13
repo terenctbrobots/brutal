@@ -30,6 +30,63 @@
             "width": 30,
             "x": 0,
             "y": 0
+        },
+        {
+            "type": "gameobject",
+            "data": [ 1, 2 ]
+        }
+    ],
+    "gameobject": [
+        {
+            "name": "Player 1",
+            "uuid": 1,
+            "component": [
+                {
+                    "type": "rectangle",
+                    "x": 100,
+                    "y": 100,
+                    "width": 16,
+                    "height": 16
+                },
+                {
+                    "type": "sprite",
+                    "fileName": "testdata/player.png",
+                    "width": 48,
+                    "height": 48,
+                    "defaultAnimation": "idle",
+                    "animation": {
+                        "idle": {
+                            "frameRate": 250,
+                            "frames": 6,
+                            "offsetX": 0.0,
+                            "offsetY": 0.0
+                        },
+                        "moveLeftRight": {
+                            "frameRate": 250,
+                            "frames": 6,
+                            "offsetX": 0.0,
+                            "offsetY": 0.0
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Header",
+            "uuid": 2,
+            "component": [
+                {
+                    "type": "rectangle",
+                    "x": 100,
+                    "y": 200,
+                    "width": 0,
+                    "height": 0
+                },
+                {
+                    "type": "bitmap",
+                    "fileName": "testdata/bbr.png"
+                }
+            ]
         }
     ],
     "tilePack": [

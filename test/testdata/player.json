@@ -1,5 +1,6 @@
 {
     "fileName": "testdata/player.png",
+    "type": "sprite",
     "width": 48,
     "height": 48,
     "defaultAnimation": "idle",

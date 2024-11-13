@@ -7,9 +7,23 @@
 #include "game/component.h"
 #include "graphics/objectlayer.h"
 #include "graphics/tilelayer.h"
+#include "helper.h"
 #include "raygui.h"
 
 namespace Brutal {
+
+constexpr size_t hash(const char* str) {
+    const long long p = 131;
+    const long long m = 4294967291;  // 2^32 - 5, largest 32 bit prime
+    long long total = 0;
+    long long current_multiplier = 1;
+    for (int i = 0; str[i] != '\0'; ++i) {
+        total = (total + current_multiplier * str[i]) % m;
+        current_multiplier = (current_multiplier * p) % m;
+    }
+    return total;
+}
+
 Level::Level() {}
 
 Level::~Level() {}
@@ -31,6 +45,26 @@ GameObject Level::CreateGameObjectWithUUID(UUID uuid, std::string const& name) {
 void Level::DestroyGameObject(GameObject gameobject) {
     gameobject_map_.erase(gameobject.GetUUID());
     registry_.destroy(gameobject);
+}
+
+GameObject Level::FindGameObjectByName(std::string_view name) {
+    auto view = registry_.view<TagComponent>();
+    for (auto gameobject : view) {
+        TagComponent const& tag_component = view.get<TagComponent>(gameobject);
+        if (tag_component.tag == name) {
+            return GameObject{gameobject, this};
+        }
+    }
+
+    return {};
+}
+
+GameObject Level::GetObjectByUUID(UUID uuid) {
+    if (gameobject_map_.find(uuid) != gameobject_map_.end()) {
+        return {gameobject_map_.at(uuid), this};
+    }
+
+    return {};
 }
 
 //-------------------------------------------------------------------------------------------
@@ -94,6 +128,8 @@ int Level::MainLoop() {
 }
 
 void Level::Deserialize(json json_data) {
+    DeserializeGameObject(json_data["gameobject"]);
+
     for (auto& layer_data : json_data["layers"]) {
         std::string const& layer_type = layer_data["type"];
 
@@ -106,6 +142,32 @@ void Level::Deserialize(json json_data) {
             json data = layer_data["data"];
             new_layer->SetLayerData(data);
             render_layers_.push_back(new_layer);
+        }
+    }
+}
+
+void Level::DeserializeGameObject(json json_data) {
+    for (auto& gameobject_data : json_data) {
+        std::string const& name = gameobject_data["name"];
+        UUID uuid = UUID(gameobject_data["uuid"]);
+
+        GameObject gameobject = CreateGameObjectWithUUID(uuid, name);
+
+        for (auto& component_data : gameobject_data["component"]) {
+            std::string const& type = component_data["type"];
+
+            switch (hash(type.c_str())) {
+                case hash("rectangle"):
+                    break;
+                case hash("sprite"):
+                    break;
+                case hash("bitmap"):
+                    break;
+                case hash("text"):
+                    break;
+                case hash("button"):
+                    break;
+            }
         }
     }
 }

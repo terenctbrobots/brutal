@@ -6,7 +6,7 @@
 
 #include "spdlog/spdlog.h"
 
-#define JSON_NOEXCEPTION
+// #define JSON_NOEXCEPTION
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;
 
