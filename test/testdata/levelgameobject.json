@@ -67,6 +67,20 @@
                     }
                 }
             ]
+        },
+        {
+            "name": "Header",
+            "uuid": 2,
+            "x": 100,
+            "y": 200,
+            "width": 800,
+            "height": 143,
+            "component": [
+                {
+                    "type": "bitmap",
+                    "fileName": "testdata/bbr.png"
+                }
+            ]
         }
     ],
     "tilePack": [
