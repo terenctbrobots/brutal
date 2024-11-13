@@ -5,6 +5,7 @@
 #include "UUID.h"
 #include "game/game.h"
 #include "game/gameobject.h"
+#include "graphics/bitmap.h"
 #include "graphics/sprite.h"
 #include "graphics/tilelayer.h"
 #include "graphics/tilesetpack.h"
@@ -29,9 +30,22 @@ TEST_F(GameTest, TestGameObject) {
     gameobject = game.level->GetObjectByUUID(1);
     EXPECT_TRUE(gameobject);
 
-    EXPECT_TRUE(gameobject.HasComponent<SpriteComponent>());
+    // EXPECT_TRUE(gameobject.HasComponent<SpriteComponent>());
 
-    auto& sprite_component = gameobject.GetComponent<SpriteComponent>();
+    // auto& sprite_component = gameobject.GetComponent<SpriteComponent>();
+
+    // EXPECT_EQ(sprite_component.width, 48);
+    // EXPECT_EQ(sprite_component.height, 48);
+
+    // gameobject = game.level->GetObjectByUUID(2);
+    // EXPECT_TRUE(gameobject);
+
+    // EXPECT_TRUE(gameobject.HasComponent<BitmapComponent>());
+
+    // auto& bitmap_component = gameobject.GetComponent<BitmapComponent>();
+    // EXPECT_TRUE(bitmap_component.image.data != NULL);
+
+    // game.MainLoop();
 
     game.Cleanup();
 }

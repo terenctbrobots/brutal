@@ -19,7 +19,7 @@ class Game {
 
     static Game& Get();
     Rectangle view_screen;
-    std::unique_ptr<Level> level;
+    Level* level;
 
     void Setup(float width, float height);
     int MainLoop();

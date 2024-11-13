@@ -5,10 +5,14 @@
 #include <memory>
 
 #include "game/component.h"
+#include "graphics/bitmap.h"
 #include "graphics/objectlayer.h"
+#include "graphics/sprite.h"
 #include "graphics/tilelayer.h"
 #include "helper.h"
 #include "raygui.h"
+#include "ui/button.h"
+#include "ui/text.h"
 
 namespace Brutal {
 
@@ -24,9 +28,36 @@ constexpr size_t hash(const char* str) {
     return total;
 }
 
-Level::Level() {}
+Level::~Level() {
+    auto sprite_view = registry_.view<SpriteComponent>();
 
-Level::~Level() {}
+    for (auto entity : sprite_view) {
+        auto& sprite_component = sprite_view.get<SpriteComponent>(entity);
+        if (sprite_component.texture.id > 0) {
+            UnloadTexture(sprite_component.texture);
+            sprite_component.texture.id = 0;
+        }
+    }
+
+    auto bitmap_view = registry_.view<BitmapComponent>();
+
+    for (auto entity : bitmap_view) {
+        auto& bitmap_component = bitmap_view.get<BitmapComponent>(entity);
+        if (bitmap_component.image.data != NULL) {
+            UnloadImage(bitmap_component.image);
+            bitmap_component.image.data = NULL;
+        }
+
+        if (bitmap_component.texture.id > 0) {
+            UnloadTexture(bitmap_component.texture);
+            bitmap_component.texture.id = 0;
+        }
+    }
+
+    std::cout << "Level Destructor called" << std::endl;
+    gameobject_map_.clear();
+    registry_.clear();
+}
 
 GameObject Level::CreateGameObject(std::string const& name) { return CreateGameObjectWithUUID(UUID(), name); }
 
@@ -43,6 +74,26 @@ GameObject Level::CreateGameObjectWithUUID(UUID uuid, std::string const& name) {
 }
 
 void Level::DestroyGameObject(GameObject gameobject) {
+    if (gameobject.HasComponent<SpriteComponent>()) {
+        auto& component = gameobject.GetComponent<SpriteComponent>();
+        if (component.texture.id > 0) {
+            UnloadTexture(component.texture);
+            component.texture.id = 0;
+        }
+    }
+
+    if (gameobject.HasComponent<BitmapComponent>()) {
+        auto& component = gameobject.GetComponent<BitmapComponent>();
+        if (component.image.data != NULL) {
+            UnloadImage(component.image);
+            component.image.data = NULL;
+        }
+
+        if (component.texture.id > 0) {
+            UnloadTexture(component.texture);
+            component.texture.id = 0;
+        }
+    }
     gameobject_map_.erase(gameobject.GetUUID());
     registry_.destroy(gameobject);
 }
@@ -152,23 +203,33 @@ void Level::DeserializeGameObject(json json_data) {
         UUID uuid = UUID(gameobject_data["uuid"]);
 
         GameObject gameobject = CreateGameObjectWithUUID(uuid, name);
+        auto& rectangle = gameobject.GetComponent<Rectangle>();
+        rectangle.x = gameobject_data["x"];
+        rectangle.y = gameobject_data["y"];
+        rectangle.width = gameobject_data["width"];
+        rectangle.height = gameobject_data["height"];
 
         for (auto& component_data : gameobject_data["component"]) {
             std::string const& type = component_data["type"];
 
             switch (hash(type.c_str())) {
-                case hash("rectangle"):
-                    break;
                 case hash("sprite"):
+                    gameobject.AddComponent<SpriteComponent>(Sprite::Deserialize(component_data));
                     break;
                 case hash("bitmap"):
+                    gameobject.AddComponent<BitmapComponent>(Bitmap::Deserialize(component_data));
                     break;
                 case hash("text"):
+                    gameobject.AddComponent<TextComponent>(Text::Deserialize(component_data));
                     break;
                 case hash("button"):
+                    gameobject.AddComponent<ButtonComponent>(Button::Deserialize(component_data));
                     break;
             }
         }
+#ifdef DEBUG
+        spdlog::info("Level: GameObject {} succesfully created", name);
+#endif
     }
 }
 

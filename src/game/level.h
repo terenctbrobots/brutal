@@ -22,7 +22,7 @@ class Level {
     friend class GameObject;
 
    public:
-    Level();
+    Level() = default;
     ~Level();
 
     GameObject CreateGameObject(std::string const& name);

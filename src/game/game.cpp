@@ -1,7 +1,7 @@
 #include "game.h"
 
 namespace Brutal {
-void Game::CreateLevel() { level = std::make_unique<Level>(); }
+void Game::CreateLevel() { level = new Level(); }
 
 Game &Game::Get() {
     static Game instance;
@@ -31,11 +31,13 @@ int Game::MainLoop() {
 }
 
 void Game::Cleanup() {
-    level = nullptr;
-    CloseWindow();
 #ifdef DEBUG
     spdlog::info("Game : Cleanup");
 #endif
+    if (level != NULL) {
+        delete level;
+    }
+    CloseWindow();
 }
 
 }  // namespace Brutal

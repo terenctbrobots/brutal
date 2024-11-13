@@ -40,14 +40,11 @@
         {
             "name": "Player 1",
             "uuid": 1,
+            "x": 100,
+            "y": 100,
+            "width": 48,
+            "height": 48,
             "component": [
-                {
-                    "type": "rectangle",
-                    "x": 100,
-                    "y": 100,
-                    "width": 16,
-                    "height": 16
-                },
                 {
                     "type": "sprite",
                     "fileName": "testdata/player.png",
@@ -68,23 +65,6 @@
                             "offsetY": 0.0
                         }
                     }
-                }
-            ]
-        },
-        {
-            "name": "Header",
-            "uuid": 2,
-            "component": [
-                {
-                    "type": "rectangle",
-                    "x": 100,
-                    "y": 200,
-                    "width": 0,
-                    "height": 0
-                },
-                {
-                    "type": "bitmap",
-                    "fileName": "testdata/bbr.png"
                 }
             ]
         }

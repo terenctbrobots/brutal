@@ -10,30 +10,13 @@
 namespace Brutal {
 GameObject::GameObject(entt::entity handle, Level *level) : handle_(handle), level_(level) {}
 
-GameObject::~GameObject() {
-    if (HasComponent<SpriteComponent>()) {
-        auto &sprite_component = GetComponent<SpriteComponent>();
-        if (sprite_component.texture.id > 0) {
-            UnloadTexture(sprite_component.texture);
-        }
-    }
-
-    if (HasComponent<BitmapComponent>()) {
-        auto &bitmap_component = GetComponent<BitmapComponent>();
-        if (bitmap_component.image.data != NULL) {
-            UnloadImage(bitmap_component.image);
-        }
-
-        if (bitmap_component.texture.id > 0) {
-            UnloadTexture(bitmap_component.texture);
-        }
-    }
-}
+GameObject::~GameObject() {}
 template <typename T>
 void GameObject::OnComponentAdd(T &component) {
     static_assert(sizeof(T) == 0);
 }
 
+// TODO: Not sure if this magic solution is the best, maybe let the editor handle it?
 template <>
 void GameObject::OnComponentAdd<SpriteComponent>(SpriteComponent &component) {
     auto &rectangle = GetComponent<Rectangle>();
@@ -50,6 +33,7 @@ template <>
 void GameObject::OnComponentRemove<SpriteComponent>(SpriteComponent &component) {
     if (component.texture.id > 0) {
         UnloadTexture(component.texture);
+        component.texture.id = 0;
     }
 }
 
@@ -57,10 +41,12 @@ template <>
 void GameObject::OnComponentRemove<BitmapComponent>(BitmapComponent &component) {
     if (component.image.data != NULL) {
         UnloadImage(component.image);
+        component.image.data = NULL;
     }
 
     if (component.texture.id > 0) {
         UnloadTexture(component.texture);
+        component.texture.id = 0;
     }
 }
 }  // namespace Brutal
