@@ -3,6 +3,16 @@ Brutal is an experimental 2D Game Engine which is being used to explore Game Eng
 
 It is primaryly being developed on *nix platforms.
 
+The planned features are:
+- Animated sprites with different animations
+- Tilemaps
+- Multiple draw layers
+- In-game editor (You can toggle the editor on/off), support for hot-reloading
+- JSON used for all game data
+- LUA Scripting
+- Entity Component System
+
+
 # Ubuntu system install
 sudo apt install libgl1-mesa-dev libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev
 
