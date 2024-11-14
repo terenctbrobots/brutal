@@ -1,7 +1,7 @@
 # Brutal
 Brutal is an experimental 2D Game Engine which is being used to explore Game Engine Architecture, technologies and C++ coding techniques.
 
-Is primaryly developed on *nix platforms.
+It is primaryly being developed on *nix platforms.
 
 # Ubuntu system install
 sudo apt install libgl1-mesa-dev libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev
