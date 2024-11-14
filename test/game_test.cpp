@@ -23,7 +23,8 @@ TEST_F(GameTest, TestGameObject) {
 
     json json_data = json::parse(test_json);
 
-    game.level->DeserializeGameObject(json_data["gameobject"]);
+    game.level->Deserialize(json_data);
+
     GameObject gameobject = game.level->FindGameObjectByName("Player 1");
     EXPECT_TRUE(gameobject);
 

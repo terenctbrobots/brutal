@@ -17,18 +17,6 @@
 
 namespace Brutal {
 
-constexpr size_t hash(const char* str) {
-    const long long p = 131;
-    const long long m = 4294967291;  // 2^32 - 5, largest 32 bit prime
-    long long total = 0;
-    long long current_multiplier = 1;
-    for (int i = 0; str[i] != '\0'; ++i) {
-        total = (total + current_multiplier * str[i]) % m;
-        current_multiplier = (current_multiplier * p) % m;
-    }
-    return total;
-}
-
 Level::~Level() {
     auto sprite_view = registry_.view<SpriteComponent>();
 
@@ -55,7 +43,6 @@ Level::~Level() {
         }
     }
 
-    std::cout << "Level Destructor called" << std::endl;
     gameobject_map_.clear();
     registry_.clear();
 }
@@ -163,19 +150,15 @@ int Level::MainLoop() {
     {
         if (view_updated_) {
             OrganizeDrawList();
+            view_updated_ = false;
         }
-        // for (auto olayer = render_layers_.begin(); olayer != render_layers_.end(); olayer++) {
-        //     if ((*olayer)->enabled) {
-        //         (*olayer)->OrganizeDraw();
-        //     }
-        // }
 
         BeginDrawing();
         ClearBackground(BLACK);
 
-        for (auto rlayer = render_layers_.begin(); rlayer != render_layers_.end(); rlayer++) {
-            if ((*rlayer)->enabled) {
-                (*rlayer)->Draw();
+        for (auto& rlayer : render_layers_) {
+            if (rlayer->enabled) {
+                rlayer->Draw();
             }
         }
 
@@ -270,30 +253,14 @@ void Level::OrganizeDrawList() {
         GameObject gameobject = {entity, this};
         auto& object_rect = gameobject.GetComponent<Rectangle>();
         auto& layer = gameobject.GetComponent<LayerComponent>();
+        auto object_layer = std::static_pointer_cast<ObjectLayer>(render_layers_[layer.layer]);
 
         if (!CheckCollisionRecs(game.level->GetView(), object_rect)) {
+            object_layer->RemoveFromDrawList(gameobject);
+        } else {
+            object_layer->AddToDrawList(gameobject);
         }
     }
-    // // Remove all old gameobjects that are no longer in render view
-    // auto old_gameobject = drawlist_.begin();
-    // while (old_gameobject != drawlist_.end()) {
-    //     if ((*old_gameobject)->enabled == false || !CheckCollisionRecs(game.view_screen,
-    //     (*old_gameobject)->position)) {
-    //         old_gameobject = drawlist_.erase(old_gameobject);
-    //     } else {
-    //         old_gameobject++;
-    //     }
-    // }
-
-    // // Add new game objects that are in render view
-    // auto new_gameobject = gameobjects_.begin();
-    // while (new_gameobject != gameobjects_.end()) {
-    //     if ((*new_gameobject)->enabled == true && CheckCollisionRecs(game.view_screen, (*new_gameobject)->position))
-    //     {
-    //         drawlist_.push_front(*new_gameobject);
-    //     }
-    //     new_gameobject++;
-    // }
 }
 
 }  // namespace Brutal

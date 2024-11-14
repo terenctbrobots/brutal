@@ -12,6 +12,8 @@ namespace Brutal {
 class Game {
    private:
     Game() {}
+    float width_;
+    float height_;
 
    public:
     Game(const Game&) = delete;
