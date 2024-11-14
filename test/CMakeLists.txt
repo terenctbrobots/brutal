@@ -24,6 +24,7 @@ add_executable(
   test/lua_test.cpp
   test/entt_test.cpp
   src/UUID.cpp
+  src/script/scriptcore.cpp
 )
 
 target_include_directories(brutal_test PRIVATE ${LUABRIDGE3_INCLUDE_DIRS} ${RAYGUI_INCLUDE_DIRS})

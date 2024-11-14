@@ -18,7 +18,6 @@ class ObjectLayer : public Layer {
     void AddToDrawList(GameObject const& gameobject);
     void RemoveFromDrawList(GameObject const& gameobject);
 
-    void OrganizeDraw() override;
     void Draw() override;
 };
 

@@ -23,7 +23,7 @@ class Layer {
 
     int GetLayerType() { return layer_type_; }
 
-    virtual void OrganizeDraw() = 0;
+    virtual void OrganizeDraw() {};
     virtual void Draw() = 0;
 };
 }  // namespace Brutal

@@ -26,7 +26,7 @@ class Greeter : public std::enable_shared_from_this<Greeter> {
 
     std::string getName() const { return m_name; }
 
-    void printName() { std::cout << "[C++ CODE] Hello, my name is " << m_name << "!" << std::endl; }
+        void printName() { std::cout << "[C++ CODE] Hello, my name is " << m_name << "!" << std::endl; }
 
    private:
     std::string m_name;

@@ -44,9 +44,9 @@ class Level {
 
     void UpdateView(Rectangle const& rectangle);
     void MoveView(Vector2 const& position);
-    float GetWidth() { return view_.width; };
-    float GetHeight() { return view_.height; };
-    Rectangle& GetView() { return view_; }
+    float Width() { return view_.width; };
+    float Height() { return view_.height; };
+    Rectangle& View() { return view_; }
 
     int MainLoop();
 

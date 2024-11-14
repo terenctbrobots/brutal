@@ -6,6 +6,7 @@
 #include "common.h"
 #include "level.h"
 #include "raygui.h"
+#include "script/scriptcore.h"
 
 namespace Brutal {
 
@@ -21,6 +22,7 @@ class Game {
 
     static Game& Get();
     Level* level;
+    ScriptCore* script_core;
 
     void Setup(float width, float height);
     int MainLoop();

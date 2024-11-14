@@ -150,6 +150,12 @@ int Level::MainLoop() {
     {
         if (view_updated_) {
             OrganizeDrawList();
+
+            for (auto& rlayer : render_layers_) {
+                if (rlayer->enabled && rlayer->GetLayerType() == Layer::TILE) {
+                    std::static_pointer_cast<TileLayer>(rlayer)->OrganizeDraw();
+                }
+            }
             view_updated_ = false;
         }
 
@@ -255,7 +261,7 @@ void Level::OrganizeDrawList() {
         auto& layer = gameobject.GetComponent<LayerComponent>();
         auto object_layer = std::static_pointer_cast<ObjectLayer>(render_layers_[layer.layer]);
 
-        if (!CheckCollisionRecs(game.level->GetView(), object_rect)) {
+        if (!CheckCollisionRecs(game.level->View(), object_rect)) {
             object_layer->RemoveFromDrawList(gameobject);
         } else {
             object_layer->AddToDrawList(gameobject);
