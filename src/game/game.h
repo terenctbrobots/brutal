@@ -18,7 +18,6 @@ class Game {
     void operator=(const Game&) = delete;
 
     static Game& Get();
-    Rectangle view_screen;
     Level* level;
 
     void Setup(float width, float height);

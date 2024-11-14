@@ -21,6 +21,10 @@ struct TagComponent {
     TagComponent(const std::string& tag) : tag(tag) {}
 };
 
+struct LayerComponent {
+    int layer;
+};
+
 }  // namespace Brutal
 
 #endif

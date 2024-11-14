@@ -8,7 +8,7 @@ ObjectLayer::ObjectLayer() { layer_type_ = Layer::OBJECT; }
 
 ObjectLayer::~ObjectLayer() {}
 
-void ObjectLayer::Add(std::shared_ptr<GameObject> gameobject) { gameobjects_.push_front(gameobject); }
+// void ObjectLayer::Add(GameObject* gameobject) { gameobjects_.push_front(gameobject); }
 
 void ObjectLayer::OrganizeDraw() {
     // Game& game = Game::Get();

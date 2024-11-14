@@ -9,14 +9,14 @@
 namespace Brutal {
 class ObjectLayer : public Layer {
    private:
-    std::list<std::shared_ptr<GameObject>> gameobjects_;
     std::list<std::shared_ptr<GameObject>> drawlist_;
 
    public:
     ObjectLayer();
     ~ObjectLayer();
 
-    void Add(std::shared_ptr<GameObject> gameobject);
+    void AddToDrawList(GameObject* gameobject);
+    void RemoveFromDrawList(GameObject* gameobject);
 
     void OrganizeDraw() override;
     void Draw() override;

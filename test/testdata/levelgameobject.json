@@ -32,7 +32,7 @@
             "y": 0
         },
         {
-            "type": "gameobject",
+            "type": "object",
             "data": [ 1, 2 ]
         }
     ],

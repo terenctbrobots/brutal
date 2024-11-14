@@ -39,13 +39,13 @@ std::shared_ptr<TileSetPack> TileLayer::SetTileSetPack(std::shared_ptr<TileSetPa
 
     Game& game = Game::Get();
 
-    draw_width_ = std::round(game.view_screen.width / tile_width_) + 1;
+    draw_width_ = std::round(game.level->GetWidth() / tile_width_) + 1;
 
     if (draw_width_ > width_) {
         draw_width_ = width_;
     }
 
-    draw_height_ = std::round(game.view_screen.height / tile_height_) + 1;
+    draw_height_ = std::round(game.level->GetHeight() / tile_height_) + 1;
 
     if (draw_height_ > height_) {
         draw_height_ = height_;
@@ -78,9 +78,10 @@ void TileLayer::SetLayerData(json layer_data) {
 
 void TileLayer::OrganizeDraw() {
     Game& game = Game::Get();
+    Rectangle view = game.level->GetView();
 
-    if (game.view_screen.x < 0) {
-        draw_offset_.x = std::abs(game.view_screen.x);
+    if (view.x < 0) {
+        draw_offset_.x = std::abs(view.x);
 
         if (draw_offset_.x > layer_pixel_width_) {
             start_tile_x_ = -1;
@@ -89,7 +90,7 @@ void TileLayer::OrganizeDraw() {
 
         start_tile_x_ = 0;
     } else {
-        start_tile_x_ = std::floor(game.view_screen.x / tile_width_);
+        start_tile_x_ = std::floor(view.x / tile_width_);
 
         if (start_tile_x_ >= width_) {
             start_tile_x_ = -1;
@@ -97,8 +98,8 @@ void TileLayer::OrganizeDraw() {
         }
     }
 
-    if (game.view_screen.y < 0) {
-        draw_offset_.y = std::abs(game.view_screen.y);
+    if (view.y < 0) {
+        draw_offset_.y = std::abs(view.y);
 
         if (draw_offset_.y > layer_pixel_height_) {
             start_tile_y_ = -1;
@@ -106,7 +107,7 @@ void TileLayer::OrganizeDraw() {
         }
         start_tile_y_ = 0;
     } else {
-        start_tile_y_ = std::floor(game.view_screen.y / tile_width_);
+        start_tile_y_ = std::floor(view.y / tile_width_);
 
         if (start_tile_y_ >= width_) {
             start_tile_y_ = -1;

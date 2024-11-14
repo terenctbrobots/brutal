@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "game/component.h"
+#include "game/game.h"
 #include "graphics/bitmap.h"
 #include "graphics/objectlayer.h"
 #include "graphics/sprite.h"
@@ -110,7 +111,7 @@ GameObject Level::FindGameObjectByName(std::string_view name) {
     return {};
 }
 
-GameObject Level::GetObjectByUUID(UUID uuid) {
+GameObject Level::GetGameObjectByUUID(UUID uuid) {
     if (gameobject_map_.find(uuid) != gameobject_map_.end()) {
         return {gameobject_map_.at(uuid), this};
     }
@@ -120,14 +121,25 @@ GameObject Level::GetObjectByUUID(UUID uuid) {
 
 //-------------------------------------------------------------------------------------------
 
-int Level::Add(std::shared_ptr<GameObject> gameobject, u_int32_t layer) {
-    auto render_layer = render_layers_[layer];
+// int Level::Add(std::shared_ptr<GameObject> gameobject, u_int32_t layer) {
+//     auto render_layer = render_layers_[layer];
 
-    if (render_layer->GetLayerType() == Layer::OBJECT) {
-        std::static_pointer_cast<ObjectLayer>(render_layer)->Add(gameobject);
-    }
+//     if (render_layer->GetLayerType() == Layer::OBJECT) {
+//         std::static_pointer_cast<ObjectLayer>(render_layer)->Add(gameobject);
+//     }
 
-    return 0;
+//     return 0;
+// }
+
+void Level::UpdateView(Rectangle const& rectangle) {
+    view_ = rectangle;
+    view_updated_ = true;
+}
+
+void Level::MoveView(Vector2 const& position) {
+    view_.x = position.x;
+    view_.y = position.y;
+    view_updated_ = true;
 }
 
 int Level::MainLoop() {
@@ -149,11 +161,14 @@ int Level::MainLoop() {
     while (!WindowShouldClose())
 #endif
     {
-        for (auto olayer = render_layers_.begin(); olayer != render_layers_.end(); olayer++) {
-            if ((*olayer)->enabled) {
-                (*olayer)->OrganizeDraw();
-            }
+        if (view_updated_) {
+            OrganizeDrawList();
         }
+        // for (auto olayer = render_layers_.begin(); olayer != render_layers_.end(); olayer++) {
+        //     if ((*olayer)->enabled) {
+        //         (*olayer)->OrganizeDraw();
+        //     }
+        // }
 
         BeginDrawing();
         ClearBackground(BLACK);
@@ -184,15 +199,28 @@ void Level::Deserialize(json json_data) {
     for (auto& layer_data : json_data["layers"]) {
         std::string const& layer_type = layer_data["type"];
 
-        if (layer_type == "tilelayer") {
-            auto new_layer = std::make_shared<TileLayer>(layer_data["width"], layer_data["height"]);
-            auto new_tile_pack = std::make_shared<TileSetPack>();
-            new_tile_pack->Deserialize(json_data["tilePack"]);
-            new_layer->SetTileSetPack(new_tile_pack);
+        switch (hash(layer_type.c_str())) {
+            case hash("tilelayer"): {
+                auto new_layer = std::make_shared<TileLayer>(layer_data["width"], layer_data["height"]);
+                auto new_tile_pack = std::make_shared<TileSetPack>();
+                new_tile_pack->Deserialize(json_data["tilePack"]);
+                new_layer->SetTileSetPack(new_tile_pack);
 
-            json data = layer_data["data"];
-            new_layer->SetLayerData(data);
-            render_layers_.push_back(new_layer);
+                json data = layer_data["data"];
+                new_layer->SetLayerData(data);
+                render_layers_.push_back(new_layer);
+                break;
+            }
+            case hash("object"): {
+                auto new_layer = std::make_shared<ObjectLayer>();
+                size_t next_layer = render_layers_.size();
+                for (auto& uuid : layer_data["data"]) {
+                    auto gameobject = GetGameObjectByUUID((int)uuid);
+                    gameobject.AddComponent<LayerComponent>(next_layer);
+                }
+                render_layers_.push_back(new_layer);
+                break;
+            }
         }
     }
 }
@@ -231,6 +259,41 @@ void Level::DeserializeGameObject(json json_data) {
         spdlog::info("Level: GameObject {} succesfully created", name);
 #endif
     }
+}
+
+void Level::OrganizeDrawList() {
+    Game& game = Game::Get();
+
+    auto layer_view = registry_.view<LayerComponent>();
+
+    for (auto entity : layer_view) {
+        GameObject gameobject = {entity, this};
+        auto& object_rect = gameobject.GetComponent<Rectangle>();
+        auto& layer = gameobject.GetComponent<LayerComponent>();
+
+        if (!CheckCollisionRecs(game.level->GetView(), object_rect)) {
+        }
+    }
+    // // Remove all old gameobjects that are no longer in render view
+    // auto old_gameobject = drawlist_.begin();
+    // while (old_gameobject != drawlist_.end()) {
+    //     if ((*old_gameobject)->enabled == false || !CheckCollisionRecs(game.view_screen,
+    //     (*old_gameobject)->position)) {
+    //         old_gameobject = drawlist_.erase(old_gameobject);
+    //     } else {
+    //         old_gameobject++;
+    //     }
+    // }
+
+    // // Add new game objects that are in render view
+    // auto new_gameobject = gameobjects_.begin();
+    // while (new_gameobject != gameobjects_.end()) {
+    //     if ((*new_gameobject)->enabled == true && CheckCollisionRecs(game.view_screen, (*new_gameobject)->position))
+    //     {
+    //         drawlist_.push_front(*new_gameobject);
+    //     }
+    //     new_gameobject++;
+    // }
 }
 
 }  // namespace Brutal

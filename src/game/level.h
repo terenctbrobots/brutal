@@ -6,6 +6,7 @@
 
 #include "UUID.h"
 #include "common.h"
+#include "raylib.h"
 
 namespace Brutal {
 // Forward declartion
@@ -17,7 +18,13 @@ class Level {
     entt::registry registry_;
     std::unordered_map<UUID, entt::entity> gameobject_map_;
 
+    // TODO: This looks it could be a unique_ptr
     std::vector<std::shared_ptr<Layer>> render_layers_;
+
+    Rectangle view_;
+    bool view_updated_ = true;
+
+    void OrganizeDrawList();
 
     friend class GameObject;
 
@@ -30,10 +37,16 @@ class Level {
     void DestroyGameObject(GameObject gameobject);
 
     GameObject FindGameObjectByName(std::string_view);
-    GameObject GetObjectByUUID(UUID uuid);
+    GameObject GetGameObjectByUUID(UUID uuid);
 
-    int Add(std::shared_ptr<GameObject> gameobject, uint32_t layer = 0);
+    //    int Add(std::shared_ptr<GameObject> gameobject, uint32_t layer = 0);
     int Remove();
+
+    void UpdateView(Rectangle const& rectangle);
+    void MoveView(Vector2 const& position);
+    float GetWidth() { return view_.width; };
+    float GetHeight() { return view_.height; };
+    Rectangle& GetView() { return view_; }
 
     int MainLoop();
 
