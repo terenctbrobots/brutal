@@ -19,7 +19,7 @@ class TileSetPack {
 
     // TODO: Do we need a interface to add external created tilesets?
     // void Add(std::shared_ptr<TileSet> tile_set);
-    int Load(std::string const& file_name);
+    int Load(std::string const& filename);
     // int LoadJSON(json tile_set_json);
 
     void Deserialize(json const& json_data);

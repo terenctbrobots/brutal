@@ -6,8 +6,8 @@
 #include <iostream>
 
 // TODO: Not used, but can keep it here for other text files besides JSON
-std::optional<std::string> LoadTextFile(std::string const& file_name) {
-    std::ifstream file(file_name);
+std::optional<std::string> LoadTextFile(std::string const& filename) {
+    std::ifstream file(filename);
 
     if (!file.good()) {
         return std::nullopt;

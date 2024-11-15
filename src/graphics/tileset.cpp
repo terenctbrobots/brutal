@@ -16,15 +16,15 @@ TileSet::~TileSet() {
 }
 
 int TileSet::Deserialize(json const& json_data) {
-    std::string file_name = json_data["image"];
-    texture_ = LoadTexture(file_name.c_str());
+    std::string filename = json_data["image"];
+    texture_ = LoadTexture(filename.c_str());
 
     if (texture_.id == 0) {
-        spdlog::error("TileSet: could not load texture named {}", file_name);
+        spdlog::error("TileSet: could not load texture named {}", filename);
         abort();
     }
 #ifdef DEBUG
-    spdlog::info("TileSet: Loaded texture {}", file_name);
+    spdlog::info("TileSet: Loaded texture {}", filename);
 #endif
 
     width = json_data["imagewidth"];

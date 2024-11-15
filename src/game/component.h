@@ -1,5 +1,4 @@
-#ifndef COMPONENT_H_
-#define COMPONENT_H_
+#pragma once 
 
 #include <string>
 
@@ -25,6 +24,9 @@ struct LayerComponent {
     int layer;
 };
 
-}  // namespace Brutal
+struct ScriptComponent {
+    std::string filename;
+    bool on_tick = false;
+};
 
-#endif
+}  // namespace Brutal

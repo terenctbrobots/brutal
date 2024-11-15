@@ -8,10 +8,10 @@ TileSetPack::TileSetPack() {}
 
 TileSetPack::~TileSetPack() {}
 
-int TileSetPack::Load(std::string const& file_name) {
+int TileSetPack::Load(std::string const& filename) {
     // std::shared_ptr<TileSet> new_tileset = std::make_shared<TileSet>();
 
-    // int ret_value = new_tileset->Load(file_name);
+    // int ret_value = new_tileset->Load(filename);
 
     // if (ret_value != 0) {
     //     return ret_value;

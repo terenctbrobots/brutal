@@ -12,12 +12,12 @@ namespace Brutal {
 SpriteComponent Sprite::Deserialize(json const& json_data) {
     SpriteComponent sprite;
 
-    std::string file_name = json_data["fileName"];
+    std::string filename = json_data["fileName"];
 
-    sprite.texture = LoadTexture(file_name.c_str());
+    sprite.texture = LoadTexture(filename.c_str());
 #ifdef DEBUG
     if (sprite.texture.id == 0) {
-        spdlog::error("Sprite: could not load {} texture", file_name);
+        spdlog::error("Sprite: could not load {} texture", filename);
         abort();
     }
 #endif

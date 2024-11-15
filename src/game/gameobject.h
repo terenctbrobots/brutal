@@ -1,5 +1,4 @@
-#ifndef GAMEOBJECT_H
-#define GAMEOBJECT_H
+#pragma once 
 
 #include <iostream>
 #include <memory>
@@ -73,5 +72,3 @@ class GameObject {
     bool operator!=(const GameObject& other) const { return !(*this == other); }
 };
 }  // namespace Brutal
-
-#endif

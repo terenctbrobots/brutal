@@ -6,11 +6,11 @@ namespace Brutal {
 BitmapComponent Bitmap::Deserialize(json const& json_data) {
     BitmapComponent bitmap;
 
-    std::string file_name = json_data["fileName"];
-    bitmap.image = LoadImage(file_name.c_str());
+    std::string filename = json_data["fileName"];
+    bitmap.image = LoadImage(filename.c_str());
 
     if (bitmap.image.data == NULL) {
-        spdlog::error("Bitmap : failed to load {}", file_name);
+        spdlog::error("Bitmap : failed to load {}", filename);
         abort();
     }
 

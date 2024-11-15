@@ -8,7 +8,7 @@
 
 enum { LOAD_OK = 0, LOAD_FAIL };
 
-std::optional<std::string> LoadTextFile(std::string const& file_name);
+std::optional<std::string> LoadTextFile(std::string const& filename);
 
 uint64_t TimeMillisec();
 
