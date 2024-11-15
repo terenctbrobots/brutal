@@ -12,7 +12,6 @@ The planned features are:
 - LUA Scripting
 - Entity Component System
 
-
 # Ubuntu system install
 sudo apt install libgl1-mesa-dev libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev
 sudo apt install libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-config
