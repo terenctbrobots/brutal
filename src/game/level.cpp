@@ -19,7 +19,6 @@ namespace Brutal {
 
 void Level::Setup() {
     script_core = std::make_unique<ScriptCore>();
-    script_core->Setup();
 }
 
 void Level::Cleanup() {
@@ -116,18 +115,6 @@ GameObject Level::GetGameObjectByUUID(UUID uuid) {
     return {};
 }
 
-//-------------------------------------------------------------------------------------------
-
-// int Level::Add(std::shared_ptr<GameObject> gameobject, u_int32_t layer) {
-//     auto render_layer = render_layers_[layer];
-
-//     if (render_layer->GetLayerType() == Layer::OBJECT) {
-//         std::static_pointer_cast<ObjectLayer>(render_layer)->Add(gameobject);
-//     }
-
-//     return 0;
-// }
-
 void Level::UpdateView(Rectangle const& rectangle) {
     view_ = rectangle;
     view_updated_ = true;
@@ -180,6 +167,17 @@ int Level::MainLoop() {
 
         EndDrawing();
 
+        auto script_view = registry_.view<ScriptComponent,IDComponent>();
+
+        for (auto entity : script_view) {
+            auto& script = script_view.get<ScriptComponent>(entity);
+            auto& uuid = script_view.get<IDComponent>(entity);
+
+            if (script.on_tick) {
+                script_core->ActivateEvent({EVENT_ONTICK,uuid.ID});
+            }
+        }
+
 #ifdef DEBUG
         frame_counter++;
 
@@ -222,6 +220,8 @@ void Level::Deserialize(json json_data) {
             }
         }
     }
+
+    script_core->Setup();
 }
 
 void Level::DeserializeGameObject(json json_data) {

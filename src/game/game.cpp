@@ -2,7 +2,7 @@
 
 namespace Brutal {
 void Game::CreateLevel() {
-    level = std::make_unique<Level>();
+    level = new Level();
     level->Setup();
     level->UpdateView({0, 0, width_, height_});
 }
@@ -38,9 +38,9 @@ void Game::Cleanup() {
     spdlog::info("Game : Cleanup");
 #endif
 
-    if (level) {
+    if (level != NULL) {
         level->Cleanup();
-        level = nullptr;
+        delete level;
     }
 
     CloseWindow();

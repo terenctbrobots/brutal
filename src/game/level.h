@@ -1,5 +1,4 @@
-#ifndef LEVEL_H
-#define LEVEL_H
+#pragma once 
 
 #include <memory>
 #include <vector>
@@ -28,6 +27,7 @@ class Level {
     void OrganizeDrawList();
 
     friend class GameObject;
+    friend class ScriptCore;
 
    public:
     Level() = default;
@@ -45,7 +45,6 @@ class Level {
     GameObject FindGameObjectByName(std::string_view);
     GameObject GetGameObjectByUUID(UUID uuid);
 
-    //    int Add(std::shared_ptr<GameObject> gameobject, uint32_t layer = 0);
     int Remove();
 
     void UpdateView(Rectangle const& rectangle);
@@ -61,5 +60,3 @@ class Level {
 };
 
 }  // namespace Brutal
-
-#endif

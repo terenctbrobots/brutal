@@ -1,5 +1,4 @@
-#ifndef BUTTON_H_
-#define BUTTON_H_
+#pragma once
 
 #include "common.h"
 #include "raylib.h"
@@ -15,9 +14,7 @@ struct ButtonComponent {
 class Button {
    public:
     static ButtonComponent Deserialize(json const& json_data);
-    static void Draw(Vector2 const& position, ButtonComponent& button);
+    static void Draw(Vector2 const& position, ButtonComponent& button, u_int64_t uuid);
 };
 
 }  // namespace Brutal
-
-#endif

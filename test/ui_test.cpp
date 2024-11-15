@@ -36,7 +36,7 @@ TEST_F(GraphicTest, TestUI) {
         ClearBackground(BLACK);
 
         Text::Draw(position, text);
-        Button::Draw({100, 200}, button);
+        Button::Draw({100, 200}, button,0);
 
         EndDrawing();
 

@@ -1,5 +1,4 @@
-#ifndef OBJECTLAYER_H
-#define OBJECTLAYER_H
+#pragma once 
 
 #include <list>
 
@@ -9,6 +8,7 @@
 namespace Brutal {
 class ObjectLayer : public Layer {
    private:
+   //TODO: This is slow, probably better as a vector
     std::list<GameObject> drawlist_;
 
    public:
@@ -22,5 +22,3 @@ class ObjectLayer : public Layer {
 };
 
 }  // namespace Brutal
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once 
 
 #include <memory>
 
@@ -20,7 +19,7 @@ class Game {
     void operator=(const Game&) = delete;
 
     static Game& Get();
-    std::unique_ptr<Level> level;
+    Level* level;
 
     void Setup(float width, float height);
     int MainLoop();
@@ -29,5 +28,3 @@ class Game {
     void CreateLevel();
 };
 }  // namespace Brutal
-
-#endif

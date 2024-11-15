@@ -19,20 +19,23 @@ enum EventType {
 };
 
 struct ScriptEvent {
-    int UUID;
     int event;
+    u_int64_t uuid;
 };
 
 class ScriptCore {
     private:
         //TODO: Is a vector a better fit?
         std::deque<ScriptEvent> event_queue_;
-        lua_State* luaState_;
+        lua_State* lua_state_ = NULL;
+
+        void FormatFunction(char* name, int UUID, int event);
    public:
     void Setup();
     void Process();
     void Cleanup();
 
+    void PreProcessGameObjectScripts();
     void AddEvent(ScriptEvent const& event);
     void ActivateEvent(ScriptEvent const& event);
 };
