@@ -17,7 +17,17 @@
 
 namespace Brutal {
 
-Level::~Level() {
+void Level::Setup() {
+    script_core = std::make_unique<ScriptCore>();
+    script_core->Setup();
+}
+
+void Level::Cleanup() {
+    if (script_core) {
+        script_core->Cleanup();
+        script_core = nullptr;
+    }
+
     auto sprite_view = registry_.view<SpriteComponent>();
 
     for (auto entity : sprite_view) {

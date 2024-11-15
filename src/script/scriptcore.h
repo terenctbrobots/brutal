@@ -5,6 +5,7 @@
 #include <iostream>
 #include <memory>
 #include <string_view>
+#include <deque>
 
 extern "C" {
 #include "lauxlib.h"
@@ -12,10 +13,21 @@ extern "C" {
 #include "lualib.h"
 }
 
+struct ScriptEvent {
+    int UUID;
+    int event;
+};
+
 class ScriptCore {
+    private:
+        //TODO: Is a vector a better fit?
+        std::deque<ScriptEvent> event_queue_;
    public:
     void Setup();
+    void Process();
     void Cleanup();
+
+    void AddEvent(ScriptEvent const& event);
 };
 
 #endif

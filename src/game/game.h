@@ -6,7 +6,6 @@
 #include "common.h"
 #include "level.h"
 #include "raygui.h"
-#include "script/scriptcore.h"
 
 namespace Brutal {
 
@@ -21,8 +20,7 @@ class Game {
     void operator=(const Game&) = delete;
 
     static Game& Get();
-    Level* level;
-    ScriptCore* script_core;
+    std::unique_ptr<Level> level;
 
     void Setup(float width, float height);
     int MainLoop();

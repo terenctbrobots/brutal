@@ -7,6 +7,7 @@
 #include "UUID.h"
 #include "common.h"
 #include "raylib.h"
+#include "script/scriptcore.h"
 
 namespace Brutal {
 // Forward declartion
@@ -30,7 +31,12 @@ class Level {
 
    public:
     Level() = default;
-    ~Level();
+    ~Level() = default;
+
+    void Setup();
+    void Cleanup();
+
+    std::unique_ptr<ScriptCore> script_core;
 
     GameObject CreateGameObject(std::string const& name);
     GameObject CreateGameObjectWithUUID(UUID uuid, std::string const& name);
