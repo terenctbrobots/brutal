@@ -20,34 +20,30 @@ TEST(LuaTest, TestBasicLua) {
     luaL_dofile(L, "testdata/test.lua");
 }
 
-class Greeter : public std::enable_shared_from_this<Greeter> {
+class APIGame {
    public:
-    Greeter(const std::string_view name) : m_name(name) {}
-
-    std::string getName() const { return m_name; }
-
-        void printName() { std::cout << "[C++ CODE] Hello, my name is " << m_name << "!" << std::endl; }
-
-   private:
-    std::string m_name;
+    int entity;
+    void setText(std::string const& text) {
+        std::cout << entity << ":" << text << std::endl;
+    }
 };
 
-class GreeterSelector {
-   public:
-    GreeterSelector() {
-        greet1_ = std::make_shared<Greeter>("greet 1");
-        greet2_ = std::make_shared<Greeter>("greet 2");
+static APIGame api = APIGame();
+
+class APIGlobal {
+    public:
+static APIGame& findGameObjectByName(std::string const& name) {
+    std::cout << name << std::endl;
+
+    if (name == "test1") {
+        api.entity = 1;
+    } else if (name == "test2") {
+        api.entity = 2;
     }
 
-    std::shared_ptr<Greeter> GetGreeter(int which) {
-        if (which == 1) return greet1_;
+    return api;
+}
 
-        return greet2_;
-    }
-
-   private:
-    std::shared_ptr<Greeter> greet1_;
-    std::shared_ptr<Greeter> greet2_;
 };
 
 TEST(LuaTest, TestLuaBridge) {
@@ -57,17 +53,20 @@ TEST(LuaTest, TestLuaBridge) {
     luaL_openlibs(luaState);
 
     luabridge::getGlobalNamespace(luaState)
-        .beginClass<Greeter>("Greeter")
-        .addFunction("getName", &Greeter::getName)
+        .beginClass<APIGame>("APIGame")
+        .addFunction("setText", &APIGame::setText)
         .endClass();
+
+    // luabridge::getGlobalNamespace(luaState)
+    //     .beginClass<GreeterSelector>("GreeterSelector")
+    //     .addFunction("getGreeter", &GreeterSelector::GetGreeter)
+    //     .endClass();
+
+    // auto globalGreeterSelection = std::make_unique<GreeterSelector>();
+    // luabridge::setGlobal(luaState, globalGreeterSelection.get(), "greeterselect");
 
     luabridge::getGlobalNamespace(luaState)
-        .beginClass<GreeterSelector>("GreeterSelector")
-        .addFunction("getGreeter", &GreeterSelector::GetGreeter)
-        .endClass();
-
-    auto globalGreeterSelection = std::make_unique<GreeterSelector>();
-    luabridge::setGlobal(luaState, globalGreeterSelection.get(), "greeterselect");
+        .addFunction("findGameObjectByName",&APIGlobal::findGameObjectByName);
 
     luaL_dofile(luaState, "testdata/instance.lua");
 }

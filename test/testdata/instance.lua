@@ -1,12 +1,7 @@
-local greeter = greeterselect:getGreeter(1)
+local gameobject = findGameObjectByName("test1")
 
-local name = greeter:getName()
+gameobject:setText("text1")
 
-print("Name is " .. name)
+local gameobject = findGameObjectByName("test2")
 
-greeter = greeterselect:getGreeter(2)
-
-name = greeter:getName()
-
-print("Name is " .. name)
-
+gameobject:setText("text2")

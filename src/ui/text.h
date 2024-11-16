@@ -1,5 +1,5 @@
-#ifndef TEXT_H_
-#define TEXT_H_
+#pragma once
+
 #include "common.h"
 #include "raylib.h"
 
@@ -15,5 +15,3 @@ class Text {
     static void Draw(Vector2 const& position, TextComponent& text);
 };
 }  // namespace Brutal
-
-#endif
