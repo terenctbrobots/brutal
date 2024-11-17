@@ -1,5 +1,4 @@
-#ifndef TILESET_H
-#define TILESET_H
+#pragma once
 
 #include "common.h"
 #include "raylib.h"
@@ -39,5 +38,3 @@ class TileSet {
 };
 
 }  // namespace Brutal
-
-#endif

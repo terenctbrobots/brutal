@@ -1,5 +1,5 @@
-#ifndef SPRITE_H
-#define SPRITE_H
+#pragma once 
+
 #include "common.h"
 #include "game/gameobject.h"
 #include "raylib.h"
@@ -14,7 +14,7 @@ struct SpriteAnimation {
     float height;
 };
 
-// TODO: Consider changing the pts to fixed arrays instead
+// TODO: Consider changing the rectangles to fixed arrays instead
 struct SpriteComponent {
     Texture2D texture = {0};
 
@@ -39,5 +39,3 @@ class Sprite {
 };
 
 }  // namespace Brutal
-
-#endif

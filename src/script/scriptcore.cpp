@@ -6,21 +6,23 @@
 
 #include "ui/button.h"
 
+#include "apiglobal.h"
+
 static char const *events[] = {"onClick", "onTick"};
 
 namespace Brutal
 {
 
 void ScriptCore::Setup() {
-    if (lua_state_ != NULL) {
-        lua_close(lua_state_);
-        lua_state_ = NULL;
+    if (L_ != NULL) {
+        lua_close(L_);
+        L_ = NULL;
     }
 
-    lua_state_ = luaL_newstate();
+    L_ = luaL_newstate();
 
     //TODO: Do we need the standard libs?
-    luaL_openlibs(lua_state_);
+    luaL_openlibs(L_);
 
     Game& game = Game::Get();
     // Collect all entity with a script component.
@@ -38,11 +40,12 @@ void ScriptCore::Setup() {
 
 
     // Now bind all API's
+    APIGlobal::Bind(L_);
 }
 
 void ScriptCore::Cleanup() {
-    if (lua_state_ != NULL) {
-        lua_close(lua_state_);
+    if (L_ != NULL) {
+        lua_close(L_);
     }
 }
 
@@ -67,7 +70,7 @@ void ScriptCore::ActivateEvent(ScriptEvent const& event) {
     if (gameobject) {
         if (event.event == EVENT_ONCLICK) {
             FormatFunction(lua_function, event.uuid, event.event);
-            luabridge::LuaRef on_click = luabridge::getGlobal(lua_state_, lua_function);
+            luabridge::LuaRef on_click = luabridge::getGlobal(L_, lua_function);
             luabridge::LuaResult result = on_click();
         }
     }
@@ -78,5 +81,14 @@ void ScriptCore::ActivateEvent(ScriptEvent const& event) {
 void ScriptCore::FormatFunction(char* name, int UUID, int event) 
 {
     sprintf(name, "_%d_%s",UUID, events[event]);
+}
+
+ScriptComponent ScriptCore::Deserialize(json const& json_data) {
+    ScriptComponent script;
+
+    script.filename = json_data["fileName"];
+    script.on_tick = json_data["onTick"];
+
+    return script;
 }
 }

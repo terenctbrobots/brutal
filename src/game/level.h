@@ -28,6 +28,7 @@ class Level {
 
     friend class GameObject;
     friend class ScriptCore;
+    friend class APIGlobal;
 
    public:
     Level() = default;

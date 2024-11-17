@@ -1,5 +1,4 @@
-#ifndef TILESETPACK_H
-#define TILESETPACK_H
+#pragma once
 
 #include "tileset.h"
 
@@ -31,5 +30,3 @@ class TileSetPack {
 };
 
 }  // namespace Brutal
-
-#endif

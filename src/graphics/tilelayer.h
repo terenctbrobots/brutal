@@ -1,5 +1,4 @@
-#ifndef TILELAYER_H
-#define TILELAYER_H
+#pragma once
 
 #include "common.h"
 #include "layer.h"
@@ -42,5 +41,3 @@ class TileLayer : public Layer {
 };
 
 }  // namespace Brutal
-
-#endif

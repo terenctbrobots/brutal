@@ -1,5 +1,4 @@
-#ifndef BITMAP_H_
-#define BITMAP_H_
+#pragma once
 
 #include "common.h"
 #include "game/gameobject.h"
@@ -19,5 +18,3 @@ class Bitmap {
 };
 
 }  // namespace Brutal
-
-#endif

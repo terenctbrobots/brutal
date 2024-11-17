@@ -5,6 +5,8 @@
 #include <memory>
 #include <string_view>
 #include <deque>
+#include "game/component.h"
+#include "common.h"
 
 extern "C" {
 #include "lauxlib.h"
@@ -27,7 +29,7 @@ class ScriptCore {
     private:
         //TODO: Is a vector a better fit?
         std::deque<ScriptEvent> event_queue_;
-        lua_State* lua_state_ = NULL;
+        lua_State* L_ = NULL;
 
         void FormatFunction(char* name, int UUID, int event);
    public:
@@ -38,6 +40,7 @@ class ScriptCore {
     void PreProcessGameObjectScripts();
     void AddEvent(ScriptEvent const& event);
     void ActivateEvent(ScriptEvent const& event);
+    static ScriptComponent Deserialize(json const& json_data);
 };
     
 }

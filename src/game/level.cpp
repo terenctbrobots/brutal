@@ -252,6 +252,9 @@ void Level::DeserializeGameObject(json json_data) {
                 case hash("button"):
                     gameobject.AddComponent<ButtonComponent>(Button::Deserialize(component_data));
                     break;
+                case hash("script"):
+                    gameobject.AddComponent<ScriptComponent>(ScriptCore::Deserialize(component_data));
+                    break;
             }
         }
 #ifdef DEBUG

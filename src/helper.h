@@ -1,5 +1,5 @@
-#ifndef HELPER_H
-#define HELPER_H
+#pragma once 
+
 #include <cstdint>
 #include <optional>
 #include <string>
@@ -26,5 +26,3 @@ constexpr size_t hash(const char* str) {
     }
     return total;
 }
-
-#endif

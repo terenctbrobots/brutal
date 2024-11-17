@@ -1,5 +1,4 @@
-#ifndef LAYER_H
-#define LAYER_H
+#pragma once
 
 #include <memory>
 #include <vector>
@@ -27,4 +26,3 @@ class Layer {
     virtual void Draw() = 0;
 };
 }  // namespace Brutal
-#endif

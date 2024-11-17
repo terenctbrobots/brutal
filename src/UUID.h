@@ -1,5 +1,4 @@
-#ifndef UUID_H
-#define UUID_H
+#pragma once 
 
 #include <sys/types.h>
 
@@ -25,5 +24,3 @@ struct hash<UUID> {
 };
 
 }  // namespace std
-
-#endif
