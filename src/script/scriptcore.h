@@ -7,6 +7,7 @@
 #include <deque>
 #include "game/component.h"
 #include "common.h"
+#include <optional>
 
 extern "C" {
 #include "lauxlib.h"
@@ -31,13 +32,13 @@ class ScriptCore {
         std::deque<ScriptEvent> event_queue_;
         lua_State* L_ = NULL;
 
-        void FormatFunction(char* name, int UUID, int event);
    public:
     void Setup();
     void Process();
     void Cleanup();
 
-    void PreProcessGameObjectScripts();
+    std::string FormatFunction(ScriptEvent const& event);
+    std::optional<std::string> PreProcessScript(std::string const& filename, u_int64_t uuid);
     void AddEvent(ScriptEvent const& event);
     void ActivateEvent(ScriptEvent const& event);
     static ScriptComponent Deserialize(json const& json_data);

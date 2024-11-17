@@ -3,12 +3,15 @@
 #include <luabridge3/LuaBridge/LuaBridge.h>
 #include "game/game.h"
 #include "game/gameobject.h"
+#include <fstream>
+#include <iostream>
 
 #include "ui/button.h"
 
 #include "apiglobal.h"
 
 static char const *events[] = {"onClick", "onTick"};
+constexpr int event_size() { return sizeof(events) / sizeof(events[0]); }
 
 namespace Brutal
 {
@@ -33,9 +36,14 @@ void ScriptCore::Setup() {
         auto& script_component = gameobject.GetComponent<ScriptComponent>();
         auto& uuid = gameobject.GetComponent<IDComponent>();
 
-    //TODO: Check if a compiled version exists
-    // If not preprocess it and load it
+        std::optional<std::string> script_buffer = PreProcessScript(script_component.filename, uuid.ID);
 
+        if (script_buffer) {
+            luaL_loadstring(L_, script_buffer->c_str());
+        } else {
+            spdlog::error("ScriptCore : could not load or process {} file",script_component.filename);
+            abort();
+        }
     }
 
 
@@ -61,16 +69,14 @@ void ScriptCore::AddEvent(ScriptEvent const& event) {
 }
 
 void ScriptCore::ActivateEvent(ScriptEvent const& event) {
-    char lua_function[80];
-
     Game& game = Game::Get();
     
     GameObject gameobject = game.level->GetGameObjectByUUID(event.uuid);
 
     if (gameobject) {
         if (event.event == EVENT_ONCLICK) {
-            FormatFunction(lua_function, event.uuid, event.event);
-            luabridge::LuaRef on_click = luabridge::getGlobal(L_, lua_function);
+            //FormatFunction(lua_function, event.uuid, event.event);
+            luabridge::LuaRef on_click = luabridge::getGlobal(L_, FormatFunction(event).c_str());
             luabridge::LuaResult result = on_click();
         }
     }
@@ -78,9 +84,32 @@ void ScriptCore::ActivateEvent(ScriptEvent const& event) {
 }
 
 // We rename functions from 'onTick' to '_<uuid>_onTick' to namespace it globaly
-void ScriptCore::FormatFunction(char* name, int UUID, int event) 
+std::string ScriptCore::FormatFunction(ScriptEvent const& event) 
 {
-    sprintf(name, "_%d_%s",UUID, events[event]);
+    char function_name[80];
+    sprintf(function_name, "_%lu_%s",event.uuid, events[event.event]);
+
+    return function_name;
+}
+
+std::optional<std::string> ScriptCore::PreProcessScript(std::string const& filename, u_int64_t uuid) {
+    std::ifstream file(filename);
+
+    if (!file.good()) {
+        return std::nullopt;
+    }
+
+    std::string file_contents((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+
+    for (int i=0; i < event_size(); i++) {
+        std::string from = events[i];
+        from += "(";
+        std::string to = FormatFunction({i,uuid}) + "(";
+        file_contents.replace(0,from.length(), to);
+    }
+    
+    return file_contents;
 }
 
 ScriptComponent ScriptCore::Deserialize(json const& json_data) {
