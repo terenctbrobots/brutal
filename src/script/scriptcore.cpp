@@ -5,6 +5,7 @@
 #include "game/gameobject.h"
 #include <fstream>
 #include <iostream>
+#include <string>
 
 #include "ui/button.h"
 
@@ -38,7 +39,7 @@ void ScriptCore::Setup() {
 
         std::optional<std::string> script_buffer = PreProcessScript(script_component.filename, uuid.ID);
 
-        if (script_buffer) {
+        if (script_buffer.has_value()) {
             luaL_loadstring(L_, script_buffer->c_str());
         } else {
             spdlog::error("ScriptCore : could not load or process {} file",script_component.filename);
@@ -101,12 +102,15 @@ std::optional<std::string> ScriptCore::PreProcessScript(std::string const& filen
 
     std::string file_contents((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 
-
     for (int i=0; i < event_size(); i++) {
         std::string from = events[i];
         from += "(";
         std::string to = FormatFunction({i,uuid}) + "(";
-        file_contents.replace(0,from.length(), to);
+        std::size_t pos = file_contents.find(from);
+
+        if (pos != std::string::npos) {
+            file_contents.replace(file_contents.find(from),from.length(), to);
+        }
     }
     
     return file_contents;

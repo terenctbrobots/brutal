@@ -27,6 +27,7 @@ add_executable(
   src/script/scriptcore.cpp
   src/script/apiglobal.cpp
   src/script/apigameobject.cpp
+  test/script_test.cpp
 )
 
 target_include_directories(brutal_test PRIVATE ${LUABRIDGE3_INCLUDE_DIRS} ${RAYGUI_INCLUDE_DIRS})
