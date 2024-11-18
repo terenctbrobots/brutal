@@ -109,7 +109,7 @@ std::optional<std::string> ScriptCore::PreProcessScript(std::string const& filen
         std::size_t pos = file_contents.find(from);
 
         if (pos != std::string::npos) {
-            file_contents.replace(file_contents.find(from),from.length(), to);
+            file_contents.replace(pos,from.length(), to);
         }
     }
     
