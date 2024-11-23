@@ -5,6 +5,7 @@
 #include <memory>
 #include <string_view>
 #include <optional>
+#include <fstream>
 
 extern "C" {
 #include "lauxlib.h"
@@ -16,6 +17,7 @@ extern "C" {
 
 #include "script/scriptcore.h"
 #include "helper.h"
+#include "game/game.h"
 
 using namespace Brutal;
 
@@ -39,6 +41,20 @@ namespace {
     }
 
     TEST(ScriptTest, TestScriptCore) {
-        
+         Game& game = Game::Get();
+
+    game.Setup(640, 480);
+
+    game.CreateLevel();
+
+    std::ifstream test_json("testdata/scripttest.json");
+
+    json json_data = json::parse(test_json);
+
+    game.level->Deserialize(json_data);
+
+    game.MainLoop();
+
+    game.Cleanup();   
     }
 }
