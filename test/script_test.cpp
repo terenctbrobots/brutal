@@ -37,4 +37,8 @@ namespace {
 
         EXPECT_EQ(*script_buffer, *valid_buffer);
     }
+
+    TEST(ScriptTest, TestScriptCore) {
+        
+    }
 }
