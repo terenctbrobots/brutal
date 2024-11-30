@@ -6,16 +6,23 @@
 #include "common.h"
 #include "game/level.h"
 
-namespace Brutal {
+namespace Brutal
+{
 
-class Layer {
+class Layer
+{
    protected:
     int layer_type_;
 
    public:
-    enum LayerType { BASE = 0, OBJECT, TILE };
+    enum LayerType
+    {
+        BASE = 0,
+        OBJECT,
+        TILE
+    };
 
-    bool enabled = true;
+    bool m_Enabled = true;
 
     Layer() {};
     ~Layer() {};

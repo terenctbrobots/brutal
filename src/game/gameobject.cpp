@@ -11,18 +11,6 @@ namespace Brutal {
 GameObject::GameObject(entt::entity handle, Level *level) : handle_(handle), level_(level) {}
 
 GameObject::~GameObject() {}
-template <typename T>
-void GameObject::OnComponentAdd(T &component) {
-    static_assert(sizeof(T) == 0);
-}
-
-// TODO: Not sure if this magic solution is the best, maybe let the editor handle it?
-template <>
-void GameObject::OnComponentAdd<SpriteComponent>(SpriteComponent &component) {
-    auto &rectangle = GetComponent<Rectangle>();
-    rectangle.width = component.width;
-    rectangle.height = component.height;
-}
 
 template <typename T>
 void GameObject::OnComponentRemove(T &component) {
@@ -39,14 +27,14 @@ void GameObject::OnComponentRemove<SpriteComponent>(SpriteComponent &component) 
 
 template <>
 void GameObject::OnComponentRemove<BitmapComponent>(BitmapComponent &component) {
-    if (component.image.data != NULL) {
-        UnloadImage(component.image);
-        component.image.data = NULL;
+    if (component.m_Image.data != NULL) {
+        UnloadImage(component.m_Image);
+        component.m_Image.data = NULL;
     }
 
-    if (component.texture.id > 0) {
-        UnloadTexture(component.texture);
-        component.texture.id = 0;
+    if (component.m_Texture.id > 0) {
+        UnloadTexture(component.m_Texture);
+        component.m_Texture.id = 0;
     }
 }
 }  // namespace Brutal

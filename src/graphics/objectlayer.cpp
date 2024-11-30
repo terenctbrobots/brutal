@@ -38,7 +38,7 @@ void ObjectLayer::Draw() {
         if (gameobject.HasComponent<ButtonComponent>()) {
             auto& button = gameobject.GetComponent<ButtonComponent>();
             auto& UUID = gameobject.GetComponent<IDComponent>();
-            Button::Draw(screen_position, button, UUID.ID);
+            Button::Draw(screen_position, button, UUID.m_ID);
         }
 
         if (gameobject.HasComponent<TextComponent>()) {

@@ -12,7 +12,8 @@
 
 using namespace Brutal;
 
-TEST_F(GameTest, TestGameObject) {
+TEST_F(GameTest, TestGameObject)
+{
     Game& game = Game::Get();
 
     game.Setup(640, 480);
@@ -35,8 +36,8 @@ TEST_F(GameTest, TestGameObject) {
 
     auto& sprite_component = gameobject.GetComponent<SpriteComponent>();
 
-    EXPECT_EQ(sprite_component.width, 48);
-    EXPECT_EQ(sprite_component.height, 48);
+    EXPECT_EQ(sprite_component.m_Width, 48);
+    EXPECT_EQ(sprite_component.m_Height, 48);
 
     gameobject = game.level->GetGameObjectByUUID(2);
     EXPECT_TRUE(gameobject);
@@ -44,14 +45,15 @@ TEST_F(GameTest, TestGameObject) {
     EXPECT_TRUE(gameobject.HasComponent<BitmapComponent>());
 
     auto& bitmap_component = gameobject.GetComponent<BitmapComponent>();
-    EXPECT_TRUE(bitmap_component.image.data != NULL);
+    EXPECT_TRUE(bitmap_component.m_Image.data != NULL);
 
     game.MainLoop();
 
     game.Cleanup();
 }
 
-TEST_F(GameTest, TestTileLayer) {
+TEST_F(GameTest, TestTileLayer)
+{
     Game& game = Game::Get();
 
     game.Setup(640, 480);

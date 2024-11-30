@@ -15,8 +15,6 @@ class GameObject {
     Level* level_ = nullptr;
     template <typename T>
     void OnComponentRemove(T& component);
-    template <typename T>
-    void OnComponentAdd(T& component);
 
    public:
     GameObject() = default;
@@ -64,8 +62,8 @@ class GameObject {
     operator entt::entity() const { return handle_; }
     operator uint32_t() const { return (uint32_t)handle_; }
 
-    UUID GetUUID() { return GetComponent<IDComponent>().ID; }
-    const std::string& GetName() { return GetComponent<TagComponent>().tag; }
+    UUID GetUUID() { return GetComponent<IDComponent>().m_ID; }
+    const std::string& GetName() { return GetComponent<TagComponent>().m_Tag; }
 
     bool operator==(const GameObject& other) const { return handle_ == other.handle_ && level_ == other.level_; }
 

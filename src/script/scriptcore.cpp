@@ -37,12 +37,12 @@ void ScriptCore::Setup() {
         auto& script_component = gameobject.GetComponent<ScriptComponent>();
         auto& uuid = gameobject.GetComponent<IDComponent>();
 
-        std::optional<std::string> script_buffer = PreProcessScript(script_component.filename, uuid.ID);
+        std::optional<std::string> script_buffer = PreProcessScript(script_component.m_Filename, uuid.m_ID);
 
         if (script_buffer.has_value()) {
             luaL_loadstring(L_, script_buffer->c_str());
         } else {
-            spdlog::error("ScriptCore : could not load or process {} file",script_component.filename);
+            spdlog::error("ScriptCore : could not load or process {} file",script_component.m_Filename);
             abort();
         }
     }
@@ -119,8 +119,8 @@ std::optional<std::string> ScriptCore::PreProcessScript(std::string const& filen
 ScriptComponent ScriptCore::Deserialize(json const& json_data) {
     ScriptComponent script;
 
-    script.filename = json_data["fileName"];
-    script.on_tick = json_data["onTick"];
+    script.m_Filename = json_data["fileName"];
+    script.m_OnTick = json_data["onTick"];
 
     return script;
 }
