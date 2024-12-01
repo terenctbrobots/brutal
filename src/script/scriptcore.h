@@ -1,36 +1,42 @@
 #pragma once
 
 #include <cstdint>
+#include <deque>
 #include <iostream>
 #include <memory>
-#include <string_view>
-#include <deque>
-#include "game/component.h"
-#include "common.h"
 #include <optional>
+#include <string_view>
 
-extern "C" {
+#include "common.h"
+#include "game/component.h"
+
+extern "C"
+{
 #include "lauxlib.h"
 #include "lua.h"
 #include "lualib.h"
 }
 
-namespace Brutal {
-enum EventType {
+namespace Brutal
+{
+enum EventType
+{
     EVENT_ONCLICK = 0,
     EVENT_ONTICK = 1,
 };
 
-struct ScriptEvent {
+struct ScriptEvent
+{
     int event;
     u_int64_t uuid;
 };
 
-class ScriptCore {
-    private:
-        //TODO: Is a vector a better fit?
-        std::deque<ScriptEvent> event_queue_;
-        lua_State* L_ = NULL;
+class ScriptCore
+{
+   private:
+    // TODO: Is a vector a better fit?
+    std::deque<ScriptEvent> event_queue_;
+    lua_State* L_ = NULL;
 
    public:
     void Setup();
@@ -43,5 +49,5 @@ class ScriptCore {
     void ActivateEvent(ScriptEvent const& event);
     static ScriptComponent Deserialize(json const& json_data);
 };
-    
-}
+
+}  // namespace Brutal

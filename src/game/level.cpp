@@ -207,6 +207,8 @@ int Level::MainLoop()
             }
         }
 
+        script_core->Process();
+
 #ifdef DEBUG
         frame_counter++;
 
@@ -294,8 +296,8 @@ void Level::DeserializeGameObject(json json_data)
                 case hash("button"): {
                     auto& button = gameobject.AddComponent<ButtonComponent>(Button::Deserialize(component_data));
                     auto& rectangle = gameobject.GetComponent<Rectangle>();
-                    rectangle.width = button.width;
-                    rectangle.height = button.height;
+                    rectangle.width = button.m_Width;
+                    rectangle.height = button.m_Height;
                     break;
                 }
                 case hash("script"):

@@ -36,6 +36,10 @@
                     "textField": "Click me!",
                     "width": 102,
                     "height": 30
+                },
+                {
+                    "type": "script",
+                    "fileName": "testdata/onClick.lua"
                 }
             ]
         }
