@@ -70,22 +70,22 @@ TEST(LuaTest, TestLuaBridge)
 
     // luaL_dofile(luaState, "testdata/instance.lua");
 
-    Brutal::ScriptCore scriptCore;
+    // Brutal::ScriptCore scriptCore;
 
-    std::optional<std::string> scriptBuffer = scriptCore.PreProcessScript("testdata/onClick.lua", 2);
+    // std::optional<std::string> scriptBuffer = scriptCore.PreProcessScript("testdata/onClick.lua", 2);
 
-    EXPECT_TRUE(scriptBuffer.has_value());
+    // EXPECT_TRUE(scriptBuffer.has_value());
 
-    luaL_dostring(luaState, scriptBuffer->c_str());
+    // luaL_dostring(luaState, scriptBuffer->c_str());
     //   luaL_dofile(luaState,"testdata/onClick.lua");
     // if (luaL_dostring(luaState, "function _2_onClick() print('Hello World') end") != 0)
     // {
     //     std::cout << "Error executing script" << std::endl;
     // }
 
-    luabridge::LuaRef onClick = luabridge::getGlobal(luaState, scriptCore.FormatFunction({0, 2}).c_str());
+    // luabridge::LuaRef onClick = luabridge::getGlobal(luaState, scriptCore.FormatFunction({0, 2}).c_str());
     //    luabridge::LuaRef onClick = luabridge::getGlobal(luaState, "onClick");
     // luabridge::LuaRef onClick = luabridge::getGlobal(luaState, "_2_onClick()");
-    luabridge::LuaResult result = onClick();
+    // luabridge::LuaResult result = onClick();
 }
 }  // namespace

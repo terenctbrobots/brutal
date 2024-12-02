@@ -6,4 +6,6 @@ function onClick()
         print("Script: gameobject could not be found")
         return
     end
+
+    gameobject:setText("CLICKED!")
 end

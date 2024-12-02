@@ -16,7 +16,7 @@ class APIGameObject {
         entt::entity m_Entity;
     public:
         void Bind(lua_State* L);
-        void setText(std::string const& text);
+        void SetText(std::string const& text);
 };
 }
 
