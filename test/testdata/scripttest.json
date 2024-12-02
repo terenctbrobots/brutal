@@ -7,7 +7,7 @@
     ],
     "gameobject": [
         {
-            "name": "Hello World",
+            "name": "HelloWorld",
             "uuid": 1,
             "x": 100,
             "y": 100,

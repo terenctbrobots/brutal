@@ -5,5 +5,19 @@ IndentWidth: 4
 UseTab: Never
 ColumnLimit: 120
 Standard: c++11
+BraceWrapping:
+  AfterClass:      true
+  AfterControlStatement: true
+  AfterEnum:       true
+  AfterFunction:   true
+  AfterNamespace:  true
+  AfterExternBlock: true
+  AfterObjCDeclaration: false
+  AfterStruct:     true
+  AfterUnion:      true
+  BeforeCatch:     false
+  BeforeElse:      true
+  IndentBraces:    false
+BreakBeforeBraces: Custom
 ---
 

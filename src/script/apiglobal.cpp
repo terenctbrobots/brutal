@@ -1,23 +1,32 @@
 #include "apiglobal.h"
-#include "game/game.h"
-#include <cstdint>
+
 #include <luabridge3/LuaBridge/LuaBridge.h>
 
-namespace Brutal {
-    APIGameObject APIGlobal::api_ = APIGameObject();
+#include <cstdint>
 
-    void APIGlobal::Bind(lua_State* L) {        
-        api_.Bind(L);
+#include "game/game.h"
 
-        luabridge::getGlobalNamespace(L)
-            .addFunction("findGameObjectByName",&APIGlobal::findGameObjectByName);
-    }
+namespace Brutal
+{
+APIGameObject APIGlobal::api_ = APIGameObject();
 
-    APIGameObject& APIGlobal::findGameObjectByName(std::string const& name) {
-        Game& game = Game::Get();
+void APIGlobal::Bind(lua_State* L)
+{
+    api_.Bind(L);
 
-        api_.entity_ = game.level->FindGameObjectByName(name);
-
-        return api_;
-    }
+    luabridge::getGlobalNamespace(L).addFunction("findGameObjectByName", &APIGlobal::FindGameObjectByName);
 }
+
+APIGameObject& APIGlobal::FindGameObjectByName(std::string const& name)
+{
+    Game& game = Game::Get();
+
+    api_.m_Entity = game.level->FindGameObjectByName(name);
+
+#ifdef DEBUG
+    spdlog::info("APIGlobal: FindingObjectByName {} Entity is {}",name,(u_int32_t)api_.m_Entity);
+#endif
+
+    return api_;
+}
+}  // namespace Brutal

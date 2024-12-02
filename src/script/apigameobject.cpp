@@ -20,12 +20,12 @@ namespace Brutal
     void APIGameObject::setText(std::string const& text) {
         Game& game = Game::Get();
 
-        GameObject gameobject = {entity_,game.level};
+        GameObject gameobject = {m_Entity,game.level};
 
         if (gameobject) {
             if (gameobject.HasComponent<TextComponent>()) {
-                auto& text_component = gameobject.GetComponent<TextComponent>();
-                text_component.text_field = text;
+                auto& textComponent = gameobject.GetComponent<TextComponent>();
+                textComponent.m_TextField = text;
             }
         }
     }
