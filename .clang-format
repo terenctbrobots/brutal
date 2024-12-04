@@ -7,6 +7,7 @@ ColumnLimit: 120
 Standard: c++11
 BraceWrapping:
   AfterClass:      true
+  AfterCaseLabel: true
   AfterControlStatement: true
   AfterEnum:       true
   AfterFunction:   true
