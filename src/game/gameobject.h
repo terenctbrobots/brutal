@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <iostream>
 #include <memory>
@@ -7,14 +7,14 @@
 #include "component.h"
 #include "level.h"
 
-namespace Brutal {
+namespace Brutal
+{
 
-class GameObject {
+class GameObject
+{
    private:
     entt::entity handle_{entt::null};
     Level* level_ = nullptr;
-    template <typename T>
-    void OnComponentRemove(T& component);
 
    public:
     GameObject() = default;
@@ -23,9 +23,11 @@ class GameObject {
     ~GameObject();
 
     template <typename T, typename... Args>
-    T& AddComponent(Args&&... args) {
+    T& AddComponent(Args&&... args)
+    {
 #ifdef DEBUG
-        if (HasComponent<T>()) {
+        if (HasComponent<T>())
+        {
             spdlog::error("GameObject : Component already exists");
             abort();
         }
@@ -36,25 +38,29 @@ class GameObject {
     }
 
     template <typename T, typename... Args>
-    T& AddOrReplaceComponent(Args&&... args) {
+    T& AddOrReplaceComponent(Args&&... args)
+    {
         T& component = level_->registry_.emplace_or_replace<T>(handle_, std::forward<Args>(args)...);
         return component;
     }
 
     template <typename T>
-    bool HasComponent() {
+    bool HasComponent()
+    {
         return level_->registry_.any_of<T>(handle_);
     }
 
     template <typename T>
-    T& GetComponent() {
+    T& GetComponent()
+    {
         return level_->registry_.get<T>(handle_);
     }
 
     template <typename T>
-    void RemoveComponent() {
+    void RemoveComponent()
+    {
         auto& component = level_->registry_.get<T>(handle_);
-        OnComponentRemove<T>(component);
+        level_->OnComponentRemove<T>(component);
         level_->registry_.remove<T>(handle_);
     }
 

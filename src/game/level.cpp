@@ -32,30 +32,18 @@ void Level::Cleanup()
 
     for (auto entity : sprite_view)
     {
-        auto& sprite_component = sprite_view.get<SpriteComponent>(entity);
-        if (sprite_component.texture.id > 0)
-        {
-            UnloadTexture(sprite_component.texture);
-            sprite_component.texture.id = 0;
-        }
+        GameObject gameObject = {entity, this};
+
+        gameObject.RemoveComponent<SpriteComponent>();
     }
 
     auto bitmap_view = registry_.view<BitmapComponent>();
 
     for (auto entity : bitmap_view)
     {
-        auto& bitmap_component = bitmap_view.get<BitmapComponent>(entity);
-        if (bitmap_component.m_Image.data != NULL)
-        {
-            UnloadImage(bitmap_component.m_Image);
-            bitmap_component.m_Image.data = NULL;
-        }
-
-        if (bitmap_component.m_Texture.id > 0)
-        {
-            UnloadTexture(bitmap_component.m_Texture);
-            bitmap_component.m_Texture.id = 0;
-        }
+        GameObject gameObject = {entity, this};
+        
+        gameObject.RemoveComponent<BitmapComponent>();
     }
 
     gameobject_map_.clear();
@@ -81,28 +69,12 @@ void Level::DestroyGameObject(GameObject gameobject)
 {
     if (gameobject.HasComponent<SpriteComponent>())
     {
-        auto& component = gameobject.GetComponent<SpriteComponent>();
-        if (component.texture.id > 0)
-        {
-            UnloadTexture(component.texture);
-            component.texture.id = 0;
-        }
+        gameobject.RemoveComponent<SpriteComponent>();
     }
 
     if (gameobject.HasComponent<BitmapComponent>())
     {
-        auto& component = gameobject.GetComponent<BitmapComponent>();
-        if (component.m_Image.data != NULL)
-        {
-            UnloadImage(component.m_Image);
-            component.m_Image.data = NULL;
-        }
-
-        if (component.m_Texture.id > 0)
-        {
-            UnloadTexture(component.m_Texture);
-            component.m_Texture.id = 0;
-        }
+        gameobject.RemoveComponent<BitmapComponent>();
     }
     gameobject_map_.erase(gameobject.GetUUID());
     registry_.destroy(gameobject);
@@ -332,6 +304,32 @@ void Level::OrganizeDrawList()
         {
             object_layer->AddToDrawList(gameobject);
         }
+    }
+}
+
+template <typename T>
+void Level::OnComponentRemove(T &component) {
+    static_assert(sizeof(T) == 0);
+}
+
+template <>
+void Level::OnComponentRemove<SpriteComponent>(SpriteComponent &component) {
+    if (component.texture.id > 0) {
+        UnloadTexture(component.texture);
+        component.texture.id = 0;
+    }
+}
+
+template <>
+void Level::OnComponentRemove<BitmapComponent>(BitmapComponent &component) {
+    if (component.m_Image.data != NULL) {
+        UnloadImage(component.m_Image);
+        component.m_Image.data = NULL;
+    }
+
+    if (component.m_Texture.id > 0) {
+        UnloadTexture(component.m_Texture);
+        component.m_Texture.id = 0;
     }
 }
 

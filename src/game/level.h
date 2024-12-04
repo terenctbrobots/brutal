@@ -58,6 +58,11 @@ class Level {
 
     void Deserialize(json json_data);
     void DeserializeGameObject(json json_data);
+
+    // GameObject 
+    template <typename T>
+    void OnComponentRemove(T& component);
+
 };
 
 }  // namespace Brutal

@@ -1,5 +1,5 @@
-#include "apiglobal.h"
-
+#include "script/apiglobal.h"
+#include "script/apishared.h"
 #include <luabridge3/LuaBridge/LuaBridge.h>
 
 #include <cstdint>
@@ -15,6 +15,7 @@ void APIGlobal::Bind(lua_State* L)
     api_.Bind(L);
 
     luabridge::getGlobalNamespace(L).addFunction("findGameObjectByName", &APIGlobal::FindGameObjectByName);
+    luabridge::getGlobalNamespace(L).addFunction("setText", &APIGlobal::SetText);
 }
 
 APIGameObject& APIGlobal::FindGameObjectByName(std::string const& name)
@@ -28,5 +29,12 @@ APIGameObject& APIGlobal::FindGameObjectByName(std::string const& name)
 #endif
 
     return api_;
+}
+
+void APIGlobal::SetText(std::string const& text) 
+{
+    Game& game = Game::Get();
+
+    APIShared::SetText(text, game.level->script_core->m_CurrentEntity);
 }
 }  // namespace Brutal

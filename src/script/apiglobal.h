@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "apigameobject.h"
+#include "script/apigameobject.h"
 extern "C"
 {
 #include "lauxlib.h"
@@ -23,5 +23,7 @@ class APIGlobal
 
     //Global API
     static APIGameObject& FindGameObjectByName(std::string const& name);
+
+    static void SetText(std::string const& text);
 };
 }  // namespace Brutal

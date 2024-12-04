@@ -1,5 +1,5 @@
-#include "apigameobject.h"
-
+#include "script/apigameobject.h"
+#include "script/apishared.h"
 #include <luabridge3/LuaBridge/LuaBridge.h>
 
 #include <cstdint>
@@ -20,20 +20,6 @@ void APIGameObject::Bind(lua_State* L)
 
 void APIGameObject::SetText(std::string const& text)
 {
-    Game& game = Game::Get();
-
-    GameObject gameobject = {m_Entity, game.level};
-
-    if (gameobject)
-    {
-        if (gameobject.HasComponent<TextComponent>())
-        {
-            auto& textComponent = gameobject.GetComponent<TextComponent>();
-            textComponent.m_TextField = text;
-#ifdef DEBUG
-    spdlog::info("APIGameObject: setText with {}",text);
-#endif
-        }
-    }
+    APIShared::SetText(text, m_Entity);
 }
 }  // namespace Brutal

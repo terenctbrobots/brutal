@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 
-#include "apiglobal.h"
+#include "script/apiglobal.h"
 #include "game/game.h"
 #include "game/gameobject.h"
 #include "ui/button.h"
@@ -93,6 +93,8 @@ void ScriptCore::ActivateEvent(ScriptEvent const& event)
 
     GameObject gameobject = game.level->GetGameObjectByUUID(event.m_UUID);
 
+    m_CurrentEntity = gameobject;
+    
     if (gameobject)
     {
         switch (event.m_Event)

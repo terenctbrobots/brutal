@@ -27,6 +27,7 @@ add_executable(
   src/script/scriptcore.cpp
   src/script/apiglobal.cpp
   src/script/apigameobject.cpp
+  src/script/apishared.cpp
   test/script_test.cpp
 )
 
