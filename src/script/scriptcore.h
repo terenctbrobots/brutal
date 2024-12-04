@@ -27,8 +27,8 @@ enum EventType
 
 struct ScriptEvent
 {
-    int event;
-    u_int64_t uuid;
+    int m_Event;
+    u_int64_t m_UUID;
 };
 
 class ScriptCore

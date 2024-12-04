@@ -46,7 +46,7 @@ void ScriptCore::Setup()
         {
             if (luaL_dostring(L_, scriptBuffer->c_str()) != LUA_OK)
             {
-                spdlog::error("ScriptCore: Could parse {}, Error:{}",scriptComponent.m_Filename,lua_tostring(L_,-1));
+                spdlog::error("ScriptCore: Could parse {}, Error:{}", scriptComponent.m_Filename, lua_tostring(L_, -1));
                 abort();
             }
 #ifdef DEBUG
@@ -79,7 +79,7 @@ void ScriptCore::Process()
         ActivateEvent(event_queue_.front());
 #ifdef DEBUG
         const ScriptEvent& event = event_queue_.front();
-        spdlog::info("Processing event {} with uuid {}", event.event, event.uuid);
+        spdlog::info("Processing event {} with uuid {}", event.m_Event, event.m_UUID);
 #endif
         event_queue_.pop_front();
     }
@@ -91,17 +91,31 @@ void ScriptCore::ActivateEvent(ScriptEvent const& event)
 {
     Game& game = Game::Get();
 
-    GameObject gameobject = game.level->GetGameObjectByUUID(event.uuid);
+    GameObject gameobject = game.level->GetGameObjectByUUID(event.m_UUID);
 
     if (gameobject)
     {
-        if (event.event == EVENT_ONCLICK)
+        switch (event.m_Event)
         {
-            luabridge::LuaRef onClick = luabridge::getGlobal(L_, FormatFunction(event).c_str());
-            luabridge::LuaResult result = onClick();
+            case EVENT_ONCLICK:
+            {
+                luabridge::LuaRef onClick = luabridge::getGlobal(L_, FormatFunction(event).c_str());
+                luabridge::LuaResult result = onClick();
 #ifdef DEBUG
-            spdlog::info("ScriptCore: Called OnClick event with function name {}", FormatFunction(event));
+                spdlog::info("ScriptCore: Called OnClick with function name {}", FormatFunction(event));
 #endif
+                break;
+            }
+            case EVENT_ONTICK:
+            {
+                luabridge::LuaRef onTick = luabridge::getGlobal(L_, FormatFunction(event).c_str());
+                luabridge::LuaResult result = onTick(GetFrameTime());
+#ifdef DEBUG
+                // spdlog::info("ScriptCore: Called OnTick with function name {} and frametime {}", FormatFunction(event),
+                //              GetFrameTime());
+#endif
+                break;
+            }
         }
     }
 }
@@ -110,7 +124,7 @@ void ScriptCore::ActivateEvent(ScriptEvent const& event)
 std::string ScriptCore::FormatFunction(ScriptEvent const& event)
 {
     char functionName[80];
-    sprintf(functionName, "_%lu_%s", event.uuid, events[event.event]);
+    sprintf(functionName, "_%lu_%s", event.m_UUID, events[event.m_Event]);
 
     return functionName;
 }

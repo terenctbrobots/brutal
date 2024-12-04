@@ -60,4 +60,23 @@ TEST(ScriptTest, TestScriptCore)
 
     game.Cleanup();
 }
+
+TEST(ScriptTest, TestScriptOnTick)
+{
+    Game& game = Game::Get();
+
+    game.Setup(640, 480);
+
+    game.CreateLevel();
+
+    std::ifstream test_json("testdata/ticktest.json");
+
+    json json_data = json::parse(test_json);
+
+    game.level->Deserialize(json_data);
+
+    game.MainLoop();
+
+    game.Cleanup();
+}
 }  // namespace
