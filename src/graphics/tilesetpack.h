@@ -2,9 +2,11 @@
 
 #include "tileset.h"
 
-namespace Brutal {
+namespace Brutal
+{
 
-class TileSetPack {
+class TileSetPack
+{
    private:
     std::vector<std::tuple<std::shared_ptr<TileSet>, Rectangle*>> tileset_;
 
@@ -16,14 +18,9 @@ class TileSetPack {
     TileSetPack();
     ~TileSetPack();
 
-    // TODO: Do we need a interface to add external created tilesets?
-    // void Add(std::shared_ptr<TileSet> tile_set);
-    int Load(std::string const& filename);
-    // int LoadJSON(json tile_set_json);
+    void Deserialize(json const& jsonData);
 
-    void Deserialize(json const& json_data);
-
-    void Draw(Vector2 const& position, uint16_t tile_id);
+    void Draw(Vector2 const& position, uint16_t tileId);
     size_t Size();
     float GetTileWidth();
     float GetTileHeight();

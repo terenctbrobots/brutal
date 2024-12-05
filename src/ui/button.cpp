@@ -12,8 +12,7 @@ void Button::Draw(Vector2 const& position, ButtonComponent& button, u_int64_t uu
     if (GuiButton((Rectangle){position.x, position.y, button.m_Width, button.m_Height}, button.m_TextField.c_str()) &&
         uuid != 0)
     {
-        Game& game = Game::Get();
-        game.level->script_core->AddEvent({EVENT_ONCLICK, uuid});
+        Game::GetLevel()->script_core->AddEvent({EVENT_ONCLICK, uuid});
 #ifdef DEBUG
         spdlog::info("Button : text field {}", button.m_TextField);
 #endif

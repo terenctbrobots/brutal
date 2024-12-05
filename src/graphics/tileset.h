@@ -3,8 +3,10 @@
 #include "common.h"
 #include "raylib.h"
 
-namespace Brutal {
-class TileSet {
+namespace Brutal
+{
+class TileSet
+{
    private:
     std::string json_filename_;
     Texture2D texture_;
@@ -15,15 +17,15 @@ class TileSet {
     int LoadJSON();
 
    public:
-    uint32_t width;
-    uint32_t height;
+    uint32_t m_Width;
+    uint32_t m_Height;
 
-    float tile_width;
-    float tile_height;
+    float m_TileWidth;
+    float m_TileHeight;
 
-    uint32_t tile_count;
+    uint32_t m_TileCount;
 
-    std::string name;
+    std::string m_Name;
 
    public:
     TileSet();

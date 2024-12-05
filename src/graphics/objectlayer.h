@@ -20,7 +20,7 @@ class ObjectLayer : public Layer
     void AddToDrawList(GameObject const& gameobject);
     void RemoveFromDrawList(GameObject const& gameobject);
 
-    void Draw() override;
+    void Draw() override final;
 };
 
 }  // namespace Brutal

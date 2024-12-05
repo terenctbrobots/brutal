@@ -37,7 +37,7 @@ class TileLayer : public Layer {
 
     void OrganizeDraw() override;
     void DrawTiles(uint32_t tile_x, uint32_t tile_y);
-    void Draw() override;
+    void Draw() override final;
 };
 
 }  // namespace Brutal
