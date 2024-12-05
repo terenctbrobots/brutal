@@ -4,10 +4,9 @@
 
 namespace Brutal
 {
-void APIShared::SetText(std::string const& text, entt::entity entity)
+void APIShared::SetText(std::string const& text, entt::entity const& entity)
 {
-    Game& game = Game::Get();
-    GameObject gameobject = {entity, game.level};
+    GameObject gameobject = {entity, Game::GetLevel()};
 
     if (gameobject)
     {
@@ -19,6 +18,18 @@ void APIShared::SetText(std::string const& text, entt::entity entity)
             spdlog::info("APIShared: setText with {}", text);
 #endif
         }
+    }
+}
+
+void APIShared::SetPosition(float x, float y, entt::entity const& entity) 
+{
+    GameObject gameObject = {entity,Game::GetLevel()};
+
+    if (gameObject) 
+    {
+        auto& rectangleComponent = gameObject.GetComponent<Rectangle>();
+        rectangleComponent.x = x;
+        rectangleComponent.y = y;
     }
 }
 }  // namespace Brutal

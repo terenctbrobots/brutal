@@ -19,6 +19,11 @@ class Game {
     void operator=(const Game&) = delete;
 
     static Game& Get();
+    static Level* GetLevel()
+    {
+        return Get().level;
+    }
+
     Level* level;
 
     void Setup(float width, float height);

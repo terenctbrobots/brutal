@@ -16,13 +16,12 @@ void APIGlobal::Bind(lua_State* L)
 
     luabridge::getGlobalNamespace(L).addFunction("findGameObjectByName", &APIGlobal::FindGameObjectByName);
     luabridge::getGlobalNamespace(L).addFunction("setText", &APIGlobal::SetText);
+    luabridge::getGlobalNamespace(L).addFunction("setPosition", &APIGlobal::SetPosition);
 }
 
 APIGameObject& APIGlobal::FindGameObjectByName(std::string const& name)
 {
-    Game& game = Game::Get();
-
-    api_.m_Entity = game.level->FindGameObjectByName(name);
+    api_.m_Entity = Game::GetLevel()->FindGameObjectByName(name);
 
 #ifdef DEBUG
     spdlog::info("APIGlobal: FindingObjectByName {} Entity is {}",name,(u_int32_t)api_.m_Entity);
@@ -33,8 +32,11 @@ APIGameObject& APIGlobal::FindGameObjectByName(std::string const& name)
 
 void APIGlobal::SetText(std::string const& text) 
 {
-    Game& game = Game::Get();
+    APIShared::SetText(text, Game::GetLevel()->script_core->m_CurrentEntity);
+}
 
-    APIShared::SetText(text, game.level->script_core->m_CurrentEntity);
+void APIGlobal::SetPosition(float x, float y)
+{
+    APIShared::SetPosition(x, y, Game::GetLevel()->script_core->m_CurrentEntity);
 }
 }  // namespace Brutal

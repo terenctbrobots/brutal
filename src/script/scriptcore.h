@@ -39,8 +39,7 @@ class ScriptCore
     lua_State* L_ = NULL;
 
    public:
-
-            entt::entity m_CurrentEntity;
+    entt::entity m_CurrentEntity;
 
     void Setup();
     void Process();

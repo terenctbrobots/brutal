@@ -25,5 +25,6 @@ class APIGlobal
     static APIGameObject& FindGameObjectByName(std::string const& name);
 
     static void SetText(std::string const& text);
+    static void SetPosition(float x, float y);
 };
 }  // namespace Brutal

@@ -17,6 +17,7 @@ class APIGameObject {
     public:
         void Bind(lua_State* L);
         void SetText(std::string const& text);
+        void SetPosition(float x, float y);
 };
 }
 
