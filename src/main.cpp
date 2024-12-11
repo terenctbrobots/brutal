@@ -1,20 +1,17 @@
 #include "raylib.h"
+#include "game/game.h"
 
 int main(void)
 {
-    InitWindow(800, 450, "raylib [core] example - basic window");
+    Brutal::Game& game = Brutal::Game::Get();
 
-    while (!WindowShouldClose())
-    {
-        BeginDrawing();
-            ClearBackground(RAYWHITE);
-#ifdef DEBUG            
-            DrawText("Congrats! You created your first window!", 190, 200, 20, BLACK);
-#endif
-        EndDrawing();
-    }
+    game.Setup(800,600);
 
-    CloseWindow();
+    game.CreateLevel();
+
+    game.MainLoop();
+
+    game.Cleanup();
 
     return 0;
 }

@@ -5,6 +5,7 @@
 #include "common.h"
 #include "level.h"
 #include "raygui.h"
+#include "editor/editor.h"
 
 namespace Brutal {
 
@@ -25,6 +26,7 @@ class Game {
     }
 
     Level* level;
+    Editor* m_editor;
 
     void Setup(float width, float height);
     int MainLoop();

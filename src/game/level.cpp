@@ -120,7 +120,7 @@ void Level::MoveView(Vector2 const& position)
 
 int Level::MainLoop()
 {
-#ifdef DEBUG
+#ifndef NOUNIT
     char* delay_string = std::getenv("DELAY");
     int delay_frames = 5;
 
@@ -133,7 +133,7 @@ int Level::MainLoop()
 #endif
     SetTargetFPS(60);
 
-#ifdef DEBUG
+#ifndef NOUNIT
     while (!WindowShouldClose() && !exit_flag)
 #else
     while (!WindowShouldClose())
@@ -181,7 +181,7 @@ int Level::MainLoop()
 
         script_core->Process();
 
-#ifdef DEBUG
+#ifndef NOUNIT
         frame_counter++;
 
         if (frame_counter >= delay_frames)

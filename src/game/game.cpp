@@ -24,6 +24,8 @@ void Game::Setup(float width, float height)
     height_ = height;
 
     InitWindow(width, height, "Game");
+
+    m_editor = new Editor(width, height);
 #ifdef DEBUG
     spdlog::info("Game : Setup with width {} and height {}", width, height);
 #endif
@@ -31,7 +33,7 @@ void Game::Setup(float width, float height)
 
 int Game::MainLoop()
 {
-    if (level == nullptr)
+    if (level == NULL)
         return 0;
 
     level->MainLoop();
