@@ -24,12 +24,12 @@ TEST_F(GameTest, TestGameObject)
 
     json json_data = json::parse(test_json);
 
-    game.level->Deserialize(json_data);
+    Game::GetLevel()->Deserialize(json_data);
 
-    GameObject gameobject = game.level->FindGameObjectByName("Player 1");
+    GameObject gameobject = Game::GetLevel()->FindGameObjectByName("Player 1");
     EXPECT_TRUE(gameobject);
 
-    gameobject = game.level->GetGameObjectByUUID(1);
+    gameobject = Game::GetLevel()->GetGameObjectByUUID(1);
     EXPECT_TRUE(gameobject);
 
     EXPECT_TRUE(gameobject.HasComponent<SpriteComponent>());
@@ -39,7 +39,7 @@ TEST_F(GameTest, TestGameObject)
     EXPECT_EQ(sprite_component.m_Width, 48);
     EXPECT_EQ(sprite_component.m_Height, 48);
 
-    gameobject = game.level->GetGameObjectByUUID(2);
+    gameobject = Game::GetLevel()->GetGameObjectByUUID(2);
     EXPECT_TRUE(gameobject);
 
     EXPECT_TRUE(gameobject.HasComponent<BitmapComponent>());
@@ -60,16 +60,16 @@ TEST_F(GameTest, TestTileLayer)
 
     game.CreateLevel();
 
-    EXPECT_TRUE(game.level != nullptr);
+    EXPECT_TRUE(Game::GetLevel != NULL);
 
     std::ifstream test_json("testdata/level.json");
 
     json json_data = json::parse(test_json);
 
-    game.level->Deserialize(json_data);
+    Game::GetLevel()->Deserialize(json_data);
 
     // Test off screen, should clip left and top portion of tile map
-    game.level->MoveView({0, 0});
+    Game::GetLevel()->MoveView({0, 0});
 
     // Test view screen off -200, -200, tile should start right and lower
     // game.view_screen.x = -200;

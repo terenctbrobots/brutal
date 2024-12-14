@@ -30,13 +30,12 @@ void ScriptCore::Setup()
     // TODO: Do we need the standard libs?
     luaL_openlibs(L_);
 
-    Game& game = Game::Get();
     // Collect all entity with a script component.
-    auto scriptView = game.level->registry_.view<ScriptComponent>();
+    auto scriptView = Game::GetLevel()->registry_.view<ScriptComponent>();
 
     for (auto entity : scriptView)
     {
-        GameObject gameobject = {entity, game.level};
+        GameObject gameobject = {entity, Game::GetLevel()};
         auto& scriptComponent = gameobject.GetComponent<ScriptComponent>();
         auto& uuid = gameobject.GetComponent<IDComponent>();
 
@@ -89,9 +88,7 @@ void ScriptCore::AddEvent(ScriptEvent const& event) { event_queue_.push_back(eve
 
 void ScriptCore::ActivateEvent(ScriptEvent const& event)
 {
-    Game& game = Game::Get();
-
-    GameObject gameobject = game.level->GetGameObjectByUUID(event.m_UUID);
+    GameObject gameobject = Game::GetLevel()->GetGameObjectByUUID(event.m_UUID);
 
     m_CurrentEntity = gameobject;
     

@@ -1,5 +1,5 @@
 
-namespace Brutal
+namespace Editor
 {
 class Editor 
 {

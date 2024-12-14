@@ -54,7 +54,7 @@ TEST(ScriptTest, TestScriptCore)
 
     json json_data = json::parse(test_json);
 
-    game.level->Deserialize(json_data);
+    Game::GetLevel()->Deserialize(json_data);
 
     game.MainLoop();
 
@@ -73,7 +73,7 @@ TEST(ScriptTest, TestScriptOnTick)
 
     json json_data = json::parse(test_json);
 
-    game.level->Deserialize(json_data);
+    Game::GetLevel()->Deserialize(json_data);
 
     game.MainLoop();
 

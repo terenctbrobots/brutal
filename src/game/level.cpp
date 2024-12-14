@@ -285,7 +285,6 @@ void Level::DeserializeGameObject(json json_data)
 
 void Level::OrganizeDrawList()
 {
-    Game& game = Game::Get();
 
     auto layer_view = registry_.view<LayerComponent>();
 
@@ -296,7 +295,7 @@ void Level::OrganizeDrawList()
         auto& layer = gameobject.GetComponent<LayerComponent>();
         auto object_layer = std::static_pointer_cast<ObjectLayer>(render_layers_[layer.m_Layer]);
 
-        if (!CheckCollisionRecs(game.level->View(), object_rect))
+        if (!CheckCollisionRecs(Game::GetLevel()->View(), object_rect))
         {
             object_layer->RemoveFromDrawList(gameobject);
         }

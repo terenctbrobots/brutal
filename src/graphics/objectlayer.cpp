@@ -7,7 +7,8 @@
 #include "ui/button.h"
 #include "ui/text.h"
 
-namespace Brutal {
+namespace Brutal
+{
 ObjectLayer::ObjectLayer() { layer_type_ = Layer::OBJECT; }
 
 ObjectLayer::~ObjectLayer() {}
@@ -16,32 +17,37 @@ void ObjectLayer::AddToDrawList(GameObject const& gameobject) { drawlist_.push_b
 
 void ObjectLayer::RemoveFromDrawList(GameObject const& gameobject) { drawlist_.remove(gameobject); }
 
-void ObjectLayer::Draw() {
-    Game& game = Game::Get();
-    Rectangle view = game.level->View();
+void ObjectLayer::Draw()
+{
+    Rectangle view = Game::GetLevel()->View();
 
-    for (auto& gameobject : drawlist_) {
+    for (auto& gameobject : drawlist_)
+    {
         auto& rectangle = gameobject.GetComponent<Rectangle>();
 
         Vector2 screen_position = {rectangle.x - view.x, rectangle.y - view.y};
 
-        if (gameobject.HasComponent<BitmapComponent>()) {
+        if (gameobject.HasComponent<BitmapComponent>())
+        {
             auto& bitmap = gameobject.GetComponent<BitmapComponent>();
             Bitmap::Draw(screen_position, bitmap);
         }
 
-        if (gameobject.HasComponent<SpriteComponent>()) {
+        if (gameobject.HasComponent<SpriteComponent>())
+        {
             auto& sprite = gameobject.GetComponent<SpriteComponent>();
             Sprite::Draw(screen_position, sprite);
         }
 
-        if (gameobject.HasComponent<ButtonComponent>()) {
+        if (gameobject.HasComponent<ButtonComponent>())
+        {
             auto& button = gameobject.GetComponent<ButtonComponent>();
             auto& UUID = gameobject.GetComponent<IDComponent>();
             Button::Draw(screen_position, button, UUID.m_ID);
         }
 
-        if (gameobject.HasComponent<TextComponent>()) {
+        if (gameobject.HasComponent<TextComponent>())
+        {
             auto& text = gameobject.GetComponent<TextComponent>();
             Text::Draw(screen_position, text);
         }

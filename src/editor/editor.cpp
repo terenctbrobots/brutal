@@ -1,6 +1,6 @@
 #include "editor/editor.h"
 
-namespace Brutal
+namespace Editor
 {
 Editor::Editor(float width, float height) {}
 

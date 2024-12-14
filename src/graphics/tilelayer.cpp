@@ -37,15 +37,13 @@ std::shared_ptr<TileSetPack> TileLayer::SetTileSetPack(std::shared_ptr<TileSetPa
     tile_width_ = tile_set_pack_->GetTileWidth();
     tile_height_ = tile_set_pack_->GetTileHeight();
 
-    Game& game = Game::Get();
-
-    draw_width_ = std::round(game.level->Width() / tile_width_) + 1;
+    draw_width_ = std::round(Game::GetLevel()->Width() / tile_width_) + 1;
 
     if (draw_width_ > width_) {
         draw_width_ = width_;
     }
 
-    draw_height_ = std::round(game.level->Height() / tile_height_) + 1;
+    draw_height_ = std::round(Game::GetLevel()->Height() / tile_height_) + 1;
 
     if (draw_height_ > height_) {
         draw_height_ = height_;
@@ -77,8 +75,7 @@ void TileLayer::SetLayerData(json layer_data) {
 }
 
 void TileLayer::OrganizeDraw() {
-    Game& game = Game::Get();
-    Rectangle view = game.level->View();
+    Rectangle view = Game::GetLevel()->View();
 
     if (view.x < 0) {
         draw_offset_.x = std::abs(view.x);

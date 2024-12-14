@@ -15,6 +15,9 @@ class Game {
     float width_;
     float height_;
 
+    Level* m_Level;
+    Editor::Editor* m_Editor;
+
    public:
     Game(const Game&) = delete;
     void operator=(const Game&) = delete;
@@ -22,11 +25,9 @@ class Game {
     static Game& Get();
     static Level* GetLevel()
     {
-        return Get().level;
+        return Get().m_Level;
     }
 
-    Level* level;
-    Editor* m_editor;
 
     void Setup(float width, float height);
     int MainLoop();
