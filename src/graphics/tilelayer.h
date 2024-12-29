@@ -1,12 +1,14 @@
 #pragma once
 
 #include "common.h"
-#include "layer.h"
+#include "graphics/layer.h"
+#include "graphics/tilesetpack.h"
 #include "raylib.h"
-#include "tilesetpack.h"
 
-namespace Brutal {
-class TileLayer : public Layer {
+namespace Brutal
+{
+class TileLayer : public Layer
+{
    private:
     std::shared_ptr<TileSetPack> tile_set_pack_;
     uint16_t* layer_data_;

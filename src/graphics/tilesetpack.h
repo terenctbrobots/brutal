@@ -1,6 +1,6 @@
 #pragma once
 
-#include "tileset.h"
+#include "graphics/tileset.h"
 
 namespace Brutal
 {

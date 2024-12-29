@@ -3,9 +3,8 @@
 #include <memory>
 
 #include "common.h"
-#include "level.h"
+#include "game/level.h"
 #include "raygui.h"
-#include "editor/editor.h"
 
 namespace Brutal {
 
@@ -16,7 +15,6 @@ class Game {
     float height_;
 
     Level* m_Level;
-    Editor::Editor* m_Editor;
 
    public:
     Game(const Game&) = delete;

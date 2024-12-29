@@ -30,6 +30,8 @@ add_executable(
   src/script/apishared.cpp
   test/script_test.cpp
   src/editor/editor.cpp
+  src/editor/window/editorwindow.cpp
+  src/editor/window/window.cpp
 )
 
 target_include_directories(brutal_test PRIVATE ${LUABRIDGE3_INCLUDE_DIRS} ${RAYGUI_INCLUDE_DIRS})

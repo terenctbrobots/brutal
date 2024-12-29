@@ -41,6 +41,8 @@ class ScriptCore
    public:
     entt::entity m_CurrentEntity;
 
+    ~ScriptCore();
+
     void Setup();
     void Process();
     void Cleanup();

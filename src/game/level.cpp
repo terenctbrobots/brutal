@@ -14,20 +14,19 @@
 #include "raygui.h"
 #include "ui/button.h"
 #include "ui/text.h"
+#include "spdlog/spdlog.h"
 
 namespace Brutal
 {
 
-void Level::Setup() { script_core = std::make_unique<ScriptCore>(); }
+void Level::Setup(float width, float height) 
+{ 
+    m_ScriptCore = std::make_unique<ScriptCore>(); 
+    m_Editor = std::make_unique<Editor::Editor>(width, height);
+}
 
 void Level::Cleanup()
 {
-    if (script_core)
-    {
-        script_core->Cleanup();
-        script_core = nullptr;
-    }
-
     auto sprite_view = registry_.view<SpriteComponent>();
 
     for (auto entity : sprite_view)
@@ -153,6 +152,15 @@ int Level::MainLoop()
             view_updated_ = false;
         }
 
+        if (m_Editor) 
+        {
+            if (IsKeyDown(KEY_F1)) 
+            {
+                m_EditorToggle = !m_EditorToggle;
+                spdlog::info("Toggle Editor {}",m_EditorToggle);
+            }
+        }
+
         BeginDrawing();
         ClearBackground(BLACK);
 
@@ -162,6 +170,11 @@ int Level::MainLoop()
             {
                 rlayer->Draw();
             }
+        }
+
+        if (m_Editor && m_EditorToggle) 
+        {
+            m_Editor->Draw();
         }
 
         EndDrawing();
@@ -175,11 +188,11 @@ int Level::MainLoop()
 
             if (script.m_OnTick)
             {
-                script_core->ActivateEvent({EVENT_ONTICK, uuid.m_ID});
+                m_ScriptCore->ActivateEvent({EVENT_ONTICK, uuid.m_ID});
             }
         }
 
-        script_core->Process();
+        m_ScriptCore->Process();
 
 #ifndef NOUNIT
         frame_counter++;
@@ -229,7 +242,7 @@ void Level::Deserialize(json json_data)
         }
     }
 
-    script_core->Setup();
+    m_ScriptCore->Setup();
 }
 
 void Level::DeserializeGameObject(json json_data)

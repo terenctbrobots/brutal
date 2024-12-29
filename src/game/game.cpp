@@ -5,7 +5,7 @@ namespace Brutal
 void Game::CreateLevel()
 {
     m_Level = new Level();
-    m_Level->Setup();
+    m_Level->Setup(width_, height_);
     m_Level->UpdateView({0, 0, width_, height_});
 }
 
@@ -25,7 +25,6 @@ void Game::Setup(float width, float height)
 
     InitWindow(width, height, "Game");
 
-    m_Editor = new Editor::Editor(width, height);
 #ifdef DEBUG
     spdlog::info("Game : Setup with width {} and height {}", width, height);
 #endif
@@ -51,11 +50,6 @@ void Game::Cleanup()
     {
         m_Level->Cleanup();
         delete m_Level;
-    }
-
-    if (m_Editor != NULL)
-    {
-        delete m_Editor;
     }
 
     CloseWindow();

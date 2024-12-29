@@ -4,8 +4,8 @@
 #include <memory>
 
 #include "common.h"
-#include "component.h"
-#include "level.h"
+#include "game/component.h"
+#include "game/level.h"
 
 namespace Brutal
 {

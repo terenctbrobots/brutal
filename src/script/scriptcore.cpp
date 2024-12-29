@@ -17,6 +17,14 @@ constexpr int event_size() { return sizeof(events) / sizeof(events[0]); }
 namespace Brutal
 {
 
+ScriptCore::~ScriptCore() 
+{
+    if (L_ != NULL)
+    {
+        lua_close(L_);
+    }
+}
+
 void ScriptCore::Setup()
 {
     if (L_ != NULL)
@@ -61,14 +69,6 @@ void ScriptCore::Setup()
 
     // Now bind all API's
     APIGlobal::Bind(L_);
-}
-
-void ScriptCore::Cleanup()
-{
-    if (L_ != NULL)
-    {
-        lua_close(L_);
-    }
 }
 
 void ScriptCore::Process()

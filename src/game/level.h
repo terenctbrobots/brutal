@@ -7,6 +7,8 @@
 #include "common.h"
 #include "raylib.h"
 #include "script/scriptcore.h"
+#include "editor/editor.h"
+
 
 namespace Brutal {
 // Forward declartion
@@ -34,10 +36,13 @@ class Level {
     Level() = default;
     ~Level() = default;
 
-    void Setup();
+    void Setup(float width, float height);
     void Cleanup();
 
-    std::unique_ptr<ScriptCore> script_core;
+    std::unique_ptr<ScriptCore> m_ScriptCore;
+    std::unique_ptr<Editor::Editor> m_Editor;
+
+    bool m_EditorToggle = false;
 
     GameObject CreateGameObject(std::string const& name);
     GameObject CreateGameObjectWithUUID(UUID uuid, std::string const& name);

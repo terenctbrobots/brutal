@@ -32,11 +32,11 @@ APIGameObject& APIGlobal::FindGameObjectByName(std::string const& name)
 
 void APIGlobal::SetText(std::string const& text) 
 {
-    APIShared::SetText(text, Game::GetLevel()->script_core->m_CurrentEntity);
+    APIShared::SetText(text, Game::GetLevel()->m_ScriptCore->m_CurrentEntity);
 }
 
 void APIGlobal::SetPosition(float x, float y)
 {
-    APIShared::SetPosition(x, y, Game::GetLevel()->script_core->m_CurrentEntity);
+    APIShared::SetPosition(x, y, Game::GetLevel()->m_ScriptCore->m_CurrentEntity);
 }
 }  // namespace Brutal
