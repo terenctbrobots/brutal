@@ -1,22 +1,20 @@
-#pragma once 
+#pragma once
 
 #include <iostream>
 #include <memory>
 
 #include "common.h"
-#include "component.h"
-#include "level.h"
+#include "game/component.h"
+#include "game/level.h"
 
-namespace Brutal {
+namespace Brutal
+{
 
-class GameObject {
+class GameObject
+{
    private:
     entt::entity handle_{entt::null};
     Level* level_ = nullptr;
-    template <typename T>
-    void OnComponentRemove(T& component);
-    template <typename T>
-    void OnComponentAdd(T& component);
 
    public:
     GameObject() = default;
@@ -25,9 +23,11 @@ class GameObject {
     ~GameObject();
 
     template <typename T, typename... Args>
-    T& AddComponent(Args&&... args) {
+    T& AddComponent(Args&&... args)
+    {
 #ifdef DEBUG
-        if (HasComponent<T>()) {
+        if (HasComponent<T>())
+        {
             spdlog::error("GameObject : Component already exists");
             abort();
         }
@@ -38,25 +38,29 @@ class GameObject {
     }
 
     template <typename T, typename... Args>
-    T& AddOrReplaceComponent(Args&&... args) {
+    T& AddOrReplaceComponent(Args&&... args)
+    {
         T& component = level_->registry_.emplace_or_replace<T>(handle_, std::forward<Args>(args)...);
         return component;
     }
 
     template <typename T>
-    bool HasComponent() {
+    bool HasComponent()
+    {
         return level_->registry_.any_of<T>(handle_);
     }
 
     template <typename T>
-    T& GetComponent() {
+    T& GetComponent()
+    {
         return level_->registry_.get<T>(handle_);
     }
 
     template <typename T>
-    void RemoveComponent() {
+    void RemoveComponent()
+    {
         auto& component = level_->registry_.get<T>(handle_);
-        OnComponentRemove<T>(component);
+        level_->OnComponentRemove<T>(component);
         level_->registry_.remove<T>(handle_);
     }
 
@@ -64,8 +68,8 @@ class GameObject {
     operator entt::entity() const { return handle_; }
     operator uint32_t() const { return (uint32_t)handle_; }
 
-    UUID GetUUID() { return GetComponent<IDComponent>().ID; }
-    const std::string& GetName() { return GetComponent<TagComponent>().tag; }
+    UUID GetUUID() { return GetComponent<IDComponent>().m_ID; }
+    const std::string& GetName() { return GetComponent<TagComponent>().m_Tag; }
 
     bool operator==(const GameObject& other) const { return handle_ == other.handle_ && level_ == other.level_; }
 

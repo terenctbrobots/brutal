@@ -1,14 +1,16 @@
-#pragma once 
+#pragma once
 
 #include <list>
 
 #include "game/gameobject.h"
 #include "layer.h"
 
-namespace Brutal {
-class ObjectLayer : public Layer {
+namespace Brutal
+{
+class ObjectLayer : public Layer
+{
    private:
-   //TODO: This is slow, probably better as a vector
+    // TODO: This is slow, probably better as a vector
     std::list<GameObject> drawlist_;
 
    public:
@@ -18,7 +20,7 @@ class ObjectLayer : public Layer {
     void AddToDrawList(GameObject const& gameobject);
     void RemoveFromDrawList(GameObject const& gameobject);
 
-    void Draw() override;
+    void Draw() override final;
 };
 
 }  // namespace Brutal

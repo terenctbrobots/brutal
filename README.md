@@ -21,6 +21,12 @@ sudo apt install libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev pkg-co
 - Run vpkg install from root to re-install if any errors occurs
 - Close vscode and reopen and should be able to build cleanly after that.
 
+For visual studio code keyring issue:
+sudo apt install libsecret-1-0 libsecret-1-dev
+
+# Window build
+Still working on converting the code.
+
 # Running tests
 /brutal_test --gtest_filter="*Sprite*" will only run Sprite tests
 

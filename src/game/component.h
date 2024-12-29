@@ -1,32 +1,37 @@
-#pragma once 
+#pragma once
 
 #include <string>
 
 #include "UUID.h"
 
-namespace Brutal {
-struct IDComponent {
-    UUID ID;
+namespace Brutal
+{
+struct IDComponent
+{
+    UUID m_ID;
 
     IDComponent() = default;
     IDComponent(const IDComponent&) = default;
 };
 
-struct TagComponent {
-    std::string tag;
+struct TagComponent
+{
+    std::string m_Tag;
 
     TagComponent() = default;
     TagComponent(const TagComponent&) = default;
-    TagComponent(const std::string& tag) : tag(tag) {}
+    TagComponent(const std::string& tag) : m_Tag(tag) {}
 };
 
-struct LayerComponent {
-    int layer;
+struct LayerComponent
+{
+    int m_Layer;
 };
 
-struct ScriptComponent {
-    std::string filename;
-    bool on_tick = false;
+struct ScriptComponent
+{
+    std::string m_Filename;
+    bool m_OnTick = false;
 };
 
 }  // namespace Brutal

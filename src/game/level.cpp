@@ -14,42 +14,35 @@
 #include "raygui.h"
 #include "ui/button.h"
 #include "ui/text.h"
+#include "spdlog/spdlog.h"
 
-namespace Brutal {
+namespace Brutal
+{
 
-void Level::Setup() {
-    script_core = std::make_unique<ScriptCore>();
+void Level::Setup(float width, float height) 
+{ 
+    m_ScriptCore = std::make_unique<ScriptCore>(); 
+    m_Editor = std::make_unique<Editor::Editor>(width, height);
 }
 
-void Level::Cleanup() {
-    if (script_core) {
-        script_core->Cleanup();
-        script_core = nullptr;
-    }
-
+void Level::Cleanup()
+{
     auto sprite_view = registry_.view<SpriteComponent>();
 
-    for (auto entity : sprite_view) {
-        auto& sprite_component = sprite_view.get<SpriteComponent>(entity);
-        if (sprite_component.texture.id > 0) {
-            UnloadTexture(sprite_component.texture);
-            sprite_component.texture.id = 0;
-        }
+    for (auto entity : sprite_view)
+    {
+        GameObject gameObject = {entity, this};
+
+        gameObject.RemoveComponent<SpriteComponent>();
     }
 
     auto bitmap_view = registry_.view<BitmapComponent>();
 
-    for (auto entity : bitmap_view) {
-        auto& bitmap_component = bitmap_view.get<BitmapComponent>(entity);
-        if (bitmap_component.image.data != NULL) {
-            UnloadImage(bitmap_component.image);
-            bitmap_component.image.data = NULL;
-        }
-
-        if (bitmap_component.texture.id > 0) {
-            UnloadTexture(bitmap_component.texture);
-            bitmap_component.texture.id = 0;
-        }
+    for (auto entity : bitmap_view)
+    {
+        GameObject gameObject = {entity, this};
+        
+        gameObject.RemoveComponent<BitmapComponent>();
     }
 
     gameobject_map_.clear();
@@ -58,48 +51,42 @@ void Level::Cleanup() {
 
 GameObject Level::CreateGameObject(std::string const& name) { return CreateGameObjectWithUUID(UUID(), name); }
 
-GameObject Level::CreateGameObjectWithUUID(UUID uuid, std::string const& name) {
+GameObject Level::CreateGameObjectWithUUID(UUID uuid, std::string const& name)
+{
     GameObject gameobject = {registry_.create(), this};
     gameobject.AddComponent<IDComponent>(uuid);
     gameobject.AddComponent<Rectangle>();
     auto& tag = gameobject.AddComponent<TagComponent>();
-    tag.tag = name.empty() ? "GameObject" : name;
+    tag.m_Tag = name.empty() ? "GameObject" : name;
 
     gameobject_map_[uuid] = gameobject;
 
     return gameobject;
 }
 
-void Level::DestroyGameObject(GameObject gameobject) {
-    if (gameobject.HasComponent<SpriteComponent>()) {
-        auto& component = gameobject.GetComponent<SpriteComponent>();
-        if (component.texture.id > 0) {
-            UnloadTexture(component.texture);
-            component.texture.id = 0;
-        }
+void Level::DestroyGameObject(GameObject gameobject)
+{
+    if (gameobject.HasComponent<SpriteComponent>())
+    {
+        gameobject.RemoveComponent<SpriteComponent>();
     }
 
-    if (gameobject.HasComponent<BitmapComponent>()) {
-        auto& component = gameobject.GetComponent<BitmapComponent>();
-        if (component.image.data != NULL) {
-            UnloadImage(component.image);
-            component.image.data = NULL;
-        }
-
-        if (component.texture.id > 0) {
-            UnloadTexture(component.texture);
-            component.texture.id = 0;
-        }
+    if (gameobject.HasComponent<BitmapComponent>())
+    {
+        gameobject.RemoveComponent<BitmapComponent>();
     }
     gameobject_map_.erase(gameobject.GetUUID());
     registry_.destroy(gameobject);
 }
 
-GameObject Level::FindGameObjectByName(std::string_view name) {
+GameObject Level::FindGameObjectByName(std::string_view name)
+{
     auto view = registry_.view<TagComponent>();
-    for (auto gameobject : view) {
+    for (auto gameobject : view)
+    {
         TagComponent const& tag_component = view.get<TagComponent>(gameobject);
-        if (tag_component.tag == name) {
+        if (tag_component.m_Tag == name)
+        {
             return GameObject{gameobject, this};
         }
     }
@@ -107,31 +94,37 @@ GameObject Level::FindGameObjectByName(std::string_view name) {
     return {};
 }
 
-GameObject Level::GetGameObjectByUUID(UUID uuid) {
-    if (gameobject_map_.find(uuid) != gameobject_map_.end()) {
+GameObject Level::GetGameObjectByUUID(UUID uuid)
+{
+    if (gameobject_map_.find(uuid) != gameobject_map_.end())
+    {
         return {gameobject_map_.at(uuid), this};
     }
 
     return {};
 }
 
-void Level::UpdateView(Rectangle const& rectangle) {
+void Level::UpdateView(Rectangle const& rectangle)
+{
     view_ = rectangle;
     view_updated_ = true;
 }
 
-void Level::MoveView(Vector2 const& position) {
+void Level::MoveView(Vector2 const& position)
+{
     view_.x = position.x;
     view_.y = position.y;
     view_updated_ = true;
 }
 
-int Level::MainLoop() {
-#ifdef DEBUG
+int Level::MainLoop()
+{
+#ifndef NOUNIT
     char* delay_string = std::getenv("DELAY");
     int delay_frames = 5;
 
-    if (delay_string != NULL) {
+    if (delay_string != NULL)
+    {
         delay_frames = atoi(delay_string);
     }
     int frame_counter = 0;
@@ -139,49 +132,73 @@ int Level::MainLoop() {
 #endif
     SetTargetFPS(60);
 
-#ifdef DEBUG
+#ifndef NOUNIT
     while (!WindowShouldClose() && !exit_flag)
 #else
     while (!WindowShouldClose())
 #endif
     {
-        if (view_updated_) {
+        if (view_updated_)
+        {
             OrganizeDrawList();
 
-            for (auto& rlayer : render_layers_) {
-                if (rlayer->enabled && rlayer->GetLayerType() == Layer::TILE) {
+            for (auto& rlayer : render_layers_)
+            {
+                if (rlayer->m_Enabled && rlayer->GetLayerType() == Layer::TILE)
+                {
                     std::static_pointer_cast<TileLayer>(rlayer)->OrganizeDraw();
                 }
             }
             view_updated_ = false;
         }
 
+        if (m_Editor) 
+        {
+            if (IsKeyDown(KEY_F1)) 
+            {
+                m_EditorToggle = !m_EditorToggle;
+                spdlog::info("Toggle Editor {}",m_EditorToggle);
+            }
+        }
+
         BeginDrawing();
         ClearBackground(BLACK);
 
-        for (auto& rlayer : render_layers_) {
-            if (rlayer->enabled) {
+        for (auto& rlayer : render_layers_)
+        {
+            if (rlayer->m_Enabled)
+            {
                 rlayer->Draw();
             }
         }
 
+        if (m_Editor && m_EditorToggle) 
+        {
+            m_Editor->Draw();
+        }
+
         EndDrawing();
 
-        auto script_view = registry_.view<ScriptComponent,IDComponent>();
+        auto script_view = registry_.view<ScriptComponent, IDComponent>();
 
-        for (auto entity : script_view) {
+        for (auto entity : script_view)
+        {
             auto& script = script_view.get<ScriptComponent>(entity);
             auto& uuid = script_view.get<IDComponent>(entity);
 
-            if (script.on_tick) {
-                script_core->ActivateEvent({EVENT_ONTICK,uuid.ID});
+            if (script.m_OnTick)
+            {
+                m_ScriptCore->ActivateEvent({EVENT_ONTICK, uuid.m_ID});
             }
         }
 
-#ifdef DEBUG
+        m_ScriptCore->Process();
+
+#ifndef NOUNIT
         frame_counter++;
 
-        if (frame_counter >= delay_frames) {
+        if (frame_counter >= delay_frames)
+        {
             exit_flag = true;
         }
 #endif
@@ -190,13 +207,16 @@ int Level::MainLoop() {
     return 0;
 }
 
-void Level::Deserialize(json json_data) {
+void Level::Deserialize(json json_data)
+{
     DeserializeGameObject(json_data["gameobject"]);
 
-    for (auto& layer_data : json_data["layers"]) {
+    for (auto& layer_data : json_data["layers"])
+    {
         std::string const& layer_type = layer_data["type"];
 
-        switch (hash(layer_type.c_str())) {
+        switch (hash(layer_type.c_str()))
+        {
             case hash("tilelayer"): {
                 auto new_layer = std::make_shared<TileLayer>(layer_data["width"], layer_data["height"]);
                 auto new_tile_pack = std::make_shared<TileSetPack>();
@@ -211,7 +231,8 @@ void Level::Deserialize(json json_data) {
             case hash("object"): {
                 auto new_layer = std::make_shared<ObjectLayer>();
                 size_t next_layer = render_layers_.size();
-                for (auto& uuid : layer_data["data"]) {
+                for (auto& uuid : layer_data["data"])
+                {
                     auto gameobject = GetGameObjectByUUID((int)uuid);
                     gameobject.AddComponent<LayerComponent>(next_layer);
                 }
@@ -221,11 +242,13 @@ void Level::Deserialize(json json_data) {
         }
     }
 
-    script_core->Setup();
+    m_ScriptCore->Setup();
 }
 
-void Level::DeserializeGameObject(json json_data) {
-    for (auto& gameobject_data : json_data) {
+void Level::DeserializeGameObject(json json_data)
+{
+    for (auto& gameobject_data : json_data)
+    {
         std::string const& name = gameobject_data["name"];
         UUID uuid = UUID(gameobject_data["uuid"]);
 
@@ -233,25 +256,35 @@ void Level::DeserializeGameObject(json json_data) {
         auto& rectangle = gameobject.GetComponent<Rectangle>();
         rectangle.x = gameobject_data["x"];
         rectangle.y = gameobject_data["y"];
-        rectangle.width = gameobject_data["width"];
-        rectangle.height = gameobject_data["height"];
+        rectangle.width = gameobject_data.contains("width") ? float(gameobject_data["width"]) : 0;
+        rectangle.height = gameobject_data.contains("height") ? float(gameobject_data["height"]) : 0;
 
-        for (auto& component_data : gameobject_data["component"]) {
+        for (auto& component_data : gameobject_data["component"])
+        {
             std::string const& type = component_data["type"];
 
-            switch (hash(type.c_str())) {
-                case hash("sprite"):
-                    gameobject.AddComponent<SpriteComponent>(Sprite::Deserialize(component_data));
+            switch (hash(type.c_str()))
+            {
+                case hash("sprite"): {
+                    auto& sprite = gameobject.AddComponent<SpriteComponent>(Sprite::Deserialize(component_data));
+                    auto& rectangle = gameobject.GetComponent<Rectangle>();
+                    rectangle.width = sprite.m_Width;
+                    rectangle.height = sprite.m_Height;
                     break;
+                }
                 case hash("bitmap"):
                     gameobject.AddComponent<BitmapComponent>(Bitmap::Deserialize(component_data));
                     break;
                 case hash("text"):
                     gameobject.AddComponent<TextComponent>(Text::Deserialize(component_data));
                     break;
-                case hash("button"):
-                    gameobject.AddComponent<ButtonComponent>(Button::Deserialize(component_data));
+                case hash("button"): {
+                    auto& button = gameobject.AddComponent<ButtonComponent>(Button::Deserialize(component_data));
+                    auto& rectangle = gameobject.GetComponent<Rectangle>();
+                    rectangle.width = button.m_Width;
+                    rectangle.height = button.m_Height;
                     break;
+                }
                 case hash("script"):
                     gameobject.AddComponent<ScriptComponent>(ScriptCore::Deserialize(component_data));
                     break;
@@ -263,22 +296,52 @@ void Level::DeserializeGameObject(json json_data) {
     }
 }
 
-void Level::OrganizeDrawList() {
-    Game& game = Game::Get();
+void Level::OrganizeDrawList()
+{
 
     auto layer_view = registry_.view<LayerComponent>();
 
-    for (auto entity : layer_view) {
+    for (auto entity : layer_view)
+    {
         GameObject gameobject = {entity, this};
         auto& object_rect = gameobject.GetComponent<Rectangle>();
         auto& layer = gameobject.GetComponent<LayerComponent>();
-        auto object_layer = std::static_pointer_cast<ObjectLayer>(render_layers_[layer.layer]);
+        auto object_layer = std::static_pointer_cast<ObjectLayer>(render_layers_[layer.m_Layer]);
 
-        if (!CheckCollisionRecs(game.level->View(), object_rect)) {
+        if (!CheckCollisionRecs(Game::GetLevel()->View(), object_rect))
+        {
             object_layer->RemoveFromDrawList(gameobject);
-        } else {
+        }
+        else
+        {
             object_layer->AddToDrawList(gameobject);
         }
+    }
+}
+
+template <typename T>
+void Level::OnComponentRemove(T &component) {
+    static_assert(sizeof(T) == 0);
+}
+
+template <>
+void Level::OnComponentRemove<SpriteComponent>(SpriteComponent &component) {
+    if (component.texture.id > 0) {
+        UnloadTexture(component.texture);
+        component.texture.id = 0;
+    }
+}
+
+template <>
+void Level::OnComponentRemove<BitmapComponent>(BitmapComponent &component) {
+    if (component.m_Image.data != NULL) {
+        UnloadImage(component.m_Image);
+        component.m_Image.data = NULL;
+    }
+
+    if (component.m_Texture.id > 0) {
+        UnloadTexture(component.m_Texture);
+        component.m_Texture.id = 0;
     }
 }
 

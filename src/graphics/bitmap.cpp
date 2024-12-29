@@ -2,14 +2,17 @@
 
 #include "spdlog/spdlog.h"
 
-namespace Brutal {
-BitmapComponent Bitmap::Deserialize(json const& json_data) {
+namespace Brutal
+{
+BitmapComponent Bitmap::Deserialize(json const& json_data)
+{
     BitmapComponent bitmap;
 
     std::string filename = json_data["fileName"];
-    bitmap.image = LoadImage(filename.c_str());
+    bitmap.m_Image = LoadImage(filename.c_str());
 
-    if (bitmap.image.data == NULL) {
+    if (bitmap.m_Image.data == NULL)
+    {
         spdlog::error("Bitmap : failed to load {}", filename);
         abort();
     }
@@ -17,13 +20,15 @@ BitmapComponent Bitmap::Deserialize(json const& json_data) {
     return bitmap;
 }
 
-void Bitmap::Draw(Vector2 const& position, BitmapComponent& bitmap) {
-    if (!bitmap.convert_image) {
-        bitmap.texture = LoadTextureFromImage(bitmap.image);
-        bitmap.convert_image = true;
+void Bitmap::Draw(Vector2 const& position, BitmapComponent& bitmap)
+{
+    if (!bitmap.m_ConvertImage)
+    {
+        bitmap.m_Texture = LoadTextureFromImage(bitmap.m_Image);
+        bitmap.m_ConvertImage = true;
     }
 
-    DrawTextureV(bitmap.texture, position, WHITE);
+    DrawTextureV(bitmap.m_Texture, position, WHITE);
 }
 
 }  // namespace Brutal

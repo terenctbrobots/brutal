@@ -1,0 +1,31 @@
+{
+    "layers": [
+        {
+            "type": "object",
+            "data": [ 2 ]
+        }
+    ],
+    "gameobject": [
+        {
+            "name": "Button",
+            "uuid": 2,
+            "x": 100,
+            "y": 200,
+            "width": 102,
+            "height": 30,
+            "component": [
+                {
+                    "type": "button",
+                    "textField": "Click me!",
+                    "width": 102,
+                    "height": 30
+                },
+                {
+                    "type": "script",
+                    "fileName": "testdata/onTick.lua",
+                    "onTick": true
+                }
+            ]
+        }
+    ]
+}

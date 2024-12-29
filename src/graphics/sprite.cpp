@@ -22,10 +22,10 @@ SpriteComponent Sprite::Deserialize(json const& json_data) {
     }
 #endif
 
-    sprite.width = json_data["width"];
-    sprite.height = json_data["height"];
+    sprite.m_Width = json_data["width"];
+    sprite.m_Height = json_data["height"];
 
-    sprite.animation_list.clear();
+    sprite.m_AnimationList.clear();
 
     json animation_list_json = json_data["animation"];
 
@@ -34,32 +34,32 @@ SpriteComponent Sprite::Deserialize(json const& json_data) {
     for (auto& animation_json : animation_list_json.items()) {
         json frame_data = animation_json.value();
 
-        Vector2 offset = {0, 0};
+        Vector2 m_Offset = {0, 0};
 
         if (frame_data["offsetX"] != nullptr) {
-            offset.x = sprite.width * (double)frame_data["offsetX"];
+            m_Offset.x = sprite.m_Width * (double)frame_data["offsetX"];
         }
 
         if (frame_data["offsetY"] != nullptr) {
-            offset.y = sprite.height * (double)frame_data["offsetY"];
+            m_Offset.y = sprite.m_Height * (double)frame_data["offsetY"];
         }
 
         auto animation = std::make_shared<SpriteAnimation>();
-        animation->frame_rate = frame_data["frameRate"];
-        animation->frames = frame_data["frames"];
-        animation->width = sprite.width;
-        animation->height = sprite.height;
-        animation->offset = offset;
+        animation->m_FrameRate = frame_data["frameRate"];
+        animation->m_Frames = frame_data["m_Frames"];
+        animation->m_Width = sprite.m_Width;
+        animation->m_Height = sprite.m_Height;
+        animation->m_Offset = m_Offset;
 
-        for (int x_count = 0; x_count < animation->frames; x_count++) {
-            float x = x_count * animation->width;
+        for (int x_count = 0; x_count < animation->m_Frames; x_count++) {
+            float x = x_count * animation->m_Width;
             animation->frame_list.push_back(
-                std::unique_ptr<Rectangle>(new Rectangle{x, y, animation->width, animation->height}));
+                std::unique_ptr<Rectangle>(new Rectangle{x, y, animation->m_Width, animation->m_Height}));
         }
 
-        sprite.animation_list[animation_json.key()] = animation;
+        sprite.m_AnimationList[animation_json.key()] = animation;
 
-        y += sprite.height;
+        y += sprite.m_Height;
     }
 
     if (json_data["defaultAnimation"] != nullptr) {
@@ -70,7 +70,7 @@ SpriteComponent Sprite::Deserialize(json const& json_data) {
 }
 
 void Sprite::Draw(Vector2 const& position, SpriteComponent& sprite) {
-    if (sprite.current_animation == nullptr) {
+    if (sprite.m_CurrentAnimation == nullptr) {
         return;
     }
 
@@ -84,57 +84,57 @@ void Sprite::Draw(Vector2 const& position, SpriteComponent& sprite) {
     uint64_t current_time = TimeMillisec();
 
     if (sprite.next_draw_time == 0 || current_time >= sprite.next_draw_time) {
-        sprite.next_draw_time = current_time + sprite.current_animation->frame_rate;
-        sprite.current_frame++;
-        if (sprite.current_frame == sprite.current_animation->frames) {
-            sprite.current_frame = 0;
+        sprite.next_draw_time = current_time + sprite.m_CurrentAnimation->m_FrameRate;
+        sprite.m_CurrentFrame++;
+        if (sprite.m_CurrentFrame == sprite.m_CurrentAnimation->m_Frames) {
+            sprite.m_CurrentFrame = 0;
         }
     }
 
-    Vector2 offset_position = position - sprite.current_animation->offset;
-    DrawTextureRec(sprite.texture, *sprite.current_animation->frame_list[sprite.current_frame], offset_position, WHITE);
+    Vector2 offset_position = position - sprite.m_CurrentAnimation->m_Offset;
+    DrawTextureRec(sprite.texture, *sprite.m_CurrentAnimation->frame_list[sprite.m_CurrentFrame], offset_position, WHITE);
 }
 void Sprite::SetAnimation(SpriteComponent& sprite, std::string const& animation) {
-    if (!sprite.animation_list[animation]) {
+    if (!sprite.m_AnimationList[animation]) {
         return;
     }
 
-    if (sprite.current_animation != nullptr) {
+    if (sprite.m_CurrentAnimation != nullptr) {
         ResetAnimation(sprite);
     }
 
-    sprite.current_frame = 0;
-    sprite.current_animation = sprite.animation_list[animation];
+    sprite.m_CurrentFrame = 0;
+    sprite.m_CurrentAnimation = sprite.m_AnimationList[animation];
 }
 
 void Sprite::FlipAnimationX(SpriteComponent& sprite) {
-    if (sprite.current_animation == nullptr) {
+    if (sprite.m_CurrentAnimation == nullptr) {
         return;
     }
 
-    for (auto& rect_ptr : sprite.current_animation->frame_list) {
+    for (auto& rect_ptr : sprite.m_CurrentAnimation->frame_list) {
         rect_ptr->width *= -1;
     }
 }
 
 void Sprite::FlipAnimationY(SpriteComponent& sprite) {
-    if (sprite.current_animation == nullptr) {
+    if (sprite.m_CurrentAnimation == nullptr) {
         return;
     }
 
-    for (auto& rect_ptr : sprite.current_animation->frame_list) {
+    for (auto& rect_ptr : sprite.m_CurrentAnimation->frame_list) {
         rect_ptr->height *= -1;
     }
 }
 
 void Sprite::ResetAnimation(SpriteComponent& sprite) {
-    if (sprite.current_animation == nullptr) {
+    if (sprite.m_CurrentAnimation == nullptr) {
         return;
     }
 
-    for (auto& rect_ptr : sprite.current_animation->frame_list) {
-        rect_ptr->width = sprite.width;
-        rect_ptr->height = sprite.height;
+    for (auto& rect_ptr : sprite.m_CurrentAnimation->frame_list) {
+        rect_ptr->width = sprite.m_Width;
+        rect_ptr->height = sprite.m_Height;
     }
 }
 

@@ -17,21 +17,23 @@ TEST(HelperTest, TestLoadTextFile) {
 }
 
 TEST(HelperTest, TestJSONParsing) {
-    std::ifstream test_json("testdata/Knight.json");
+    std::ifstream test_json("testdata/player.json");
 
     json parsed = json::parse(test_json);
 
-    EXPECT_EQ(parsed["width"], 100);
+    EXPECT_EQ(parsed["width"], 48);
 
     // Test if NOT exists
-    EXPECT_EQ(parsed["meh"], nullptr);
+    //EXPECT_EQ(parsed["meh"], nullptr);
+
+    EXPECT_FALSE(parsed.contains("test"));
 
     json array = parsed["animation"];
 
     for (auto& el : array.items()) {
         std::cout << "key: " << el.key() << ", value: " << el.value() << std::endl;
 
-        std::cout << "frames " << el.value()["frames"] << std::endl;
+        std::cout << "m_Frames " << el.value()["m_Frames"] << std::endl;
     }
 
     // u_int16_t max = (u_int16_t)65536;

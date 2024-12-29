@@ -2,14 +2,14 @@
 
 namespace Brutal {
 void Text::Draw(Vector2 const& position, TextComponent& text) {
-    DrawText(text.text_field.c_str(), position.x, position.y, text.font_size, WHITE);
+    DrawText(text.m_TextField.c_str(), position.x, position.y, text.m_FontSize, WHITE);
 };
 
 TextComponent Text::Deserialize(json const& json_data) {
     TextComponent text;
 
-    text.text_field = json_data["textField"];
-    text.font_size = json_data["fontSize"];
+    text.m_TextField = json_data["textField"];
+    text.m_FontSize = json_data["fontSize"];
 
     return text;
 };

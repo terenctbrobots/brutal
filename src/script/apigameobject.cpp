@@ -1,32 +1,31 @@
-#include "apigameobject.h"
-
-#include "game/game.h"
-#include <cstdint>
-#include <string>
+#include "script/apigameobject.h"
+#include "script/apishared.h"
 #include <luabridge3/LuaBridge/LuaBridge.h>
 
+#include <cstdint>
+#include <string>
+
+#include "game/game.h"
 #include "ui/text.h"
 
-namespace Brutal 
+namespace Brutal
 {
-    void APIGameObject::Bind(lua_State* L) {
-            luabridge::getGlobalNamespace(L)
+void APIGameObject::Bind(lua_State* L)
+{
+    luabridge::getGlobalNamespace(L)
         .beginClass<APIGameObject>("APIGameObject")
-        .addFunction("setText", &APIGameObject::setText)
+        .addFunction("setText", &APIGameObject::SetText)
+        .addFunction("setPosition", &APIGameObject::SetPosition)
         .endClass();
-
-    }
-
-    void APIGameObject::setText(std::string const& text) {
-        Game& game = Game::Get();
-
-        GameObject gameobject = {entity_,game.level};
-
-        if (gameobject) {
-            if (gameobject.HasComponent<TextComponent>()) {
-                auto& text_component = gameobject.GetComponent<TextComponent>();
-                text_component.text_field = text;
-            }
-        }
-    }
 }
+
+void APIGameObject::SetText(std::string const& text)
+{
+    APIShared::SetText(text, m_Entity);
+}
+
+void APIGameObject::SetPosition(float x, float y)
+{
+    APIShared::SetPosition(x,y,m_Entity);
+}
+}  // namespace Brutal

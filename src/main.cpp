@@ -1,20 +1,20 @@
 #include "raylib.h"
+#include "game/game.h"
 
 int main(void)
 {
-    InitWindow(800, 450, "raylib [core] example - basic window");
+    // Turn off all raylib logging, except error messages
+    SetTraceLogLevel(LOG_ERROR);
 
-    while (!WindowShouldClose())
-    {
-        BeginDrawing();
-            ClearBackground(RAYWHITE);
-#ifdef DEBUG            
-            DrawText("Congrats! You created your first window!", 190, 200, 20, BLACK);
-#endif
-        EndDrawing();
-    }
+    Brutal::Game& game = Brutal::Game::Get();
 
-    CloseWindow();
+    game.Setup(800,600);
+
+    game.CreateLevel();
+
+    game.MainLoop();
+
+    game.Cleanup();
 
     return 0;
 }

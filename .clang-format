@@ -6,14 +6,16 @@ ColumnLimit: 120
 Standard: c++11
 BraceWrapping:
   AfterClass:      true
+  AfterCaseLabel: true
   AfterControlStatement: true
   AfterEnum:       true
   AfterFunction:   true
   AfterNamespace:  true
-  AfterObjCDeclaration: true
+  AfterExternBlock: true
+  AfterObjCDeclaration: false
   AfterStruct:     true
   AfterUnion:      true
-  BeforeCatch:     true
+  BeforeCatch:     false
   BeforeElse:      true
   IndentBraces:    false
 BreakBeforeBraces: Custom

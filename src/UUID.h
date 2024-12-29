@@ -1,8 +1,9 @@
-#pragma once 
+#pragma once
 
 #include <sys/types.h>
 
-class UUID {
+class UUID
+{
    public:
     UUID();
     UUID(u_int64_t uuid);
@@ -14,12 +15,14 @@ class UUID {
     u_int64_t m_UUID;
 };
 
-namespace std {
+namespace std
+{
 template <typename T>
 struct hash;
 
 template <>
-struct hash<UUID> {
+struct hash<UUID>
+{
     size_t operator()(const UUID& uuid) const { return (u_int64_t)uuid; }
 };
 

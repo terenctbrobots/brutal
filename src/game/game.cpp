@@ -4,9 +4,9 @@ namespace Brutal
 {
 void Game::CreateLevel()
 {
-    level = new Level();
-    level->Setup();
-    level->UpdateView({0, 0, width_, height_});
+    m_Level = new Level();
+    m_Level->Setup(width_, height_);
+    m_Level->UpdateView({0, 0, width_, height_});
 }
 
 Game &Game::Get()
@@ -18,12 +18,13 @@ Game &Game::Get()
 
 void Game::Setup(float width, float height)
 {
-    level = nullptr;
+    m_Level = NULL;
 
     width_ = width;
     height_ = height;
 
     InitWindow(width, height, "Game");
+
 #ifdef DEBUG
     spdlog::info("Game : Setup with width {} and height {}", width, height);
 #endif
@@ -31,10 +32,10 @@ void Game::Setup(float width, float height)
 
 int Game::MainLoop()
 {
-    if (level == nullptr)
+    if (m_Level == NULL)
         return 0;
 
-    level->MainLoop();
+    m_Level->MainLoop();
 
     return 0;
 }
@@ -45,10 +46,10 @@ void Game::Cleanup()
     spdlog::info("Game : Cleanup");
 #endif
 
-    if (level != NULL)
+    if (m_Level != NULL)
     {
-        level->Cleanup();
-        delete level;
+        m_Level->Cleanup();
+        delete m_Level;
     }
 
     CloseWindow();
