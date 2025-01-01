@@ -12,16 +12,16 @@
 #include "graphics/tilelayer.h"
 #include "helper.h"
 #include "raygui.h"
+#include "spdlog/spdlog.h"
 #include "ui/button.h"
 #include "ui/text.h"
-#include "spdlog/spdlog.h"
 
 namespace Brutal
 {
 
-void Level::Setup(float width, float height) 
-{ 
-    m_ScriptCore = std::make_unique<ScriptCore>(); 
+void Level::Setup(float width, float height)
+{
+    m_ScriptCore = std::make_unique<ScriptCore>();
     m_Editor = std::make_unique<Editor::Editor>(width, height);
 }
 
@@ -41,7 +41,7 @@ void Level::Cleanup()
     for (auto entity : bitmap_view)
     {
         GameObject gameObject = {entity, this};
-        
+
         gameObject.RemoveComponent<BitmapComponent>();
     }
 
@@ -49,14 +49,14 @@ void Level::Cleanup()
     registry_.clear();
 }
 
-GameObject Level::CreateGameObject(std::string const& name) { return CreateGameObjectWithUUID(UUID(), name); }
+GameObject Level::CreateGameObject(std::string const &name) { return CreateGameObjectWithUUID(UUID(), name); }
 
-GameObject Level::CreateGameObjectWithUUID(UUID uuid, std::string const& name)
+GameObject Level::CreateGameObjectWithUUID(UUID uuid, std::string const &name)
 {
     GameObject gameobject = {registry_.create(), this};
     gameobject.AddComponent<IDComponent>(uuid);
     gameobject.AddComponent<Rectangle>();
-    auto& tag = gameobject.AddComponent<TagComponent>();
+    auto &tag = gameobject.AddComponent<TagComponent>();
     tag.m_Tag = name.empty() ? "GameObject" : name;
 
     gameobject_map_[uuid] = gameobject;
@@ -84,7 +84,7 @@ GameObject Level::FindGameObjectByName(std::string_view name)
     auto view = registry_.view<TagComponent>();
     for (auto gameobject : view)
     {
-        TagComponent const& tag_component = view.get<TagComponent>(gameobject);
+        TagComponent const &tag_component = view.get<TagComponent>(gameobject);
         if (tag_component.m_Tag == name)
         {
             return GameObject{gameobject, this};
@@ -104,13 +104,13 @@ GameObject Level::GetGameObjectByUUID(UUID uuid)
     return {};
 }
 
-void Level::UpdateView(Rectangle const& rectangle)
+void Level::UpdateView(Rectangle const &rectangle)
 {
     view_ = rectangle;
     view_updated_ = true;
 }
 
-void Level::MoveView(Vector2 const& position)
+void Level::MoveView(Vector2 const &position)
 {
     view_.x = position.x;
     view_.y = position.y;
@@ -120,7 +120,7 @@ void Level::MoveView(Vector2 const& position)
 int Level::MainLoop()
 {
 #ifndef NOUNIT
-    char* delay_string = std::getenv("DELAY");
+    char *delay_string = std::getenv("DELAY");
     int delay_frames = 5;
 
     if (delay_string != NULL)
@@ -142,7 +142,7 @@ int Level::MainLoop()
         {
             OrganizeDrawList();
 
-            for (auto& rlayer : render_layers_)
+            for (auto &rlayer : render_layers_)
             {
                 if (rlayer->m_Enabled && rlayer->GetLayerType() == Layer::TILE)
                 {
@@ -152,19 +152,19 @@ int Level::MainLoop()
             view_updated_ = false;
         }
 
-        if (m_Editor) 
+        if (m_Editor)
         {
-            if (IsKeyDown(KEY_F1)) 
+            if (IsKeyPressed(KEY_F1))
             {
                 m_EditorToggle = !m_EditorToggle;
-                spdlog::info("Toggle Editor {}",m_EditorToggle);
+                spdlog::info("Toggle Editor {}", m_EditorToggle);
             }
         }
 
         BeginDrawing();
         ClearBackground(BLACK);
 
-        for (auto& rlayer : render_layers_)
+        for (auto &rlayer : render_layers_)
         {
             if (rlayer->m_Enabled)
             {
@@ -172,7 +172,7 @@ int Level::MainLoop()
             }
         }
 
-        if (m_Editor && m_EditorToggle) 
+        if (m_Editor && m_EditorToggle)
         {
             m_Editor->Draw();
         }
@@ -183,8 +183,8 @@ int Level::MainLoop()
 
         for (auto entity : script_view)
         {
-            auto& script = script_view.get<ScriptComponent>(entity);
-            auto& uuid = script_view.get<IDComponent>(entity);
+            auto &script = script_view.get<ScriptComponent>(entity);
+            auto &uuid = script_view.get<IDComponent>(entity);
 
             if (script.m_OnTick)
             {
@@ -211,34 +211,36 @@ void Level::Deserialize(json json_data)
 {
     DeserializeGameObject(json_data["gameobject"]);
 
-    for (auto& layer_data : json_data["layers"])
+    for (auto &layer_data : json_data["layers"])
     {
-        std::string const& layer_type = layer_data["type"];
+        std::string const &layer_type = layer_data["type"];
 
         switch (hash(layer_type.c_str()))
         {
-            case hash("tilelayer"): {
-                auto new_layer = std::make_shared<TileLayer>(layer_data["width"], layer_data["height"]);
-                auto new_tile_pack = std::make_shared<TileSetPack>();
-                new_tile_pack->Deserialize(json_data["tilePack"]);
-                new_layer->SetTileSetPack(new_tile_pack);
+        case hash("tilelayer"):
+        {
+            auto new_layer = std::make_shared<TileLayer>(layer_data["width"], layer_data["height"]);
+            auto new_tile_pack = std::make_shared<TileSetPack>();
+            new_tile_pack->Deserialize(json_data["tilePack"]);
+            new_layer->SetTileSetPack(new_tile_pack);
 
-                json data = layer_data["data"];
-                new_layer->SetLayerData(data);
-                render_layers_.push_back(new_layer);
-                break;
+            json data = layer_data["data"];
+            new_layer->SetLayerData(data);
+            render_layers_.push_back(new_layer);
+            break;
+        }
+        case hash("object"):
+        {
+            auto new_layer = std::make_shared<ObjectLayer>();
+            size_t next_layer = render_layers_.size();
+            for (auto &uuid : layer_data["data"])
+            {
+                auto gameobject = GetGameObjectByUUID((int)uuid);
+                gameobject.AddComponent<LayerComponent>(next_layer);
             }
-            case hash("object"): {
-                auto new_layer = std::make_shared<ObjectLayer>();
-                size_t next_layer = render_layers_.size();
-                for (auto& uuid : layer_data["data"])
-                {
-                    auto gameobject = GetGameObjectByUUID((int)uuid);
-                    gameobject.AddComponent<LayerComponent>(next_layer);
-                }
-                render_layers_.push_back(new_layer);
-                break;
-            }
+            render_layers_.push_back(new_layer);
+            break;
+        }
         }
     }
 
@@ -247,47 +249,49 @@ void Level::Deserialize(json json_data)
 
 void Level::DeserializeGameObject(json json_data)
 {
-    for (auto& gameobject_data : json_data)
+    for (auto &gameobject_data : json_data)
     {
-        std::string const& name = gameobject_data["name"];
+        std::string const &name = gameobject_data["name"];
         UUID uuid = UUID(gameobject_data["uuid"]);
 
         GameObject gameobject = CreateGameObjectWithUUID(uuid, name);
-        auto& rectangle = gameobject.GetComponent<Rectangle>();
+        auto &rectangle = gameobject.GetComponent<Rectangle>();
         rectangle.x = gameobject_data["x"];
         rectangle.y = gameobject_data["y"];
         rectangle.width = gameobject_data.contains("width") ? float(gameobject_data["width"]) : 0;
         rectangle.height = gameobject_data.contains("height") ? float(gameobject_data["height"]) : 0;
 
-        for (auto& component_data : gameobject_data["component"])
+        for (auto &component_data : gameobject_data["component"])
         {
-            std::string const& type = component_data["type"];
+            std::string const &type = component_data["type"];
 
             switch (hash(type.c_str()))
             {
-                case hash("sprite"): {
-                    auto& sprite = gameobject.AddComponent<SpriteComponent>(Sprite::Deserialize(component_data));
-                    auto& rectangle = gameobject.GetComponent<Rectangle>();
-                    rectangle.width = sprite.m_Width;
-                    rectangle.height = sprite.m_Height;
-                    break;
-                }
-                case hash("bitmap"):
-                    gameobject.AddComponent<BitmapComponent>(Bitmap::Deserialize(component_data));
-                    break;
-                case hash("text"):
-                    gameobject.AddComponent<TextComponent>(Text::Deserialize(component_data));
-                    break;
-                case hash("button"): {
-                    auto& button = gameobject.AddComponent<ButtonComponent>(Button::Deserialize(component_data));
-                    auto& rectangle = gameobject.GetComponent<Rectangle>();
-                    rectangle.width = button.m_Width;
-                    rectangle.height = button.m_Height;
-                    break;
-                }
-                case hash("script"):
-                    gameobject.AddComponent<ScriptComponent>(ScriptCore::Deserialize(component_data));
-                    break;
+            case hash("sprite"):
+            {
+                auto &sprite = gameobject.AddComponent<SpriteComponent>(Sprite::Deserialize(component_data));
+                auto &rectangle = gameobject.GetComponent<Rectangle>();
+                rectangle.width = sprite.m_Width;
+                rectangle.height = sprite.m_Height;
+                break;
+            }
+            case hash("bitmap"):
+                gameobject.AddComponent<BitmapComponent>(Bitmap::Deserialize(component_data));
+                break;
+            case hash("text"):
+                gameobject.AddComponent<TextComponent>(Text::Deserialize(component_data));
+                break;
+            case hash("button"):
+            {
+                auto &button = gameobject.AddComponent<ButtonComponent>(Button::Deserialize(component_data));
+                auto &rectangle = gameobject.GetComponent<Rectangle>();
+                rectangle.width = button.m_Width;
+                rectangle.height = button.m_Height;
+                break;
+            }
+            case hash("script"):
+                gameobject.AddComponent<ScriptComponent>(ScriptCore::Deserialize(component_data));
+                break;
             }
         }
 #ifdef DEBUG
@@ -304,8 +308,8 @@ void Level::OrganizeDrawList()
     for (auto entity : layer_view)
     {
         GameObject gameobject = {entity, this};
-        auto& object_rect = gameobject.GetComponent<Rectangle>();
-        auto& layer = gameobject.GetComponent<LayerComponent>();
+        auto &object_rect = gameobject.GetComponent<Rectangle>();
+        auto &layer = gameobject.GetComponent<LayerComponent>();
         auto object_layer = std::static_pointer_cast<ObjectLayer>(render_layers_[layer.m_Layer]);
 
         if (!CheckCollisionRecs(Game::GetLevel()->View(), object_rect))
@@ -319,30 +323,30 @@ void Level::OrganizeDrawList()
     }
 }
 
-template <typename T>
-void Level::OnComponentRemove(T &component) {
-    static_assert(sizeof(T) == 0);
-}
+template <typename T> void Level::OnComponentRemove(T &component) { static_assert(sizeof(T) == 0); }
 
-template <>
-void Level::OnComponentRemove<SpriteComponent>(SpriteComponent &component) {
-    if (component.texture.id > 0) {
+template <> void Level::OnComponentRemove<SpriteComponent>(SpriteComponent &component)
+{
+    if (component.texture.id > 0)
+    {
         UnloadTexture(component.texture);
         component.texture.id = 0;
     }
 }
 
-template <>
-void Level::OnComponentRemove<BitmapComponent>(BitmapComponent &component) {
-    if (component.m_Image.data != NULL) {
+template <> void Level::OnComponentRemove<BitmapComponent>(BitmapComponent &component)
+{
+    if (component.m_Image.data != NULL)
+    {
         UnloadImage(component.m_Image);
         component.m_Image.data = NULL;
     }
 
-    if (component.m_Texture.id > 0) {
+    if (component.m_Texture.id > 0)
+    {
         UnloadTexture(component.m_Texture);
         component.m_Texture.id = 0;
     }
 }
 
-}  // namespace Brutal
+} // namespace Brutal
