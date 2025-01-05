@@ -31,6 +31,7 @@ add_executable(
   test/script_test.cpp
   src/editor/editor.cpp
   src/editor/window/editorwindow.cpp
+  src/editor/window/gameobjectwindow.cpp
   src/editor/window/window.cpp
 )
 

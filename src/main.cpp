@@ -9,7 +9,7 @@ int main(void)
 
     Brutal::Game &game = Brutal::Game::Get();
 
-    game.Setup(800, 600);
+    game.Setup(1024, 768);
 
     game.CreateLevel();
 

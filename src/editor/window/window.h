@@ -1,6 +1,8 @@
 #pragma once
 
+#include <string>
 #include "raylib.h"
+#include "raygui.h"
 
 namespace Editor
 {
@@ -14,6 +16,7 @@ class Window
     Window() = default;
     ~Window() = default;
 
+    virtual void Resize();
     virtual void Draw();
     virtual void Interact(Vector2 click) = 0;
 };
