@@ -2,14 +2,14 @@
     "version": 8,
     "configurePresets": [
         {
-            "name": "clang",
-            "displayName": "Clang 18.1.8 x86_64-pc-linux-gnu",
-            "description": "Using compilers: C = /usr/bin/clang-18, CXX = /usr/bin/clang++-18",
+            "name": "gcc",
+            "displayName": "GCC",
+            "description": "GCC",
             "binaryDir": "${sourceDir}/build",
             "cacheVariables": {
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/install/${presetName}",
-                "CMAKE_C_COMPILER": "/usr/bin/clang-18",
-                "CMAKE_CXX_COMPILER": "/usr/bin/clang++-18",
+                "CMAKE_C_COMPILER": "/usr/bin/gcc",
+                "CMAKE_CXX_COMPILER": "/usr/bin/g++",
                 "CMAKE_BUILD_TYPE": "Debug"
             }
         },
