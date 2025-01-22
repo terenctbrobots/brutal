@@ -1,5 +1,4 @@
 {
-    "C_Cpp.default.compilerPath": "/usr/bin/clang-18++",
     "doxygen_runner.configuration_file_override": "${workspaceFolder}/documentation/Doxyfile",
     "files.associations": {
         "any": "cpp",
