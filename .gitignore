@@ -36,3 +36,4 @@ vcpkg_installed
 Makefile
 build/*
 bin
+CMakeFiles
