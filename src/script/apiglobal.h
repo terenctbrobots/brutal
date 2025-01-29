@@ -14,17 +14,16 @@ namespace Brutal
 {
 class APIGlobal
 {
-   private:
+  private:
     static APIGameObject api_;
-    friend APIGlobal;
 
-   public:
-    static void Bind(lua_State* L);
+  public:
+    static void Bind(lua_State *L);
 
-    //Global API
-    static APIGameObject& FindGameObjectByName(std::string const& name);
+    // Global API
+    static APIGameObject &FindGameObjectByName(std::string const &name);
 
-    static void SetText(std::string const& text);
+    static void SetText(std::string const &text);
     static void SetPosition(float x, float y);
 };
-}  // namespace Brutal
+} // namespace Brutal

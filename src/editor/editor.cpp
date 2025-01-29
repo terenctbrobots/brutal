@@ -19,25 +19,18 @@ void Editor::Draw()
         m_EditorWindow->Draw();
     }
 
-    if (m_GameObjectWindow && m_GameObjectWindow->m_Enabled) 
+    if (m_GameObjectWindow && m_GameObjectWindow->m_Enabled)
     {
         m_GameObjectWindow->Draw();
     }
 }
 
-void Editor::Resize(float width, float height) 
+void Editor::Resize(float width, float height)
 {
     m_EditorWindow->m_Bounds = {0, 0, width, height};
 
     // GameObject Window is snap right, 30% of width, 50% of height
-    m_GameObjectWindow->m_Bounds = 
-    {
-        width - width*0.2f,
-        0,
-        width*0.2f,
-        height*0.5f
-    };
+    m_GameObjectWindow->m_Bounds = {0, 0, width * 0.2f, height * 0.5f};
     m_GameObjectWindow->Resize();
-
 }
 } // namespace Editor

@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <memory>
 
@@ -6,26 +6,24 @@
 #include "game/level.h"
 #include "raygui.h"
 
-namespace Brutal {
+namespace Brutal
+{
 
-class Game {
-   private:
+class Game
+{
+  private:
     Game() {}
     float width_;
     float height_;
 
-    Level* m_Level;
+    Level *m_Level;
 
-   public:
-    Game(const Game&) = delete;
-    void operator=(const Game&) = delete;
+  public:
+    Game(const Game &) = delete;
+    void operator=(const Game &) = delete;
 
-    static Game& Get();
-    static Level* GetLevel()
-    {
-        return Get().m_Level;
-    }
-
+    static Game &Get();
+    static Level *GetLevel() { return Get().m_Level; }
 
     void Setup(float width, float height);
     int MainLoop();
@@ -33,4 +31,4 @@ class Game {
 
     void CreateLevel();
 };
-}  // namespace Brutal
+} // namespace Brutal
