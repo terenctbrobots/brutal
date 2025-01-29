@@ -1,5 +1,0 @@
-/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles/brutal.dir
-/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles/brutal_test.dir
-/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles/test.dir
-/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles/edit_cache.dir
-/home/terenctb/Project/bigbadrobots/brutal/CMakeFiles/rebuild_cache.dir
