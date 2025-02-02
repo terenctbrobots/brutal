@@ -32,7 +32,10 @@ add_executable(
   src/editor/editor.cpp
   src/editor/window/editorwindow.cpp
   src/editor/window/gameobjectwindow.cpp
+  src/editor/window/layerwindow.cpp
+  src/editor/window/inspectorwindow.cpp
   src/editor/window/window.cpp
+  src/editor/component/component.cpp
 )
 
 target_include_directories(brutal_test PRIVATE ${LUABRIDGE3_INCLUDE_DIRS} ${RAYGUI_INCLUDE_DIRS})

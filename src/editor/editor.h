@@ -1,16 +1,30 @@
-#include "editor/window/editorwindow.h"
-#include "editor/window/gameobjectwindow.h"
+#pragma once
 
 #include <memory>
 #include <vector>
 
+namespace Editor 
+{
+  class Window;
+  class EditorWindow;
+  class GameObjectWindow;
+  class LayerWindow;
+  class InspectorWindow;
+}
+
 namespace Editor
 {
+
+
 class Editor
 {
   private:
-    std::unique_ptr<EditorWindow> m_EditorWindow;
-    std::unique_ptr<GameObjectWindow> m_GameObjectWindow;
+    std::shared_ptr<EditorWindow> m_EditorWindow;
+    std::shared_ptr<GameObjectWindow> m_GameObjectWindow;
+    std::shared_ptr<LayerWindow> m_LayerWindow;
+    std::shared_ptr<InspectorWindow> m_InspectorWindow;
+
+    std::vector<std::shared_ptr<Window>> m_DrawList;
 
   public:
     Editor() = default;
